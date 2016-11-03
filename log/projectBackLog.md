@@ -2,7 +2,7 @@
 
 ## Features to Add
 
-1. *__Combat__*
+1. Combat
   * Turn-Based Combat
   * game.Combat
   * Visual Ques
@@ -10,11 +10,11 @@
   * Damage Numbers
   * Stats affect combat
   * Ability effects
-2. *__Attributes__*
+2. Attributes
   * Dexterity - Dodge Chance/Damage
   * Intellegence - Spell Damage
   * Vitality - Block/Health
-3. *__Items__*
+3. Items
   * Types of Items
     * Head
     * Chest
@@ -23,14 +23,14 @@
 4. Inventory
   * Allows player to see current items
   * Accessable through menu
-5. *__Menus__*
+5. Menus
   * Stats
   * Help
   * Gear
   * Pause/Resume Button
   * Mute/Unmute Button
   * Exit
-6. *__Enemies__*
+6. Enemies
   * Enemy on Enemy Combat/AI for Enemies
   * Display Bosses Rank
   * Types of Enemies
@@ -52,7 +52,7 @@
         *  Head bash
         *  Thick Skin
         *  Savage Roar
-7. *__Ranking up__*
+7. Ranking up
   * Rank up the player
   * Allow player to pick which attributes to increase
 8. Abilities
@@ -61,10 +61,10 @@
   * See class descriptions
 9. Procedural Generated Dungeons
   * Layout and Enemies Procedurally Generated
-10. *__Maps__*
+10. Maps
   * Main World map
   * 2 dungeon maps - procedurally generated
-11. *__Music/Sounds__*
+11. Music/Sounds
   * Background music
   * Sound Effects
   * In combat
