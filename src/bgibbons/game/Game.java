@@ -196,7 +196,10 @@ public class Game extends Canvas implements Runnable
 					e.y = combatLevel.height*8/2;
 					combatLevel.addEntity(player.getLevel().removeEntity(e));
 					combatLevel.addEntity(player.getLevel().removeEntity(player));
+					player.move(-1,0);
 					player.move(1,0);
+					((Mob)e).move(1,0);
+					((Mob)e).move(1,0);
 					((Mob)e).move(-1,0);
 					((Mob)e).move(-1,0);
 					state = States.COMBAT;
@@ -282,6 +285,8 @@ public class Game extends Canvas implements Runnable
 			case COMBAT:
 				player.getLevel().renderTiles(screen, xOffset, yOffset);
 				player.getLevel().renderEntities(screen);
+
+				combat.render(screen);
 
 				HUD.render(screen, this);
 

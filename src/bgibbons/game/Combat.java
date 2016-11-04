@@ -2,6 +2,9 @@ package bgibbons.game;
 
 import bgibbons.game.entities.*;
 import bgibbons.game.abilities.*;
+import bgibbons.game.graphics.Colors;
+import bgibbons.game.graphics.Font;
+import bgibbons.game.graphics.Screen;
 
 /**
  * Object to handle combat interactions.
@@ -11,16 +14,22 @@ import bgibbons.game.abilities.*;
  */
 public class Combat {
 	
+	private Screen screen;
 	public Combatant combatant1;
 	public Combatant combatant2;
 	public Boolean inCombat;
 	private int stunDuration;
 	private int combatTicks;
 
+	private int offRenderStart;
+	private int defRenderStart;
+	private int damageRenderStart;
+	private int damageRender;
+
 	/**
 	 * Constructor for the Comabt object.
-	 * @param mob1 	First Combatant.
-	 * @param mob2 	Second Combatant.
+	 * @param mob1 		First Combatant.
+	 * @param mob2 		Second Combatant.
 	 */
 	public Combat(Mob mob1, Mob mob2) {
 		this.combatant1 = new Combatant(mob1);
@@ -28,6 +37,10 @@ public class Combat {
 		this.inCombat = true;
 		this.stunDuration = 2*60;
 		this.combatTicks = 0;
+		this.offRenderStart = 0;
+		this.defRenderStart = 0;
+		this.damageRenderStart = 0;
+		this.damageRender = 0;
 	}
 
 	/**
@@ -48,6 +61,13 @@ public class Combat {
 
 		//if the ability is usable
 		if(canUse){
+			if (ability instanceof OffensiveAbility) {
+				damageRender = ability.getDamage();
+				offRenderStart = combatTicks;
+				damageRenderStart = combatTicks;
+			} else if (ability instanceof DefensiveAbility) {
+				defRenderStart = combatTicks;
+			}
 			int damage = ability.getDamage();
 			int heal = ability.getHeal();
 			int shield = ability.getShield();
@@ -95,6 +115,24 @@ public class Combat {
 			combatant1.tickCD();
 		}
 		this.combatTicks+=1;
+	}
+
+	public void render(Screen screen) {
+		if (offRenderStart != 0 && combatTicks <= offRenderStart + 30) {
+			screen.render(16*8, 7*8, 30+27*32, Colors.get(-1,100,200,300), 0x00, 1); // Top left
+			screen.render(17*8, 7*8, 31+27*32, Colors.get(-1,100,200,300), 0x00, 1); // Top right
+			screen.render(16*8, 8*8, 30+28*32, Colors.get(-1,100,200,300), 0x00, 1); // Bottom left
+			screen.render(17*8, 8*8, 31+28*32, Colors.get(-1,100,200,300), 0x00, 1); // Bottom right
+		}
+		if (defRenderStart != 0 && combatTicks <= defRenderStart + 30) {
+			screen.render(2*8, 7*8, 30+25*32, Colors.get(-1,111,330,004), 0x00, 1); // Top left
+			screen.render(3*8, 7*8, 31+25*32, Colors.get(-1,111,330,004), 0x00, 1); // Top right
+			screen.render(2*8, 8*8, 30+26*32, Colors.get(-1,111,330,004), 0x00, 1); // Bottom left
+			screen.render(3*8, 8*8, 31+26*32, Colors.get(-1,111,330,004), 0x00, 1); // Bottom right
+		}
+		if (damageRenderStart != 0 && combatTicks <= damageRenderStart + 30) {
+			Font.render("" + damageRender, screen, 16*8, 6*8, Colors.get(-1,-1,-1,100), 1);
+		}
 	}
 
 	/**
