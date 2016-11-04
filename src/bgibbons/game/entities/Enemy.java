@@ -76,23 +76,25 @@ public abstract class Enemy extends Mob {
 		int walkingSpeed = 4;
 		int flipTop = (numSteps >> walkingSpeed) & 1;
 		int flipBottom = (numSteps >> walkingSpeed) & 1;
+		int render_xTile = xTile;
+		int render_yTile = yTile;
 
 		if (movingDir == 0) {
-			xTile += 2;
+			render_xTile += 2;
 		} else if (movingDir == 1) {
-			xTile += 6;
+			render_xTile += 6;
 		} else if (movingDir > 1) {
-			xTile += 8 + ((numSteps >> walkingSpeed) & 1) * 2;
+			render_xTile += 8 + ((numSteps >> walkingSpeed) & 1) * 2;
 			flipTop = (movingDir - 1) % 2;
 		}
 
 		if (!isMoving) {
 			if (lastDir == 0) {
-				xTile = 0;
+				render_xTile = xTile;
 			} else if (lastDir == 1) {
-				xTile = 4;
+				render_xTile = xTile + 4;
 			} else {
-				xTile = 8;
+				render_xTile = xTile + 8;
 			}
 		}
 
@@ -117,12 +119,12 @@ public abstract class Enemy extends Mob {
 			screen.render(xOffset+8, yOffset + 3, 31+29*32, waterColor, 0x01, 1);
 		}
 
-		screen.render(xOffset + (modifier * flipTop), yOffset, xTile + yTile * 32, color, flipTop, scale); //Top left
-		screen.render(xOffset + modifier - (modifier * flipTop), yOffset, xTile + 1 + yTile * 32, color, flipTop, scale); //Top right
+		screen.render(xOffset + (modifier * flipTop), yOffset, render_xTile + render_yTile * 32, color, flipTop, scale); //Top left
+		screen.render(xOffset + modifier - (modifier * flipTop), yOffset, render_xTile + 1 + render_yTile * 32, color, flipTop, scale); //Top right
 
 		if (!isSwimming) {
-			screen.render(xOffset + (modifier * flipBottom), yOffset + modifier, xTile + (yTile + 1) * 32, color, flipBottom, scale); //Bottom left
-			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset + modifier, xTile + 1 + (yTile + 1) * 32, color, flipBottom, scale); //Bottom right
+			screen.render(xOffset + (modifier * flipBottom), yOffset + modifier, render_xTile + (render_yTile + 1) * 32, color, flipBottom, scale); //Bottom left
+			screen.render(xOffset + modifier - (modifier * flipBottom), yOffset + modifier, render_xTile + 1 + (render_yTile + 1) * 32, color, flipBottom, scale); //Bottom right
 		}
 	}
 

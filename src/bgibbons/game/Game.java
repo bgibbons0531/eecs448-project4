@@ -193,6 +193,8 @@ public class Game extends Canvas implements Runnable
 					combatLevel.addEntity(player.getLevel().removeEntity(e));
 					combatLevel.addEntity(player.getLevel().removeEntity(player));
 					player.move(1,0);
+					((Mob)e).move(-1,0);
+					((Mob)e).move(-1,0);
 					state = States.COMBAT;
 					menu.state = Menu.MenuStates.COMBAT;
 					combat = new Combat(player, (Mob)e);
