@@ -53,7 +53,7 @@ public class Game extends Canvas implements Runnable
 	public Menu menu;			// Declare the Menu object.
 	public Sound sound;		//Declare the Sound object.
 
-	public enum States {START, RUNNING, PAUSED, COMBAT, OVER}
+	public enum States {START, CLASSES, RUNNING, PAUSED, COMBAT, OVER}
 	public States state;
 
 	/**
@@ -175,7 +175,11 @@ public class Game extends Canvas implements Runnable
 
 		switch(state) {
 			case START:
-			menu.tick(this);
+				menu.tick(this);
+				break;
+			case CLASSES:
+				menu.state = Menu.MenuStates.CLASSES;
+				menu.tick(this);
 				break;
 			case RUNNING:
 				player.getLevel().tick();
@@ -244,6 +248,14 @@ public class Game extends Canvas implements Runnable
 		int yOffset = player.y - screen.height/2;
 		switch (state) {
 			case START:
+				for (int i=0; i<screen.width; i++) {
+					for (int j=0; j<screen.height; j++) {
+						screen.render(i, j, 0, Colors.get(0,0,0,0), 0x00, 1);
+					}
+				}
+				menu.render(this, screen);
+				break;
+			case CLASSES:
 				for (int i=0; i<screen.width; i++) {
 					for (int j=0; j<screen.height; j++) {
 						screen.render(i, j, 0, Colors.get(0,0,0,0), 0x00, 1);

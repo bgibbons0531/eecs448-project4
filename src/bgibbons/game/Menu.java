@@ -13,7 +13,7 @@ import bgibbons.game.graphics.Screen;
  */
 public class Menu {
 
-	public enum MenuStates { START, CLOSED, OPEN, STATS, GEAR, HELP, COMBAT }
+	public enum MenuStates { START, CLASSES, CLOSED, OPEN, STATS, GEAR, HELP, COMBAT }
 	public MenuStates state;
 	
 	private InputHandler input;
@@ -38,9 +38,10 @@ public class Menu {
 			switch (state) {
 				case START:
 					if ( 151 <= x && x <= 338 && 176 <= y && y <= 240) {
-						game.state = Game.States.RUNNING;
-						state = MenuStates.CLOSED;
+						game.state = Game.States.CLASSES;
 					}
+					break;
+				case CLASSES:
 					break;
 				case CLOSED:
 					if (393 <= x && y <= 24) { // Menu button
@@ -158,6 +159,70 @@ public class Menu {
 				}
 				Font.render("Game Start", screen, (screen.width)/2-5*8, (screen.height)/2-5*8, Colors.get(-1,-1,-1,555), 1);
 				Font.render("Begin?", screen, screen.xOffset+7*8, screen.yOffset+8*8, Colors.get(-1,-1,-1,000), 1);
+				break;
+			case CLASSES:
+				// Class Selection
+				Font.render("Select a class", screen, screen.xOffset+3*8, screen.yOffset+1*8, Colors.get(-1,-1,-1,555), 1);
+				// Knight
+				screen.render(screen.xOffset+1*8, screen.yOffset+4*8, 31+10*32, Colors.get(-1,100,310,000), 0x00, 1); // Top left corner
+				screen.render(screen.xOffset+8*8, screen.yOffset+4*8, 31+10*32, Colors.get(-1,100,310,000), 0x01, 1); // Top right corner
+				screen.render(screen.xOffset+1*8, screen.yOffset+6*8, 31+10*32, Colors.get(-1,100,310,000), 0x02, 1); // Bottom left corner
+				screen.render(screen.xOffset+8*8, screen.yOffset+6*8, 31+10*32, Colors.get(-1,100,310,000), 0x03, 1); // Bottom right corner
+				for (int i=0; i<6; i++) { // Top of menu
+					screen.render(screen.xOffset+2*8+i*8, screen.yOffset+4*8, 30+10*32, Colors.get(-1,100,310,000), 0x00, 1);
+				}
+				for (int i=0; i<6; i++) { // Bottom of menu
+					screen.render(screen.xOffset+2*8+i*8, screen.yOffset+6*8, 30+10*32, Colors.get(-1,100,310,000), 0x02, 1);
+				}
+				screen.render(screen.xOffset+1*8, screen.yOffset+5*8, 29+10*32, Colors.get(-1,100,310,000), 0x00, 1); // Left of menu
+				screen.render(screen.xOffset+8*8, screen.yOffset+5*8, 29+10*32, Colors.get(-1,100,310,000), 0x01, 1); // Right of menu
+				for (int i=0; i<6; i++) {
+					screen.render(screen.xOffset+2*8+i*8, screen.yOffset+5*8, 28+10*32, Colors.get(-1,100,310,000), 0x00, 1);
+				}
+				Font.render("Knight", screen, screen.xOffset+2*8, screen.yOffset+5*8, Colors.get(-1,-1,-1,000), 1);
+				Font.render("- damage", screen, screen.xOffset+10*8, screen.yOffset+4*8, Colors.get(-1,-1,-1,555), 1);
+				Font.render("+ defense", screen, screen.xOffset+10*8, screen.yOffset+5*8, Colors.get(-1,-1,-1,555), 1);
+				Font.render("vit based", screen, screen.xOffset+10*8, screen.yOffset+6*8, Colors.get(-1,-1,-1,555), 1);
+				// Wizard
+				screen.render(screen.xOffset+1*8, screen.yOffset+8*8, 31+10*32, Colors.get(-1,100,310,000), 0x00, 1); // Top left corner
+				screen.render(screen.xOffset+8*8, screen.yOffset+8*8, 31+10*32, Colors.get(-1,100,310,000), 0x01, 1); // Top right corner
+				screen.render(screen.xOffset+1*8, screen.yOffset+10*8, 31+10*32, Colors.get(-1,100,310,000), 0x02, 1); // Bottom left corner
+				screen.render(screen.xOffset+8*8, screen.yOffset+10*8, 31+10*32, Colors.get(-1,100,310,000), 0x03, 1); // Bottom right corner
+				for (int i=0; i<6; i++) { // Top of menu
+					screen.render(screen.xOffset+2*8+i*8, screen.yOffset+8*8, 30+10*32, Colors.get(-1,100,310,000), 0x00, 1);
+				}
+				for (int i=0; i<6; i++) { // Bottom of menu
+					screen.render(screen.xOffset+2*8+i*8, screen.yOffset+10*8, 30+10*32, Colors.get(-1,100,310,000), 0x02, 1);
+				}
+				screen.render(screen.xOffset+1*8, screen.yOffset+9*8, 29+10*32, Colors.get(-1,100,310,000), 0x00, 1); // Left of menu
+				screen.render(screen.xOffset+8*8, screen.yOffset+9*8, 29+10*32, Colors.get(-1,100,310,000), 0x01, 1); // Right of menu
+				for (int i=0; i<6; i++) {
+					screen.render(screen.xOffset+2*8+i*8, screen.yOffset+9*8, 28+10*32, Colors.get(-1,100,310,000), 0x00, 1);
+				}
+				Font.render("Wizard", screen, screen.xOffset+2*8, screen.yOffset+9*8, Colors.get(-1,-1,-1,000), 1);
+				Font.render("+ damage", screen, screen.xOffset+10*8, screen.yOffset+8*8, Colors.get(-1,-1,-1,555), 1);
+				Font.render("- defense", screen, screen.xOffset+10*8, screen.yOffset+9*8, Colors.get(-1,-1,-1,555), 1);
+				Font.render("Int based", screen, screen.xOffset+10*8, screen.yOffset+10*8, Colors.get(-1,-1,-1,555), 1);
+				// Hunter
+				screen.render(screen.xOffset+1*8, screen.yOffset+12*8, 31+10*32, Colors.get(-1,100,310,000), 0x00, 1); // Top left corner
+				screen.render(screen.xOffset+8*8, screen.yOffset+12*8, 31+10*32, Colors.get(-1,100,310,000), 0x01, 1); // Top right corner
+				screen.render(screen.xOffset+1*8, screen.yOffset+14*8, 31+10*32, Colors.get(-1,100,310,000), 0x02, 1); // Bottom left corner
+				screen.render(screen.xOffset+8*8, screen.yOffset+14*8, 31+10*32, Colors.get(-1,100,310,000), 0x03, 1); // Bottom right corner
+				for (int i=0; i<6; i++) { // Top of menu
+					screen.render(screen.xOffset+2*8+i*8, screen.yOffset+12*8, 30+10*32, Colors.get(-1,100,310,000), 0x00, 1);
+				}
+				for (int i=0; i<6; i++) { // Bottom of menu
+					screen.render(screen.xOffset+2*8+i*8, screen.yOffset+14*8, 30+10*32, Colors.get(-1,100,310,000), 0x02, 1);
+				}
+				screen.render(screen.xOffset+1*8, screen.yOffset+13*8, 29+10*32, Colors.get(-1,100,310,000), 0x00, 1); // Left of menu
+				screen.render(screen.xOffset+8*8, screen.yOffset+13*8, 29+10*32, Colors.get(-1,100,310,000), 0x01, 1); // Right of menu
+				for (int i=0; i<6; i++) {
+					screen.render(screen.xOffset+2*8+i*8, screen.yOffset+13*8, 28+10*32, Colors.get(-1,100,310,000), 0x00, 1);
+				}
+				Font.render("Hunter", screen, screen.xOffset+2*8, screen.yOffset+13*8, Colors.get(-1,-1,-1,000), 1);
+				Font.render("= damage", screen, screen.xOffset+10*8, screen.yOffset+12*8, Colors.get(-1,-1,-1,555), 1);
+				Font.render("= defense", screen, screen.xOffset+10*8, screen.yOffset+13*8, Colors.get(-1,-1,-1,555), 1);
+				Font.render("Dex based", screen, screen.xOffset+10*8, screen.yOffset+14*8, Colors.get(-1,-1,-1,555), 1);
 				break;
 			case CLOSED:
 				// Menu button
