@@ -37,11 +37,21 @@ public class Menu {
 			int y = input.me.getY();
 			switch (state) {
 				case START:
-					if ( 151 <= x && x <= 338 && 176 <= y && y <= 240) {
+					if (151 <= x && x <= 338 && 176 <= y && y <= 240) {
 						game.state = Game.States.CLASSES;
 					}
 					break;
 				case CLASSES:
+					if (28 <= x && x <= 215 && 103 <= y && y <= 166) {
+						game.state = Game.States.RUNNING;
+						state = MenuStates.CLOSED;
+					} else if (28 <= x && x <= 215 && 214 <= y && y <= 266) {
+						game.state = Game.States.RUNNING;
+						state = MenuStates.CLOSED;
+					} else if (28 <= x && x <= 215 && 299 <= y && y <= 366) {
+						game.state = Game.States.RUNNING;
+						state = MenuStates.CLOSED;
+					}
 					break;
 				case CLOSED:
 					if (393 <= x && y <= 24) { // Menu button
