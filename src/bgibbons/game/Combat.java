@@ -25,6 +25,10 @@ public class Combat {
 	private int defRenderStart;
 	private int damageRenderStart;
 	private int damageRender;
+	private int healRenderStart;
+	private int healRender;
+	private int shieldRenderStart;
+	private int shieldRender;
 
 	/**
 	 * Constructor for the Comabt object.
@@ -41,6 +45,10 @@ public class Combat {
 		this.defRenderStart = 0;
 		this.damageRenderStart = 0;
 		this.damageRender = 0;
+		this.healRenderStart = 0;
+		this.healRender = 0;
+		this.shieldRenderStart = 0;
+		this.shieldRender = 0;
 	}
 
 	/**
@@ -62,11 +70,15 @@ public class Combat {
 		//if the ability is usable
 		if(canUse){
 			if (ability instanceof OffensiveAbility) {
-				damageRender = ability.getDamage();
 				offRenderStart = combatTicks;
+				damageRender = ability.getDamage();
 				damageRenderStart = combatTicks;
 			} else if (ability instanceof DefensiveAbility) {
 				defRenderStart = combatTicks;
+				healRender = ability.getHeal();
+				healRenderStart = combatTicks;
+				shieldRender = ability.getShield();
+				shieldRenderStart = combatTicks;
 			}
 			int damage = ability.getDamage();
 			int heal = ability.getHeal();
@@ -117,7 +129,16 @@ public class Combat {
 		this.combatTicks+=1;
 	}
 
+	/**
+	 * Render combat effects to the screen as needed.
+	 * @param screen 	Screen to render to.
+	 */
 	public void render(Screen screen) {
+		String health = combatant2.mob.getCurrentHealth() + "/" + combatant2.mob.getMaxHealth();
+		Font.render(health, screen, (20-health.length()-1)*8, 5*8, Colors.get(-1,-1,-1,100), 1);
+		if (damageRenderStart != 0 && combatTicks <= damageRenderStart + 30) {
+			Font.render("" + damageRender, screen, 16*8, 6*8, Colors.get(-1,-1,-1,100), 1);
+		}
 		if (offRenderStart != 0 && combatTicks <= offRenderStart + 30) {
 			screen.render(16*8, 7*8, 30+27*32, Colors.get(-1,100,200,300), 0x00, 1); // Top left
 			screen.render(17*8, 7*8, 31+27*32, Colors.get(-1,100,200,300), 0x00, 1); // Top right
@@ -132,6 +153,12 @@ public class Combat {
 		}
 		if (damageRenderStart != 0 && combatTicks <= damageRenderStart + 30) {
 			Font.render("" + damageRender, screen, 16*8, 6*8, Colors.get(-1,-1,-1,100), 1);
+		}
+		if (healRenderStart != 0 && combatTicks <= healRenderStart + 30) {
+			Font.render("" + healRender, screen, 1*8, 6*8, Colors.get(-1,-1,-1,003), 1);
+		}
+		if (shieldRenderStart != 0 && combatTicks <= shieldRenderStart + 30) {
+			Font.render("" + shieldRender, screen, 3*8, 6*8, Colors.get(-1,-1,-1,330), 1);
 		}
 	}
 
