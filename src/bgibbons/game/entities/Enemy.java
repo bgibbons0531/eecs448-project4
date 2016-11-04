@@ -52,6 +52,20 @@ public abstract class Enemy extends Mob {
 		int xa = 0;
 		int ya = 0;
 
+		if(numSteps % 120 < 30 ){
+			ya=1;
+		}
+		else if (numSteps % 120 >= 30 && numSteps % 120 < 60){
+			xa=1;
+		}
+		else if (numSteps % 120 >= 60 && numSteps % 120 < 90){
+			ya=-1;
+		}
+		else if (numSteps % 120 >= 90){
+			xa=-1;
+		}
+
+
 		if (xa != 0 || ya != 0) {
 			move(xa, ya);
 			isMoving = true;
