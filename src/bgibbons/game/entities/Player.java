@@ -26,6 +26,7 @@ public class Player extends Mob {
 	private Item weapon = null;
 	private Item shield = null;
 	private Item[] inventory = new Item[6];
+	private int attributePoints = 0;
 
 	/**
 	 * Constructor the Player object.
@@ -192,10 +193,8 @@ public class Player extends Mob {
 	 */
 	public void rankUp() {
 		currentExp = 0;
-		rank ++;
-		dexterity ++;
-		intelligence ++;
-		vitality ++;
+		rank++;
+		attributePoints += 3;
 		if (maxHealth < 40 && rank % 2 == 1) {
 			maxHealth+=2;
 		}
@@ -308,5 +307,37 @@ public class Player extends Mob {
 				return;
 			}
 		}
+	}
+
+	/**
+	 * Returns the remaining attribute points of the player.
+	 * @return The remaining attribute points of the player.
+	 */
+	public int getAttributePoints() {
+		return attributePoints;
+	}
+
+	/**
+	 * Increase Dexterity.
+	 */
+	public void increaseDexterity() {
+		dexterity++;
+		attributePoints--;
+	}
+
+	/**
+	 * Increase Intelligence.
+	 */
+	public void increaseIntelligence() {
+		intelligence++;
+		attributePoints--;
+	}
+
+	/**
+	 * Increase Vitality.
+	 */
+	public void increaseVitality() {
+		vitality++;
+		attributePoints--;
 	}
 }

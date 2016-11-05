@@ -85,6 +85,12 @@ public class Menu {
 						state = MenuStates.OPEN;
 					} else if (393 <= x && y <= 24) { // Close button
 						state = MenuStates.CLOSED;
+					} else if (322 <= x && x <= 338 && 52 <= y && y <= 68) {
+						if (game.player.getAttributePoints() > 0) game.player.increaseDexterity();
+					} else if (322 <= x && x <= 338 && 78 <= y && y <= 92) {
+						if (game.player.getAttributePoints() > 0) game.player.increaseIntelligence();
+					} else if (322 <= x && x <= 338 && 102 <= y && y <= 117) {
+						if (game.player.getAttributePoints() > 0) game.player.increaseVitality();
 					}
 					break;
 				case GEAR:
@@ -319,6 +325,11 @@ public class Menu {
 				Font.render("Dex:" + game.player.getDexterity(), screen, screen.xOffset+screen.width-48, screen.yOffset+16, Colors.get(-1,-1,-1,000), 1);
 				Font.render("Int:" + game.player.getIntelligence(), screen, screen.xOffset+screen.width-48, screen.yOffset+24, Colors.get(-1,-1,-1,000), 1);
 				Font.render("Vit:" + game.player.getVitality(), screen, screen.xOffset+screen.width-48, screen.yOffset+32, Colors.get(-1,-1,-1,000), 1);
+				if (game.player.getAttributePoints() > 0) {
+					screen.render(screen.xOffset+screen.width-56, screen.yOffset+16, 29+11*32, Colors.get(-1,100,310,000), 0x00, 1);
+					screen.render(screen.xOffset+screen.width-56, screen.yOffset+24, 29+11*32, Colors.get(-1,100,310,000), 0x00, 1);
+					screen.render(screen.xOffset+screen.width-56, screen.yOffset+32, 29+11*32, Colors.get(-1,100,310,000), 0x00, 1);
+				}
 				break;
 			case GEAR:
 				// Back button
