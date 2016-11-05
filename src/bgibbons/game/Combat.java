@@ -149,7 +149,7 @@ public class Combat {
 		// Render Enemy effects
 		String health = combatant2.mob.getCurrentHealth() + "/" + combatant2.mob.getMaxHealth();
 		Font.render(health, screen, (20-health.length()-1)*8, 5*8, Colors.get(-1,-1,-1,100), 1);
-		if (enemyDamageRenderStart != 0 && combatTicks <= enemyDamageRenderStart + 30) {
+		if (enemyDamageRenderStart != 0 && combatTicks <= enemyDamageRenderStart + 45) {
 			Font.render("" + enemyDamageRender, screen, 16*8, 6*8, Colors.get(-1,-1,-1,100), 1);
 		}
 		if (enemyOffRenderStart != 0 && combatTicks <= enemyOffRenderStart + 30) {
@@ -160,7 +160,7 @@ public class Combat {
 		}
 
 		// Render Player effects
-		if (playerDamageRenderStart != 0 && combatTicks <= playerDamageRenderStart + 30) {
+		if (playerDamageRenderStart != 0 && combatTicks <= playerDamageRenderStart + 45) {
 			Font.render("" + playerDamageRender, screen, 2*8, 6*8, Colors.get(-1,-1,-1,100), 1);
 		}
 		if (playerOffRenderStart != 0 && combatTicks <= playerOffRenderStart + 30) {
@@ -176,10 +176,10 @@ public class Combat {
 			screen.render(2*8, 8*8, 30+26*32, Colors.get(-1,111,330,004), 0x00, 1); // Bottom left
 			screen.render(3*8, 8*8, 31+26*32, Colors.get(-1,111,330,004), 0x00, 1); // Bottom right
 		}
-		if (playerHealRenderStart != 0 && combatTicks <= playerHealRenderStart + 30) {
-			Font.render("" + playerHealRender, screen, 1*8, 6*8, Colors.get(-1,-1,-1,003), 1);
+		if (playerHealRenderStart != 0 && combatTicks <= playerHealRenderStart + 45) {
+			Font.render("" + playerHealRender, screen, 1*8, 6*8, Colors.get(-1,-1,-1,020), 1);
 		}
-		if (playerShieldRenderStart != 0 && combatTicks <= playerShieldRenderStart + 30) {
+		if (playerShieldRenderStart != 0 && combatTicks <= playerShieldRenderStart + 45) {
 			Font.render("" + playerShieldRender, screen, 3*8, 6*8, Colors.get(-1,-1,-1,330), 1);
 		}
 	}

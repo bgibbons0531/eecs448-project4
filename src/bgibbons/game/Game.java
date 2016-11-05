@@ -243,6 +243,7 @@ public class Game extends Canvas implements Runnable
 					combatLevel.removeEntity(player);
 					player.x = player.mainX;
 					player.y = player.mainY;
+					combatLevel.entities.clear();
 					main_level.addEntity(player);
 				}
 				break;
