@@ -310,6 +310,21 @@ public class Player extends Mob {
 	}
 
 	/**
+	 * Picks up the item the player ran over.
+	 * @param item 	The item to pick up.
+	 * @return True if the item was picked up, false otherwise.
+	 */
+	public boolean pickUp(Item item) {
+		for (int i=0; i<6; i++) {
+			if (inventory[i] == null) {
+				inventory[i] = item;
+				return true;
+			}
+		}
+		return false;
+	}
+
+	/**
 	 * Returns the remaining attribute points of the player.
 	 * @return The remaining attribute points of the player.
 	 */

@@ -1,6 +1,7 @@
 package bgibbons.game.entities;
 
 import bgibbons.game.level.Level;
+import bgibbons.game.graphics.Colors;
 import bgibbons.game.graphics.Screen;
 
 /**
@@ -37,6 +38,8 @@ public class Item extends Entity
 		this.dexterity=dexterity;
 		this.intelligence=intelligence;
 		this.vitality=vitality;
+		this.x = 17*8;
+		this.y = 8*8;
 	}
 
 	/**
@@ -44,7 +47,7 @@ public class Item extends Entity
 	 */
 	public void tick() 
 	{
-		
+
 	}
 
 	/**
@@ -53,7 +56,7 @@ public class Item extends Entity
 	 */
 	public void render(Screen screen) 
 	{
-		
+		screen.render(x, y, 0+19*32, Colors.get(-1,110,320,430), 0x00, 1);
 	}
 
 	public boolean isTouching(Entity entity) {

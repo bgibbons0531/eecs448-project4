@@ -56,7 +56,7 @@ public class Game extends Canvas implements Runnable
 	public Menu menu;			// Declare the Menu object.
 	public Sound sound;			//Declare the Sound object.
 
-	public enum States {START, CLASSES, RUNNING, PAUSED, COMBAT, OVER}
+	public enum States {START, CLASSES, RUNNING, PAUSED, COMBAT, POSTCOMBAT, OVER}
 	public States state;
 
 	/**
@@ -188,9 +188,6 @@ public class Game extends Canvas implements Runnable
 			case RUNNING:
 				player.getLevel().tick();
 				Entity e = player.getLevel().getTouching(player);
-				if (e != null) {
-					System.out.println("test");
-				}
 				if(e instanceof Mob) {
 					player.mainX = player.x;
 					player.mainY = player.y;
@@ -221,18 +218,32 @@ public class Game extends Canvas implements Runnable
 				menu.tick(this);
 				combat.tick();
 				if (!combat.inCombat && player.getCurrentHealth() > 0) {
-					state = States.RUNNING;
+					state = States.POSTCOMBAT;
 					menu.state = Menu.MenuStates.CLOSED;
+					combatLevel.addEntity(new Helmet(combatLevel,"Helmet","Standard",0,0,0));
 					combatLevel.removeEntity(combat.combatant2.mob);
-					combatLevel.removeEntity(player);
-					player.x = player.mainX;
-					player.y = player.mainY;
-					main_level.addEntity(player);
 					player.addKill();
 					player.addExp(20);
 				} else if (!combat.inCombat) {
 					endTime = System.currentTimeMillis();
 					state = States.OVER;
+				}
+				break;
+			case POSTCOMBAT:
+				menu.tick(this);
+				player.getLevel().tick();
+				e = player.getLevel().getTouching(player);
+				if (e instanceof Item) {
+					if (player.pickUp((Item)e)) {
+						combatLevel.removeEntity(e);
+					}
+				}
+				if (player.x >= 154) {
+					state = States.RUNNING;
+					combatLevel.removeEntity(player);
+					player.x = player.mainX;
+					player.y = player.mainY;
+					main_level.addEntity(player);
 				}
 				break;
 			case OVER:
@@ -293,6 +304,14 @@ public class Game extends Canvas implements Runnable
 				player.getLevel().renderEntities(screen);
 
 				combat.render(screen);
+
+				HUD.render(screen, this);
+
+				menu.render(this, screen);
+				break;
+			case POSTCOMBAT:
+				player.getLevel().renderTiles(screen, xOffset, yOffset);
+				player.getLevel().renderEntities(screen);
 
 				HUD.render(screen, this);
 

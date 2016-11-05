@@ -65,7 +65,7 @@ public class Menu {
 						state = MenuStates.STATS;
 					} else if (393 <= x && 49 <= y && y <= 72) { // Gear button
 						state = MenuStates.GEAR;
-					} else if (393 <= x && x <= 440 && 73 <= y && y <= 96) { // Pause/ Play button
+					} else if (393 <= x && x <= 440 && 73 <= y && y <= 96 && game.state != Game.States.POSTCOMBAT) { // Pause/ Play button
 						if (game.state == Game.States.RUNNING) game.state = Game.States.PAUSED;
 						else game.state = Game.States.RUNNING;
 					} else if (441 <= x && 73 <= y && y <= 96) { // Mute/ Unmute button
@@ -260,7 +260,7 @@ public class Menu {
 					screen.render(screen.xOffset+screen.width-32+i*8, screen.yOffset+16, (28+i)+12*32, Colors.get(-1,100,310,000), 0x00, 1);
 				}
 				// Pause/ Play button
-				if (game.state == Game.States.RUNNING) {
+				if (game.state == Game.States.RUNNING || game.state == Game.States.POSTCOMBAT) {
 					for (int i=0; i<2; i++) {
 						screen.render(screen.xOffset+screen.width-32+i*8, screen.yOffset+24, (28+i)+14*32, Colors.get(-1,100,310,000), 0x00, 1);
 					}
