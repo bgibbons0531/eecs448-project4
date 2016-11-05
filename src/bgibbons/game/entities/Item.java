@@ -1,19 +1,20 @@
-
 package bgibbons.game.entities;
+
 import bgibbons.game.level.Level;
 import bgibbons.game.graphics.Screen;
+
 /**
- * File Name:Item.java
- * Description: Class for the items for the game 
+ * Class for the items for the game 
  * @author Rony Singh
- * @version 1.0 24 October 2016.
+ * @author Brad Gibbons
+ * @version 1.1 4 November 2016.
  * 
  */
 public class Item extends Entity
 {
 	/**
-	*Variables for Item.
-	*/
+	 * Variables for Item.
+	 */
 	public String name;
 	public String description;
 	public int dexterity;
@@ -31,12 +32,13 @@ public class Item extends Entity
 	public Item(Level level, String name, String description, int dexterity, int intelligence, int vitality)
 	{
 		super(level);
-		this.name="";
-		this.description="";
+		this.name=name;
+		this.description=description;
 		this.dexterity=dexterity;
 		this.intelligence=intelligence;
 		this.vitality=vitality;
 	}
+
 	/**
 	 * Ticks the item to allow for animation.
 	 */
@@ -44,6 +46,7 @@ public class Item extends Entity
 	{
 		
 	}
+
 	/**
 	 * Renders the item to the screen
 	 * @param screen 	The screen the item is to be rendered to.
@@ -55,5 +58,31 @@ public class Item extends Entity
 
 	public boolean isTouching(Entity entity) {
 		return false;
+	}
+
+	/**
+	*Returns Dexterity variable
+	*@return A integer of the dexterity value.
+	*/
+	public int getDexterity() 
+	{
+		return dexterity;
+	}
+	/**
+	*Returns Intelligence variable
+	*@return A integer of intelligence value.
+	*/
+	public int getIntelligence() 
+	{
+		return intelligence;
+	}
+
+	/**
+	*Returns Vitality variable.
+	*@return A integer of the vitality value.
+	*/
+	public int getVitality() 
+	{
+		return vitality;
 	}
 }

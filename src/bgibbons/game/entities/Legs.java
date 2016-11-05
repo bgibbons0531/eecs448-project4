@@ -1,13 +1,12 @@
-
 package bgibbons.game.entities;
+
 import bgibbons.game.level.Level;
-import bgibbons.game.graphics.Screen;
+
 /**
- * File Name:Legs.java
- * Description: Class for the Legs inherited from Item 
+ * Class for the an item that can be equiped in the legs slot.
  * @author Rony Singh
- * @version 1.0 24 October 2016.
- * 
+ * @author Brad Gibbons
+ * @version 1.1 4 November 2016.
  */
 public class Legs extends Item
 {
@@ -22,31 +21,7 @@ public class Legs extends Item
 	 */	
 	public Legs(Level level,String name,String description, int dexterity, int intelligence, int vitality)
 	{	
-		super(level,"Legs","Leggy",2,2,2);
+		super(level,name, description, dexterity, intelligence, vitality);
 	}
-	/**
-	*Returns Dexterity variable
-	*@return A integer of the dexterity value.
-	*/
-	public int getDexterity() 
-	{
-		return dexterity;
-	}
-	/**
-	*Returns Intelligence variable
-	*@return A integer of intelligence value.
-	*/
-	public int getIntelligence() 
-	{
-		return intelligence;
-	}
-
-	/**
-	*Returns Vitality variable.
-	*@return A integer of the vitality value.
-	*/
-	public int getVitality() 
-	{
-		return vitality;
-	}
+	
 }

@@ -39,11 +39,11 @@ public class Player extends Mob {
 		this.mainX = x;
 		this.mainY = y;
 		this.input = input;
-		inventory[0] = new Helmet(level,"","",0,0,0);
-		inventory[1] = new Chest(level,"","",0,0,0);
-		inventory[2] = new Legs(level,"","",0,0,0);
-		inventory[3] = new Weapon(level,"","",0,0,0);
-		inventory[4] = new Shield(level,"","",0,0,0);
+		inventory[0] = new Helmet(level,"Helmet","Standard",0,0,0);
+		inventory[1] = new Chest(level,"Chest","Standard",0,0,0);
+		inventory[2] = new Legs(level,"Legs","",0,0,0);
+		inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
+		inventory[4] = new Shield(level,"Shield","Standard",0,0,0);
 	}
 
 	/**
