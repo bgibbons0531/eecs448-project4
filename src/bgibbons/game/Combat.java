@@ -21,14 +21,18 @@ public class Combat {
 	private int stunDuration;
 	private int combatTicks;
 
-	private int offRenderStart;
-	private int defRenderStart;
-	private int damageRenderStart;
-	private int damageRender;
-	private int healRenderStart;
-	private int healRender;
-	private int shieldRenderStart;
-	private int shieldRender;
+	private int enemyOffRenderStart;
+	private int enemyDamageRenderStart;
+	private int enemyDamageRender;
+
+	private int playerOffRenderStart;
+	private int playerDamageRenderStart;
+	private int playerDamageRender;
+	private int playerDefRenderStart;
+	private int playerHealRenderStart;
+	private int playerHealRender;
+	private int playerShieldRenderStart;
+	private int playerShieldRender;
 
 	/**
 	 * Constructor for the Comabt object.
@@ -41,14 +45,19 @@ public class Combat {
 		this.inCombat = true;
 		this.stunDuration = 2*60;
 		this.combatTicks = 0;
-		this.offRenderStart = 0;
-		this.defRenderStart = 0;
-		this.damageRenderStart = 0;
-		this.damageRender = 0;
-		this.healRenderStart = 0;
-		this.healRender = 0;
-		this.shieldRenderStart = 0;
-		this.shieldRender = 0;
+
+		this.enemyOffRenderStart = 0;
+		this.enemyDamageRenderStart = 0;
+		this.enemyDamageRender = 0;
+
+		this.playerOffRenderStart = 0;
+		this.playerDamageRenderStart = 0;
+		this.playerDamageRender = 0;
+		this.playerDefRenderStart = 0;
+		this.playerHealRenderStart = 0;
+		this.playerHealRender = 0;
+		this.playerShieldRenderStart = 0;
+		this.playerShieldRender = 0;
 	}
 
 	/**
@@ -70,15 +79,15 @@ public class Combat {
 		//if the ability is usable
 		if(canUse){
 			if (ability instanceof OffensiveAbility) {
-				offRenderStart = combatTicks;
-				damageRender = ability.getDamage();
-				damageRenderStart = combatTicks;
+				enemyOffRenderStart = combatTicks;
+				enemyDamageRender = ability.getDamage();
+				enemyDamageRenderStart = combatTicks;
 			} else if (ability instanceof DefensiveAbility) {
-				defRenderStart = combatTicks;
-				healRender = ability.getHeal();
-				healRenderStart = combatTicks;
-				shieldRender = ability.getShield();
-				shieldRenderStart = combatTicks;
+				playerDefRenderStart = combatTicks;
+				playerHealRender = ability.getHeal();
+				playerHealRenderStart = combatTicks;
+				playerShieldRender = ability.getShield();
+				playerShieldRenderStart = combatTicks;
 			}
 			int damage = ability.getDamage();
 			int heal = ability.getHeal();
@@ -121,6 +130,9 @@ public class Combat {
 		//enemy attack
 		if (combatTicks % 120 == 0 && combatTicks > 0 && !combatant2.isStunned) {
 			inCombat = combatant1.takeDamage(1);
+			playerOffRenderStart = combatTicks;
+			playerDamageRender = 1;
+			playerDamageRenderStart = combatTicks;
 		}
 		//update cooldowns for abilities
 		if (combatTicks % 60 == 0) {
@@ -134,31 +146,41 @@ public class Combat {
 	 * @param screen 	Screen to render to.
 	 */
 	public void render(Screen screen) {
+		// Render Enemy effects
 		String health = combatant2.mob.getCurrentHealth() + "/" + combatant2.mob.getMaxHealth();
 		Font.render(health, screen, (20-health.length()-1)*8, 5*8, Colors.get(-1,-1,-1,100), 1);
-		if (damageRenderStart != 0 && combatTicks <= damageRenderStart + 30) {
-			Font.render("" + damageRender, screen, 16*8, 6*8, Colors.get(-1,-1,-1,100), 1);
+		if (enemyDamageRenderStart != 0 && combatTicks <= enemyDamageRenderStart + 30) {
+			Font.render("" + enemyDamageRender, screen, 16*8, 6*8, Colors.get(-1,-1,-1,100), 1);
 		}
-		if (offRenderStart != 0 && combatTicks <= offRenderStart + 30) {
+		if (enemyOffRenderStart != 0 && combatTicks <= enemyOffRenderStart + 30) {
 			screen.render(16*8, 7*8, 30+27*32, Colors.get(-1,100,200,300), 0x00, 1); // Top left
 			screen.render(17*8, 7*8, 31+27*32, Colors.get(-1,100,200,300), 0x00, 1); // Top right
 			screen.render(16*8, 8*8, 30+28*32, Colors.get(-1,100,200,300), 0x00, 1); // Bottom left
 			screen.render(17*8, 8*8, 31+28*32, Colors.get(-1,100,200,300), 0x00, 1); // Bottom right
 		}
-		if (defRenderStart != 0 && combatTicks <= defRenderStart + 30) {
+
+		// Render Player effects
+		if (playerDamageRenderStart != 0 && combatTicks <= playerDamageRenderStart + 30) {
+			Font.render("" + playerDamageRender, screen, 2*8, 6*8, Colors.get(-1,-1,-1,100), 1);
+		}
+		if (playerOffRenderStart != 0 && combatTicks <= playerOffRenderStart + 30) {
+			screen.render(2*8, 7*8, 30+27*32, Colors.get(-1,100,200,300), 0x00, 1); // Top left
+			screen.render(3*8, 7*8, 31+27*32, Colors.get(-1,100,200,300), 0x00, 1); // Top right
+			screen.render(2*8, 8*8, 30+28*32, Colors.get(-1,100,200,300), 0x00, 1); // Bottom left
+			screen.render(3*8, 8*8, 31+28*32, Colors.get(-1,100,200,300), 0x00, 1); // Bottom right
+		}
+
+		if (playerDefRenderStart != 0 && combatTicks <= playerDefRenderStart + 30) {
 			screen.render(2*8, 7*8, 30+25*32, Colors.get(-1,111,330,004), 0x00, 1); // Top left
 			screen.render(3*8, 7*8, 31+25*32, Colors.get(-1,111,330,004), 0x00, 1); // Top right
 			screen.render(2*8, 8*8, 30+26*32, Colors.get(-1,111,330,004), 0x00, 1); // Bottom left
 			screen.render(3*8, 8*8, 31+26*32, Colors.get(-1,111,330,004), 0x00, 1); // Bottom right
 		}
-		if (damageRenderStart != 0 && combatTicks <= damageRenderStart + 30) {
-			Font.render("" + damageRender, screen, 16*8, 6*8, Colors.get(-1,-1,-1,100), 1);
+		if (playerHealRenderStart != 0 && combatTicks <= playerHealRenderStart + 30) {
+			Font.render("" + playerHealRender, screen, 1*8, 6*8, Colors.get(-1,-1,-1,003), 1);
 		}
-		if (healRenderStart != 0 && combatTicks <= healRenderStart + 30) {
-			Font.render("" + healRender, screen, 1*8, 6*8, Colors.get(-1,-1,-1,003), 1);
-		}
-		if (shieldRenderStart != 0 && combatTicks <= shieldRenderStart + 30) {
-			Font.render("" + shieldRender, screen, 3*8, 6*8, Colors.get(-1,-1,-1,330), 1);
+		if (playerShieldRenderStart != 0 && combatTicks <= playerShieldRenderStart + 30) {
+			Font.render("" + playerShieldRender, screen, 3*8, 6*8, Colors.get(-1,-1,-1,330), 1);
 		}
 	}
 
