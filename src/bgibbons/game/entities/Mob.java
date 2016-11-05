@@ -17,6 +17,7 @@ public abstract class Mob extends Entity {
 
 	protected String name;
 	protected int rank;
+	protected int killCount;
 	protected int maxHealth;
 	protected int currentHealth;
 	protected int maxExp;
@@ -52,6 +53,7 @@ public abstract class Mob extends Entity {
 		super(level);
 		this.name = name;
 		this.rank = rank;
+		this.killCount = 0;
 		this.x = x;
 		this.y = y;
 		this.maxExp = maxExp;
@@ -285,6 +287,21 @@ public abstract class Mob extends Entity {
 			default:
 				return null;
 		}
+	}
+
+	/**
+	 * Increases the kill count of the mob.
+	 */
+	public void addKill() {
+		killCount++;
+	}
+
+	/**
+	 * Returns the kill count of the mob.
+	 * @return The kill count of the mob.
+	 */
+	public int getKillCount() {
+		return killCount;
 	}
 
 }

@@ -44,6 +44,9 @@ public class Game extends Canvas implements Runnable
 	private int[] pixels = ((DataBufferInt) image.getRaster().getDataBuffer()).getData();		// An array to hold the pixels of the image
 	private int[] colors = new int[6*6*6];														// An array of the colors available to use for the image
 
+	private long startTime;
+	private long endTime;
+
 	private Screen screen;		// Declare the Screen object.
 	public InputHandler input;	// Decleare the InputHandler object.
 	public Level main_level;	// Declare the Level object.
@@ -51,7 +54,7 @@ public class Game extends Canvas implements Runnable
 	public Combat combat; 		// Declare the combat object.
 	public Player player;		// Declare the Player object.
 	public Menu menu;			// Declare the Menu object.
-	public Sound sound;		//Declare the Sound object.
+	public Sound sound;			//Declare the Sound object.
 
 	public enum States {START, CLASSES, RUNNING, PAUSED, COMBAT, OVER}
 	public States state;
@@ -105,7 +108,8 @@ public class Game extends Canvas implements Runnable
 		menu = new Menu(input);															// Initialize the Menu object with the input handler.
 		state = States.START;
 		sound = new Sound("/res/sounds/BGM.wav"); 		//Intialize BGM sound object with path.
-		sound.play();				//Play the sound.
+		//sound.play();				//Play the sound.
+		startTime = System.currentTimeMillis();
 	}
 
 	/**
@@ -224,8 +228,10 @@ public class Game extends Canvas implements Runnable
 					player.x = player.mainX;
 					player.y = player.mainY;
 					main_level.addEntity(player);
+					player.addKill();
 					player.addExp(20);
 				} else if (!combat.inCombat) {
+					endTime = System.currentTimeMillis();
 					state = States.OVER;
 				}
 				break;
@@ -298,7 +304,15 @@ public class Game extends Canvas implements Runnable
 						screen.render(i, j, 0, Colors.get(0,0,0,0), 0x00, 1);
 					}
 				}
-				Font.render("GAME  OVER", screen, (screen.width)/2-5*8, (screen.height)/2-1*8, Colors.get(-1,-1,-1,555), 1);
+				if (player.getCurrentHealth() <= 0) {
+					Font.render("Defeat", screen, screen.xOffset+7*8, screen.yOffset+1*8, Colors.get(-1,-1,-1,555), 1);
+				} else {
+					Font.render("Victory", screen, screen.xOffset+7*8, screen.yOffset+1*8, Colors.get(-1,-1,-1,555), 1);
+				}
+				Font.render("Class:", screen, screen.xOffset+1*8, screen.yOffset+3*8, Colors.get(-1,-1,-1,555), 1);
+				Font.render("Rank:" + player.getRank(), screen, screen.xOffset+1*8, screen.yOffset+5*8, Colors.get(-1,-1,-1,555), 1);
+				Font.render("Kills:" + player.getKillCount(), screen, screen.xOffset+1*8, screen.yOffset+7*8, Colors.get(-1,-1,-1,555), 1);
+				Font.render("Time:" + ((endTime - startTime)/60000) + ":" + ((endTime - startTime)/1000), screen, screen.xOffset+1*8, screen.yOffset+9*8, Colors.get(-1,-1,-1,555), 1);
 				break;
 			default:
 				break;
