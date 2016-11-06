@@ -15,6 +15,9 @@ import bgibbons.game.level.Level;
  */
 public class Player extends Mob {
 
+	/*public enum PlayerClass {PALADIN,WIZARD,HUNTER}
+	public PlayerClass role;*/
+
 	public int mainX;
 	public int mainY;
 	private InputHandler input;
@@ -27,6 +30,7 @@ public class Player extends Mob {
 	private Item shield = null;
 	private Item[] inventory = new Item[6];
 	private int attributePoints = 0;
+	public String role;
 
 	/**
 	 * Constructor the Player object.
@@ -34,17 +38,29 @@ public class Player extends Mob {
 	 * @param x 		The x coordinate the player will start at.
 	 * @param y 		The y coordinate the player will start at.
 	 * @param input 	The InputHandler used to control the player.
+	 * @param Class 	The Class type chosen for the charcter
 	 */
-	public Player(Level level, int x, int y, InputHandler input) {
+	public Player(Level level, int x, int y, InputHandler input, String role) {
 		super(level, "Player", x, y, 10, 1, 1, 100);
 		this.mainX = x;
 		this.mainY = y;
 		this.input = input;
-		inventory[0] = new Helmet(level,"Helmet","Standard",0,0,0);
-		inventory[1] = new Chest(level,"Chest","Standard",0,0,0);
-		inventory[2] = new Legs(level,"Legs","",0,0,0);
-		inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
-		inventory[4] = new Shield(level,"Shield","Standard",0,0,0);
+		this.role = role;
+		if(this.role=="PALADIN")
+		{
+			inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
+			inventory[4] = new Shield(level,"Shield","Standard",0,0,0);
+		}
+		if(this.role=="WIZARD")
+		{
+			inventory[0] = new Helmet(level,"Helmet","Standard",0,0,0);
+			inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
+		}
+		if(this.role=="HUNTER")
+		{
+			inventory[2] = new Legs(level,"Legs","",0,0,0);
+			inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
+		}
 	}
 
 	/**
@@ -278,7 +294,7 @@ public class Player extends Mob {
 			Item temp = shield;
 			shield = e;
 			inventory[index] = temp;
-		} 
+		}
 	}
 
 	/**

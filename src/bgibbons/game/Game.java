@@ -17,7 +17,6 @@ import bgibbons.game.graphics.HUD;
 import bgibbons.game.graphics.Screen;
 import bgibbons.game.graphics.SpriteSheet;
 import bgibbons.game.level.Level;
-
 /**
  * Main class for the game engine.
  * @author Brad Gibbons
@@ -27,7 +26,6 @@ import bgibbons.game.level.Level;
  */
 public class Game extends Canvas implements Runnable
 {
-
 	private static final long serialVersionUID = 1L;
 
 	public static final int WIDTH = 160;				// Width of the image to be displayed
@@ -103,7 +101,7 @@ public class Game extends Canvas implements Runnable
 		input = new InputHandler(this);													// Initialize the InputHandler to interact with the Game.
 		main_level = new Level("/res/levels/main_level.png", "/res/entities/main_level.png");						// Initialize the Level object with the map and entities to be added on startup.
 		combatLevel = new Level("/res/levels/combat_level.png", null);			// Initialize the combat level object with the map, but no entities.
-		player = new Player(main_level, 16, main_level.height*8/2, input);				// Initialize the Player object with the level at the set coordinates interacting with the input handler.
+		player = new Player(main_level, 16, main_level.height*8/2, input, "PALADIN");				// Initialize the Player object with the level at the set coordinates interacting with the input handler.
 		main_level.addEntity(player);													// Add the player to the level.
 		menu = new Menu(input);															// Initialize the Menu object with the input handler.
 		state = States.START;
