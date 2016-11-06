@@ -154,8 +154,13 @@ public abstract class Enemy extends Mob {
 
 		return false;
 	}
-
+	/**
+	 * Level up the mob once max exp is reached.
+	 */
 	public abstract void rankUp();
-
+	
+	/*
+	* Method to determine the movement of orcs
+	*/
 	public abstract void moveOrc();
 }
