@@ -14,7 +14,12 @@ import bgibbons.game.graphics.Screen;
 public class Menu {
 
 	public enum MenuStates { START, CLASSES, CLOSED, OPEN, STATS, GEAR, HELP, COMBAT }
+	public enum Slots { NONE, HEAD, CHEST, LEGS, WEAPON, SHIELD, INVENTORY1, INVENTORY2, INVENTORY3, INVENTORY4, INVENTORY5, INVENTORY6 }
+
 	public MenuStates state;
+	public Slots slot;
+
+	private boolean itemSelected;
 	
 	private InputHandler input;
 
@@ -25,6 +30,8 @@ public class Menu {
 	public Menu(InputHandler input) {
 		this.input = input;
 		this.state = MenuStates.START;
+		this.itemSelected = false;
+		this.slot = Slots.NONE;
 	}
 
 	/**
@@ -98,29 +105,108 @@ public class Menu {
 						state = MenuStates.OPEN;
 					} else if (393 <= x && y <= 24) { // Close button
 						state = MenuStates.CLOSED;
-					} else if (407 <= x && x <= 425 && 51 <= y && y <= 69) { // Head Slot
-						game.player.unEquip(game.player.getHead());
-					} else if (407 <= x && x <= 425 && 76 <= y && y <= 93) { // Chest Slot
-						game.player.unEquip(game.player.getChest());
-					} else if (407 <= x && x <= 425 && 102 <= y && y <= 119) { // Legs Slot
-						game.player.unEquip(game.player.getLegs());
-					} else if (383 <= x && x <= 401 && 76 <= y && y <= 93) { // Weapon Slot
-						game.player.unEquip(game.player.getWeapon());
-					} else if (432 <= x && x <= 449 && 76 <= y && y <= 93) { // Shield Slot
-						game.player.unEquip(game.player.getShield());
-					} else if (346 <= x && x <= 363 && 150 <= y && y <= 168) { // Inventory Slot 1
-						game.player.equip(0);
-					} else if (370 <= x && x <= 387 && 150 <= y && y <= 168) { // Inventory Slot 2
-						game.player.equip(1);
-					} else if (394 <= x && x <= 412 && 150 <= y && y <= 168) { // Inventory Slot 3
-						game.player.equip(2);
-					} else if (419 <= x && x <= 437 && 150 <= y && y <= 168) { // Inventory Slot 4
-						game.player.equip(3);
-					} else if (444 <= x && x <= 462 && 150 <= y && y <= 168) { // Inventory Slot 5
-						game.player.equip(4);
-					} else if (469 <= x && x <= 486 && 150 <= y && y <= 168) { // Inventory Slot 6
-						game.player.equip(5);
-					} 
+					} else if (407 <= x && x <= 425 && 51 <= y && y <= 69 && game.player.getHead() != null) { // Head Slot
+						slot = Slots.HEAD;
+					} else if (407 <= x && x <= 425 && 76 <= y && y <= 93 && game.player.getChest() != null) { // Chest Slot
+						slot = Slots.CHEST;
+					} else if (407 <= x && x <= 425 && 102 <= y && y <= 119 && game.player.getLegs() != null) { // Legs Slot
+						slot = Slots.LEGS;
+					} else if (383 <= x && x <= 401 && 76 <= y && y <= 93 && game.player.getWeapon() != null) { // Weapon Slot
+						slot = Slots.WEAPON;
+					} else if (432 <= x && x <= 449 && 76 <= y && y <= 93 && game.player.getShield() != null) { // Shield Slot
+						slot = Slots.SHIELD;
+					} else if (346 <= x && x <= 363 && 202 <= y && y <= 218 && game.player.getInventory(0) != null) { // Inventory Slot 1
+						slot = Slots.INVENTORY1;
+					} else if (370 <= x && x <= 387 && 202 <= y && y <= 218 && game.player.getInventory(1) != null) { // Inventory Slot 2
+						slot = Slots.INVENTORY2;
+					} else if (394 <= x && x <= 412 && 202 <= y && y <= 218 && game.player.getInventory(2) != null) { // Inventory Slot 3
+						slot = Slots.INVENTORY3;
+					} else if (419 <= x && x <= 437 && 202 <= y && y <= 218 && game.player.getInventory(3) != null) { // Inventory Slot 4
+						slot = Slots.INVENTORY4;
+					} else if (444 <= x && x <= 462 && 202 <= y && y <= 218 && game.player.getInventory(4) != null) { // Inventory Slot 5
+						slot = Slots.INVENTORY5;
+					} else if (469 <= x && x <= 486 && 202 <= y && y <= 218 && game.player.getInventory(5) != null) { // Inventory Slot 6
+						slot = Slots.INVENTORY6;
+					}
+					if (slot != Slots.NONE) {
+						if (347 <= x && x <= 412 && 222 <= y && y <= 242) { // Equip button
+							switch (slot) {
+								case HEAD:
+									game.player.unEquip(game.player.getHead());
+									break;
+								case CHEST:
+									game.player.unEquip(game.player.getChest());
+									break;
+								case LEGS:
+									game.player.unEquip(game.player.getLegs());
+									break;
+								case WEAPON:
+									game.player.unEquip(game.player.getWeapon());
+									break;
+								case SHIELD:
+									game.player.unEquip(game.player.getShield());
+									break;
+								case INVENTORY1:
+									game.player.equip(0);
+									break;
+								case INVENTORY2:
+									game.player.equip(1);
+									break;
+								case INVENTORY3:
+									game.player.equip(2);
+									break;
+								case INVENTORY4:
+									game.player.equip(3);
+									break;
+								case INVENTORY5:
+									game.player.equip(4);
+									break;
+								case INVENTORY6:
+									game.player.equip(5);
+									break;
+							}
+							slot = Slots.NONE;
+						} else if (422 <= x && x <= 484 && 222 <= y && y <= 242) { // Drop button
+							switch(slot) {
+								case HEAD:
+									game.player.drop(0);
+									break;
+								case CHEST:
+									game.player.drop(1);
+									break;
+								case LEGS:
+									game.player.drop(2);
+									break;
+								case WEAPON:
+									game.player.drop(3);
+									break;
+								case SHIELD:
+									game.player.drop(4);
+									break;
+								case INVENTORY1:
+									game.player.drop(5);
+									break;
+								case INVENTORY2:
+									game.player.drop(6);
+									break;
+								case INVENTORY3:
+									game.player.drop(7);
+									break;
+								case INVENTORY4:
+									game.player.drop(8);
+									break;
+								case INVENTORY5:
+									game.player.drop(9);
+									break;
+								case INVENTORY6:
+									game.player.drop(10);
+									break;
+								default:
+									break;
+							}
+							slot = Slots.NONE;
+						}
+					}
 					break;
 				case HELP:
 					if (343 <= x && x <= 392 && y <= 24) { // Back button
@@ -342,7 +428,7 @@ public class Menu {
 				}
 				// Gear Menu
 				width = 6;
-				height = 6;
+				height = 8;
 				screen.render(screen.xOffset+screen.width-width*8, screen.yOffset+8, 31+10*32, Colors.get(-1,100,310,000), 0x00, 1); // Top left corner
 				screen.render(screen.xOffset+screen.width-8, screen.yOffset+8, 31+10*32, Colors.get(-1,100,310,000), 0x01, 1); // Top right corner
 				screen.render(screen.xOffset+screen.width-width*8, screen.yOffset+height*8, 31+10*32, Colors.get(-1,100,310,000), 0x02, 1); // Bottom left corner
@@ -351,7 +437,7 @@ public class Menu {
 					screen.render(screen.xOffset+screen.width-(width-1)*8+i*8, screen.yOffset+8, 30+10*32, Colors.get(-1,100,310,000), 0x00, 1);
 				}
 				for (int i=0; i<width-2; i++) { // Bottom of menu
-					screen.render(screen.xOffset+screen.width-(width-1)*8+i*8, screen.yOffset+width*8, 30+10*32, Colors.get(-1,100,310,000), 0x02, 1);
+					screen.render(screen.xOffset+screen.width-(width-1)*8+i*8, screen.yOffset+height*8, 30+10*32, Colors.get(-1,100,310,000), 0x02, 1);
 				}
 				for (int i=0; i<height-2; i++) { // Left of menu
 					screen.render(screen.xOffset+screen.width-width*8, screen.yOffset+16+i*8, 29+10*32, Colors.get(-1,100,310,000), 0x00, 1);
@@ -373,7 +459,7 @@ public class Menu {
 				screen.render(screen.xOffset+screen.width-20, screen.yOffset+24, 28+11*32, Colors.get(-1,100,420,000), 0x00, 1); // Shield
 				// Inventory
 				for (int i=0; i<6; i++) {
-					screen.render(screen.xOffset+screen.width-48+i*8, screen.yOffset+48, 28+11*32, Colors.get(-1,100,420,000), 0x00, 1);
+					screen.render(screen.xOffset+screen.width-48+i*8, screen.yOffset+64, 28+11*32, Colors.get(-1,100,420,000), 0x00, 1);
 				}
 				// Actual gear
 				if (game.player.getHead() != null) {
@@ -407,8 +493,57 @@ public class Menu {
 						} else if (e instanceof Legs) {
 							xTile += 5;
 						}
-						screen.render(screen.xOffset+screen.width-48+i*8, screen.yOffset+48, xTile+yTile*32, Colors.get(-1,222,444,320), 0x00, 1);
+						screen.render(screen.xOffset+screen.width-48+i*8, screen.yOffset+64, xTile+yTile*32, Colors.get(-1,222,444,320), 0x00, 1);
 					}
+				}
+				// Item has been selected
+				if (slot != Slots.NONE) {
+					for (int i=0; i<3; i++) {
+						screen.render(screen.xOffset+screen.width-48+i*8, screen.yOffset+72, 28+i+9*32, Colors.get(-1,100,310,000), 0x00, 1);
+						screen.render(screen.xOffset+screen.width-24+i*8, screen.yOffset+72, 28+i+8*32, Colors.get(-1,100,310,000), 0x00, 1);
+					}
+					Item item = null;
+					switch (slot) {
+						case HEAD:
+							item = game.player.getHead();
+							break;
+						case CHEST:
+							item = game.player.getChest();
+							break;
+						case LEGS:
+							item = game.player.getLegs();
+							break;
+						case WEAPON:
+							item = game.player.getWeapon();
+							break;
+						case SHIELD:
+							item = game.player.getShield();
+							break;
+						case INVENTORY1:
+							item = game.player.getInventory(0);
+							break;
+						case INVENTORY2:
+							item = game.player.getInventory(1);
+							break;
+						case INVENTORY3:
+							item = game.player.getInventory(2);
+							break;
+						case INVENTORY4:
+							item = game.player.getInventory(3);
+							break;
+						case INVENTORY5:
+							item = game.player.getInventory(4);
+							break;
+						case INVENTORY6:
+							item = game.player.getInventory(5);
+							break;
+					}
+					// Dex
+					Font.render("Dex:" + item.getDexterity(), screen, screen.xOffset+screen.width-48, screen.yOffset+40, Colors.get(-1,-1,-1,000), 1);
+					// Int
+					Font.render("Int:" + item.getDexterity(), screen, screen.xOffset+screen.width-48, screen.yOffset+48, Colors.get(-1,-1,-1,000), 1);
+					// Vit
+					Font.render("Vit:" + item.getDexterity(), screen, screen.xOffset+screen.width-48, screen.yOffset+56, Colors.get(-1,-1,-1,000), 1);
 				}
 				break;
 			case HELP:

@@ -40,11 +40,11 @@ public class Player extends Mob {
 		this.mainX = x;
 		this.mainY = y;
 		this.input = input;
-		inventory[0] = new Helmet(level,"Helmet","Standard",0,0,0);
-		inventory[1] = new Chest(level,"Chest","Standard",0,0,0);
-		inventory[2] = new Legs(level,"Legs","",0,0,0);
-		inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
-		inventory[4] = new Shield(level,"Shield","Standard",0,0,0);
+		inventory[0] = new Helmet(level,"Helmet","Standard",1,1,1);
+		inventory[1] = new Chest(level,"Chest","Standard",2,2,2);
+		inventory[2] = new Legs(level,"Legs","Standard",3,3,3);
+		inventory[3] = new Weapon(level,"Weapon","Standard",4,4,4);
+		inventory[4] = new Shield(level,"Shield","Standard",5,5,5);
 	}
 
 	/**
@@ -306,6 +306,49 @@ public class Player extends Mob {
 				}
 				return;
 			}
+		}
+	}
+	/**
+	 * Drop the item from the corresponding slot (equiped slots included).
+	 * @param slot 	Slot to drop the item from.
+	 */
+	public void drop(int slot) {
+		switch (slot) {
+			case 0:
+				helmet = null;
+				break;
+			case 1:
+				chest = null;
+				break;
+			case 2:
+				legs = null;
+				break;
+			case 3:
+				weapon = null;
+				break;
+			case 4:
+				shield = null;
+				break;
+			case 5:
+				inventory[0] = null;
+				break;
+			case 6:
+				inventory[1] = null;
+				break;
+			case 7:
+				inventory[2] = null;
+				break;
+			case 8:
+				inventory[3] = null;
+				break;
+			case 9:
+				inventory[4] = null;
+				break;
+			case 10:
+				inventory[5] = null;
+				break;
+			default:
+				break;
 		}
 	}
 
