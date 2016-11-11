@@ -31,7 +31,6 @@ public class Player extends Mob {
 	private Item shield = null;
 	private Item[] inventory = new Item[6];
 	private int attributePoints = 0;
-	public String role;
 
 	/**
 	 * Constructor the Player object.
@@ -46,21 +45,6 @@ public class Player extends Mob {
 		this.mainX = x;
 		this.mainY = y;
 		this.input = input;
-		if(this.role=="PALADIN")
-		{
-			inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
-			inventory[4] = new Shield(level,"Shield","Standard",0,0,0);
-		}
-		if(this.role=="WIZARD")
-		{
-			inventory[0] = new Helmet(level,"Helmet","Standard",0,0,0);
-			inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
-		}
-		if(this.role=="HUNTER")
-		{
-			inventory[2] = new Legs(level,"Legs","",0,0,0);
-			inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
-		}
 	}
 
 	/**
@@ -371,16 +355,20 @@ public class Player extends Mob {
 		vitality++;
 		attributePoints--;
 	}
-/*	public void setRolePaladin()
+	//TODO comment and set stats
+	public void setPaladinInventory()
 	{
-			role="PALADIN";
+		inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
+		inventory[4] = new Shield(level,"Shield","Standard",0,0,0);
 	}
-	public void setRoleWizard()
+	public void setWizardInventory()
 	{
-		role="WIZARD";
+		inventory[0] = new Helmet(level,"Helmet","Standard",0,0,0);
+		inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
 	}
-	public void setRoleHunter()
+	public void setHunterInventory()
 	{
-		role="HUNTER";
-	}*/
+		inventory[2] = new Legs(level,"Legs","",0,0,0);
+		inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
+	}
 }

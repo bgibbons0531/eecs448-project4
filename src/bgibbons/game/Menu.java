@@ -44,15 +44,15 @@ public class Menu {
 					break;
 				case CLASSES:
 					if (28 <= x && x <= 215 && 103 <= y && y <= 166) {
-						game.role = "PALADIN";
+						game.player.setPaladinInventory();
 						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
 					} else if (28 <= x && x <= 215 && 214 <= y && y <= 266) {
-						game.role = "WIZARD";
+						game.player.setWizardInventory();
 						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
 					} else if (28 <= x && x <= 215 && 299 <= y && y <= 366) {
-						game.role = "HUNTER";
+						game.player.setHunterInventory();
 						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
 					}

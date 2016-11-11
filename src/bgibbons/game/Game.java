@@ -22,7 +22,7 @@ import bgibbons.game.level.Level;
  * @author Brad Gibbons
  * @author Jackson Schilmoeller
  * @author Rony Singh
- * @version 1.0 20 October 2016
+ * @version 1.0 20 November 2016
  */
 public class Game extends Canvas implements Runnable
 {
@@ -53,16 +53,8 @@ public class Game extends Canvas implements Runnable
 	public Player player;		// Declare the Player object.
 	public Menu menu;			// Declare the Menu object.
 	public Sound sound;			//Declare the Sound object.
-	public String role; //Declare the player role
 	public enum States {START, CLASSES, RUNNING, PAUSED, COMBAT, POSTCOMBAT, OVER}
 	public States state;
-	/**
-	 * Set the player class
-	 *
-	public void setClass(String class)
-	{
-			role=class;
-	}*/
 	/**
 	 * Constructor for the Game object to initialize the JFrame.
 	 */
@@ -107,7 +99,7 @@ public class Game extends Canvas implements Runnable
 		input = new InputHandler(this);													// Initialize the InputHandler to interact with the Game.
 		main_level = new Level("/res/levels/main_level.png", "/res/entities/main_level.png");						// Initialize the Level object with the map and entities to be added on startup.
 		combatLevel = new Level("/res/levels/combat_level.png", null);			// Initialize the combat level object with the map, but no entities.
-		player = new Player(main_level, 16, main_level.height*8/2, input, role);				// Initialize the Player object with the level at the set coordinates interacting with the input handler.
+		player = new Player(main_level, 16, main_level.height*8/2, input);				// Initialize the Player object with the level at the set coordinates interacting with the input handler.
 		main_level.addEntity(player);													// Add the player to the level.
 		menu = new Menu(input);															// Initialize the Menu object with the input handler.
 		state = States.START;
