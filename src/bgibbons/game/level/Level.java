@@ -159,9 +159,7 @@ public class Level {
 		}
 
 		if(eWinner instanceof Mob){
-			System.out.println("Enemy Defeated!");
 			removeEntity(eWinner);
-			System.out.println(entities.size());
 		}
 		for (Tile t : Tile.tiles) {
 			if (t == null) {
