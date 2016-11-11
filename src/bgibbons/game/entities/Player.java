@@ -41,12 +41,11 @@ public class Player extends Mob {
 	 * @param input 	The InputHandler used to control the player.
 	 * @param Class 	The Class type chosen for the charcter
 	 */
-	public Player(Level level, int x, int y, InputHandler input, String role) {
+	public Player(Level level, int x, int y, InputHandler input) {
 		super(level, "Player", x, y, 10, 1, 1, 100);
 		this.mainX = x;
 		this.mainY = y;
 		this.input = input;
-		this.role = role;
 		if(this.role=="PALADIN")
 		{
 			inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
@@ -372,4 +371,16 @@ public class Player extends Mob {
 		vitality++;
 		attributePoints--;
 	}
+/*	public void setRolePaladin()
+	{
+			role="PALADIN";
+	}
+	public void setRoleWizard()
+	{
+		role="WIZARD";
+	}
+	public void setRoleHunter()
+	{
+		role="HUNTER";
+	}*/
 }

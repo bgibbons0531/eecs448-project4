@@ -9,7 +9,8 @@ import bgibbons.game.graphics.Screen;
 /**
  * Class to handle menu interaction and display.
  * @author Brad Gibbons
- * @version 1.0 15 October 2016
+ * @author Rony Singh
+ * @version 1.0 20 November 2016
  */
 public class Menu {
 
@@ -43,16 +44,16 @@ public class Menu {
 					break;
 				case CLASSES:
 					if (28 <= x && x <= 215 && 103 <= y && y <= 166) {
-						game.state = Game.States.RUNNING;
 						game.role = "PALADIN";
+						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
 					} else if (28 <= x && x <= 215 && 214 <= y && y <= 266) {
-						game.state = Game.States.RUNNING;
 						game.role = "WIZARD";
+						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
 					} else if (28 <= x && x <= 215 && 299 <= y && y <= 366) {
-						game.state = Game.States.RUNNING;
 						game.role = "HUNTER";
+						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
 					}
 					break;

@@ -53,7 +53,7 @@ public class Game extends Canvas implements Runnable
 	public Player player;		// Declare the Player object.
 	public Menu menu;			// Declare the Menu object.
 	public Sound sound;			//Declare the Sound object.
-	public String role = "";
+	public String role; //Declare the player role
 	public enum States {START, CLASSES, RUNNING, PAUSED, COMBAT, POSTCOMBAT, OVER}
 	public States state;
 	/**
