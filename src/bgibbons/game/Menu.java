@@ -15,7 +15,7 @@ public class Menu {
 
 	public enum MenuStates { START, CLASSES, CLOSED, OPEN, STATS, GEAR, HELP, COMBAT }
 	public MenuStates state;
-	
+
 	private InputHandler input;
 
 	/**
@@ -44,12 +44,15 @@ public class Menu {
 				case CLASSES:
 					if (28 <= x && x <= 215 && 103 <= y && y <= 166) {
 						game.state = Game.States.RUNNING;
+						game.role = "PALADIN";
 						state = MenuStates.CLOSED;
 					} else if (28 <= x && x <= 215 && 214 <= y && y <= 266) {
 						game.state = Game.States.RUNNING;
+						game.role = "WIZARD";
 						state = MenuStates.CLOSED;
 					} else if (28 <= x && x <= 215 && 299 <= y && y <= 366) {
 						game.state = Game.States.RUNNING;
+						game.role = "HUNTER";
 						state = MenuStates.CLOSED;
 					}
 					break;
@@ -120,7 +123,7 @@ public class Menu {
 						game.player.equip(4);
 					} else if (469 <= x && x <= 486 && 150 <= y && y <= 168) { // Inventory Slot 6
 						game.player.equip(5);
-					} 
+					}
 					break;
 				case HELP:
 					if (343 <= x && x <= 392 && y <= 24) { // Back button
@@ -152,7 +155,7 @@ public class Menu {
 	 * Render the current menu to the screen.
 	 * @param game 		The main game object.
 	 * @param screen 	Screen to render to.
-	 */	
+	 */
 	public void render(Game game, Screen screen) {
 		int width = 0;
 		int height = 0;

@@ -11,7 +11,8 @@ import bgibbons.game.level.Level;
  * An extension of the Mob class for a player.
  * @author Brad Gibbons
  * @author Chris Porras
- * @version 1.0 12 October 2016.
+ * @author Rony Singh
+ * @version 1.0 13 November 2016.
  */
 public class Player extends Mob {
 
