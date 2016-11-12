@@ -16,9 +16,6 @@ import bgibbons.game.level.Level;
  */
 public class Player extends Mob {
 
-	/*public enum PlayerClass {PALADIN,WIZARD,HUNTER}
-	public PlayerClass role;*/
-
 	public int mainX;
 	public int mainY;
 	private InputHandler input;
@@ -358,17 +355,17 @@ public class Player extends Mob {
 	//TODO comment and set stats
 	public void setPaladinInventory()
 	{
-		inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
-		inventory[4] = new Shield(level,"Shield","Standard",0,0,0);
+		inventory[0] = new Weapon(level,"Weapon","Standard",5,4,6);
+		inventory[1] = new Shield(level,"Shield","Standard",5,4,6);
 	}
 	public void setWizardInventory()
 	{
-		inventory[0] = new Helmet(level,"Helmet","Standard",0,0,0);
-		inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
+		inventory[0] = new Helmet(level,"Helmet","Standard",5,6,4);
+		inventory[1] = new Weapon(level,"Weapon","Standard",5,6,4);
 	}
 	public void setHunterInventory()
 	{
-		inventory[2] = new Legs(level,"Legs","",0,0,0);
-		inventory[3] = new Weapon(level,"Weapon","Standard",0,0,0);
+		inventory[0] = new Legs(level,"Legs","Standard",6,5,5);
+		inventory[1] = new Weapon(level,"Weapon","Standard",6,5,5);
 	}
 }

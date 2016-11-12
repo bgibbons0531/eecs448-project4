@@ -1,13 +1,14 @@
 package bgibbons.game.abilities;
-
 import java.lang.RuntimeException;
 
 /**
  * Base ability class to be extended by other abilities.
  * @author Brad Gibbons
- * @version 1.0, 28 October 2016.
+ * @author Rony Singh
+ * @version 1.0. 40 November 2016.
  */
-public abstract class Ability {
+public abstract class Ability 
+{
 	public static final Ability[] abilities = new Ability[256];
 	public static final Ability STRIKE = new OffensiveAbility(0, "Strike      ", 1, 2, false);
 	public static final Ability SHIELD_BASH = new OffensiveAbility(1, "ShieldBash  ", 6, 1, true);
