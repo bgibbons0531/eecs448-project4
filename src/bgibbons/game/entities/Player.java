@@ -6,6 +6,7 @@ import bgibbons.game.graphics.Colors;
 import bgibbons.game.graphics.Font;
 import bgibbons.game.graphics.Screen;
 import bgibbons.game.level.Level;
+import bgibbons.game.abilities.*;
 
 /**
  * An extension of the Mob class for a player.
@@ -28,7 +29,7 @@ public class Player extends Mob {
 	private Item shield = null;
 	private Item[] inventory = new Item[6];
 	private int attributePoints = 0;
-
+	
 	/**
 	 * Constructor the Player object.
 	 * @param level 	Level for the player to be added to.
@@ -400,15 +401,39 @@ public class Player extends Mob {
 	{
 		inventory[0] = new Weapon(level,"Weapon","Standard",5,4,6);
 		inventory[1] = new Shield(level,"Shield","Standard",5,4,6);
+		setPaladinAbilities();
 	}
 	public void setWizardInventory()
 	{
 		inventory[0] = new Helmet(level,"Helmet","Standard",5,6,4);
 		inventory[1] = new Weapon(level,"Weapon","Standard",5,6,4);
+		setWizardAbilities();
 	}
 	public void setHunterInventory()
 	{
 		inventory[0] = new Legs(level,"Legs","Standard",6,5,5);
 		inventory[1] = new Weapon(level,"Weapon","Standard",6,5,5);
+		setHunterAbilities();
+	}
+	public void setPaladinAbilities()
+	{
+		Mob.ability1 = Ability.STRIKE;
+		Mob.ability2 = Ability.SHIELD_BASH;
+		Mob.ability3 = Ability.DIVINE_CALL;
+		Mob.ability4 = Ability.HOLY_SMITE;
+	}
+	public void setWizardAbilities()
+	{
+		Mob.ability1 = Ability.BONK;
+		Mob.ability2 = Ability.SCORCH;
+		Mob.ability3 = Ability.FIRE_WALL;
+		Mob.ability4 = Ability.KABOOM;
+	}
+	public void setHunterAbilities()
+	{
+		Mob.ability1 = Ability.STAB;
+		Mob.ability2 = Ability.KNIFE_THROW;
+		Mob.ability3 = Ability.SMOKE_BOMB;
+		Mob.ability4 = Ability.MARK;
 	}
 }

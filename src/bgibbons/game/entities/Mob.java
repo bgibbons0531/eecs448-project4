@@ -25,10 +25,10 @@ public abstract class Mob extends Entity {
 	protected int dexterity = 5;
 	protected int intelligence = 5;
 	protected int vitality = 5;
-	protected Ability ability1;
-	protected Ability ability2;
-	protected Ability ability3;
-	protected Ability ability4;
+	protected static Ability ability1;
+	protected static Ability ability2;
+	protected static Ability ability3;
+	protected static Ability ability4;
 
 	protected int speed;
 	protected int numSteps = 0;
@@ -66,10 +66,6 @@ public abstract class Mob extends Entity {
 		this.dexterity = 5;
 		this.intelligence = 5;
 		this.vitality = 5;
-		this.ability1 = Ability.STRIKE;
-		this.ability2 = Ability.SHIELD_BASH;
-		this.ability3 = Ability.DIVINE_CALL;
-		this.ability4 = Ability.HOLY_SMITE;
 	}
 
 	/**
