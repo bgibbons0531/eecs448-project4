@@ -145,15 +145,17 @@ public class Level {
 		Entity eWinner = null;
 		for (Entity e : entities) { 
 			e.tick();
-			Entity e1 = getTouching(e);
-			if(e1 instanceof Mob){
-				Random rand = new Random();
-				winner = rand.nextInt(1);
-				if(winner == 0){
-					eWinner = e1;
-				}
-				else if(winner == 1){
-					eWinner = e;
+			if (!(e instanceof Player)) {
+				Entity e1 = getTouching(e);
+				if(e1 instanceof Orc && !(e1 instanceof Player)){
+					Random rand = new Random();
+					winner = rand.nextInt(1);
+					if(winner == 0){
+						eWinner = e1;
+					}
+					else if(winner == 1){
+						eWinner = e;
+					}
 				}
 			}
 		}
