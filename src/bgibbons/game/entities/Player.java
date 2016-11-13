@@ -305,6 +305,49 @@ public class Player extends Mob {
 			}
 		}
 	}
+	/**
+	 * Drop the item from the corresponding slot (equiped slots included).
+	 * @param slot 	Slot to drop the item from.
+	 */
+	public void drop(int slot) {
+		switch (slot) {
+			case 0:
+				helmet = null;
+				break;
+			case 1:
+				chest = null;
+				break;
+			case 2:
+				legs = null;
+				break;
+			case 3:
+				weapon = null;
+				break;
+			case 4:
+				shield = null;
+				break;
+			case 5:
+				inventory[0] = null;
+				break;
+			case 6:
+				inventory[1] = null;
+				break;
+			case 7:
+				inventory[2] = null;
+				break;
+			case 8:
+				inventory[3] = null;
+				break;
+			case 9:
+				inventory[4] = null;
+				break;
+			case 10:
+				inventory[5] = null;
+				break;
+			default:
+				break;
+		}
+	}
 
 	/**
 	 * Picks up the item the player ran over.
