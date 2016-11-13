@@ -5,7 +5,7 @@ import java.lang.RuntimeException;
  * Base ability class to be extended by other abilities.
  * @author Brad Gibbons
  * @author Rony Singh
- * @version 1.0. 40 November 2016.
+ * @version 1.0. 50 November 2016.
  */
 public abstract class Ability 
 {
@@ -24,7 +24,7 @@ public abstract class Ability
 	public static final Ability KNIFE_THROW = new OffensiveAbility(9, "Knife Throw ", 6, 1, true);
 	public static final Ability SMOKE_BOMB = new DefensiveAbility(10, "Smoke Bomb  ", 10, 2, 1);
 	public static final Ability MARK = new OffensiveAbility(11, "Mark        ", 12, 10, false);
-	
+
 	protected byte id;
 	protected String name;
 	protected int cooldown;

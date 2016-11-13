@@ -13,7 +13,7 @@ import bgibbons.game.abilities.*;
  * @author Brad Gibbons
  * @author Chris Porras
  * @author Rony Singh
- * @version 1.0 13 November 2016.
+ * @version 1.0 20 November 2016.
  */
 public class Player extends Mob {
 
@@ -29,7 +29,7 @@ public class Player extends Mob {
 	private Item shield = null;
 	private Item[] inventory = new Item[6];
 	private int attributePoints = 0;
-	
+
 	/**
 	 * Constructor the Player object.
 	 * @param level 	Level for the player to be added to.

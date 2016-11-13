@@ -11,7 +11,8 @@ import java.lang.Math;
  * @author Brad Gibbons
  * @author Chris Porras
  * @author Jackson Schilmoeller
- * @version 1.0 12 October 2016
+ * @author Rony Singh
+ * @version 1.0 20 November 2016
  */
 public abstract class Mob extends Entity {
 
