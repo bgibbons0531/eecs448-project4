@@ -48,37 +48,11 @@ public abstract class Enemy extends Mob {
 			rankUp();
 		}
 
-		// Move orc
-		int xa = 0;
-		int ya = 0;
-
-		if(numSteps % 120 < 30 ){
-			ya=1;
-		}
-		else if (numSteps % 120 >= 30 && numSteps % 120 < 60){
-			xa=1;
-		}
-		else if (numSteps % 120 >= 60 && numSteps % 120 < 90){
-			ya=-1;
-		}
-		else if (numSteps % 120 >= 90){
-			xa=-1;
+		if(this instanceof Orc){
+			moveOrc();
 		}
 
 
-		if (xa != 0 || ya != 0) {
-			move(xa, ya);
-			isMoving = true;
-		} else {
-			isMoving = false;
-		}
-
-		if (level.getTile(this.x >> 3, this.y >> 3).getId() == 3) {
-			isSwimming = true;
-		}
-		if  (isSwimming && level.getTile(this.x >> 3, this.y >> 3).getId() != 3) {
-			isSwimming = false;
-		}
 		tickCount++;
 	}
 
@@ -180,6 +154,13 @@ public abstract class Enemy extends Mob {
 
 		return false;
 	}
-
+	/**
+	 * Level up the mob once max exp is reached.
+	 */
 	public abstract void rankUp();
+	
+	/*
+	* Method to determine the movement of orcs
+	*/
+	public abstract void moveOrc();
 }
