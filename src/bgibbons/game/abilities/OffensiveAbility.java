@@ -4,6 +4,8 @@ public class OffensiveAbility extends Ability {
 	
 	protected int damage;
 	protected boolean stun;
+	protected String type;
+	protected int scale;
 
 	/**
 	 * Sole constructor for the OffensiveAbility class.
@@ -13,10 +15,12 @@ public class OffensiveAbility extends Ability {
 	 * @param damage 	Amount of damage the ability does.
 	 * @param stun 		If the ability stuns or not.
 	 */
-	public OffensiveAbility(int id, String name, int cooldown, int damage, boolean stun) {
+	public OffensiveAbility(int id, String name, int cooldown, int damage, String type, int scale, boolean stun) {
 		super(id, name, cooldown);
 		this.damage = damage;
 		this.stun = stun;
+		this.type = type;
+		this.scale = scale;
 	}
 
 	/**
@@ -26,6 +30,23 @@ public class OffensiveAbility extends Ability {
 	public int getDamage() {
 		return damage;
 	}
+
+	/**
+	 * Returns the type of stat the ability scales with.
+	 * @return A string of the stat to scale with, empty string for no scaling, rank for scale on rank.
+	 */
+	public String getType(){
+		return type;
+	}
+
+	/**
+	 * Returns the scaling of the ability. Specifically, the number of x stats required to increase the damage/heal by 1 point.
+	 * @return The scaling of the ability. 
+	 */
+	public int getScale(){
+		return scale;
+	}
+
 
 	/**
 	 * Returns whether or the ability stuns or not.
