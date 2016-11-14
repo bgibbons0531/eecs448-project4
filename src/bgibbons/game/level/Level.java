@@ -12,6 +12,8 @@ import bgibbons.game.entities.*;
 import bgibbons.game.graphics.Screen;
 import bgibbons.game.level.tiles.Tile;
 
+import java.util.Random;
+
 /**
  * Class to handle the game level including the tiles and and entities.
  * @author Brad Gibbons
@@ -139,8 +141,27 @@ public class Level {
 	 * Ticks the tiles and entities in the level.
 	 */
 	public void tick() {
+		int winner;
+		Entity eWinner = null;
 		for (Entity e : entities) { 
 			e.tick();
+			if (!(e instanceof Player)) {
+				Entity e1 = getTouching(e);
+				if(e1 instanceof Orc && !(e1 instanceof Player)){
+					Random rand = new Random();
+					winner = rand.nextInt(1);
+					if(winner == 0){
+						eWinner = e1;
+					}
+					else if(winner == 1){
+						eWinner = e;
+					}
+				}
+			}
+		}
+
+		if(eWinner instanceof Mob){
+			removeEntity(eWinner);
 		}
 		for (Tile t : Tile.tiles) {
 			if (t == null) {
