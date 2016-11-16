@@ -142,6 +142,7 @@ public class Level {
 	 */
 	public void tick() {
 		int winner;
+		Entity eLoser = null;
 		Entity eWinner = null;
 		for (Entity e : entities) { 
 			e.tick();
@@ -151,17 +152,20 @@ public class Level {
 					Random rand = new Random();
 					winner = rand.nextInt(1);
 					if(winner == 0){
-						eWinner = e1;
+						eWinner = e;
+						eLoser = e1;
 					}
 					else if(winner == 1){
-						eWinner = e;
+						eWinner = e1;
+						eLoser = e;
 					}
 				}
 			}
 		}
 
-		if(eWinner instanceof Mob){
-			removeEntity(eWinner);
+		if(eLoser instanceof Mob && eWinner instanceof Mob){
+			removeEntity(eLoser);
+			eWinner.addExp(20);
 		}
 		for (Tile t : Tile.tiles) {
 			if (t == null) {
