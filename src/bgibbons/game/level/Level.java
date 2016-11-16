@@ -165,7 +165,7 @@ public class Level {
 
 		if(eLoser instanceof Mob && eWinner instanceof Mob){
 			removeEntity(eLoser);
-			eWinner.addExp(20);
+			((Mob)eWinner).addExp(20);
 		}
 		for (Tile t : Tile.tiles) {
 			if (t == null) {
