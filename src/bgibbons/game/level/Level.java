@@ -18,6 +18,7 @@ import java.util.Random;
  * Class to handle the game level including the tiles and and entities.
  * @author Brad Gibbons
  * @author Jackson Schilmoeller
+ * @author Chris Porras
  * @version 1.0 12 October, 2016
  */
 public class Level {
@@ -26,6 +27,9 @@ public class Level {
 	public int width;
 	public int height;
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
+	public ArrayList<Orc> area1Orcs = new ArrayList<Orc>();
+	public ArrayList<Orc> area2Orcs = new ArrayList<Orc>();
+	public ArrayList<Orc> area3Orcs = new ArrayList<Orc>();
 	private String tileImagePath;
 	private String entityImagePath;
 	private BufferedImage tileImage;
@@ -239,6 +243,17 @@ public class Level {
 	 */
 	public void addEntity(Entity entity) {
 		this.entities.add(entity);
+		if(entity instanceof Orc){
+			if((entity.x)<65*8 && (entity.x)>8){
+				this.area1Orcs.add((Orc)entity);
+			}
+			else if((entity.x)>84*8 && (entity.x)<148*8){
+				this.area2Orcs.add((Orc)entity);
+			}
+			else if((entity.x)>167*8 && (entity.x)<232*8){
+				this.area3Orcs.add((Orc)entity);
+			}
+		}
 		entity.setLevel(this);
 	}
 
