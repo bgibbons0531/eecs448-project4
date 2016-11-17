@@ -127,7 +127,7 @@ public abstract class Mob extends Entity {
 		Tile lastTile = level.getTile((this.x + x)>>3, (this.y + y)>>3);
 		Tile newTile = level.getTile((this.x + x + xa)>>3, (this.y + y + ya)>>3);
 
-		if (!lastTile.equals(newTile) && newTile.isSolid()) {
+		if (!lastTile.equals(newTile) && newTile.isSolid() || (this instanceof Orc && newTile.getId()==4)) {
 			return true;
 		}
 		return false;

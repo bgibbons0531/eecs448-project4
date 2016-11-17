@@ -243,7 +243,7 @@ public class Level {
 	 */
 	public void addEntity(Entity entity) {
 		this.entities.add(entity);
-		if(entity instanceof Orc){
+		if(entity instanceof Orc){								//adds orcs to their proper arraylist based on starting location
 			if((entity.x)<65*8 && (entity.x)>8){
 				this.area1Orcs.add((Orc)entity);
 			}
