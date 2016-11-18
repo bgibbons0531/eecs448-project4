@@ -49,7 +49,7 @@ public class Orc extends Enemy {
 		if(stepsTaken >= stop){
 			stepsTaken = 0;
 			stop = rand.nextInt(20)+11;
-			direction = rand.nextInt(4);
+			direction = rand.nextInt(5);
 		}
 
 
@@ -72,6 +72,9 @@ public class Orc extends Enemy {
 		}
 		else if(direction == 3){
 			xa++;
+			stepsTaken++;
+		}
+		else if(direction == 4){
 			stepsTaken++;
 		}
 
