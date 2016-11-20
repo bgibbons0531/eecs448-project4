@@ -17,17 +17,15 @@ import bgibbons.game.graphics.HUD;
 import bgibbons.game.graphics.Screen;
 import bgibbons.game.graphics.SpriteSheet;
 import bgibbons.game.level.Level;
-
 /**
  * Main class for the game engine.
  * @author Brad Gibbons
  * @author Jackson Schilmoeller
  * @author Rony Singh
- * @version 1.0 20 October 2016
+ * @version 1.0 20 November 2016
  */
 public class Game extends Canvas implements Runnable
 {
-
 	private static final long serialVersionUID = 1L;
 
 	public static final int WIDTH = 160;				// Width of the image to be displayed
@@ -55,10 +53,8 @@ public class Game extends Canvas implements Runnable
 	public Player player;		// Declare the Player object.
 	public Menu menu;			// Declare the Menu object.
 	public Sound sound;			//Declare the Sound object.
-
 	public enum States {START, CLASSES, RUNNING, PAUSED, COMBAT, POSTCOMBAT, OVER}
 	public States state;
-
 	/**
 	 * Constructor for the Game object to initialize the JFrame.
 	 */

@@ -9,7 +9,8 @@ import bgibbons.game.graphics.Screen;
 /**
  * Class to handle menu interaction and display.
  * @author Brad Gibbons
- * @version 1.0 15 October 2016
+ * @author Rony Singh
+ * @version 1.0 20 November 2016
  */
 public class Menu {
 
@@ -17,10 +18,12 @@ public class Menu {
 	public enum Slots { NONE, HEAD, CHEST, LEGS, WEAPON, SHIELD, INVENTORY1, INVENTORY2, INVENTORY3, INVENTORY4, INVENTORY5, INVENTORY6 }
 
 	public MenuStates state;
+
 	public Slots slot;
 
 	private boolean itemSelected;
 	
+
 	private InputHandler input;
 
 	/**
@@ -50,12 +53,15 @@ public class Menu {
 					break;
 				case CLASSES:
 					if (28 <= x && x <= 215 && 103 <= y && y <= 166) {
+						game.player.setPaladinInventory();
 						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
 					} else if (28 <= x && x <= 215 && 214 <= y && y <= 266) {
+						game.player.setWizardInventory();
 						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
 					} else if (28 <= x && x <= 215 && 299 <= y && y <= 366) {
+						game.player.setHunterInventory();
 						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
 					}
@@ -105,6 +111,30 @@ public class Menu {
 						state = MenuStates.OPEN;
 					} else if (393 <= x && y <= 24) { // Close button
 						state = MenuStates.CLOSED;
+
+					} else if (407 <= x && x <= 425 && 51 <= y && y <= 69) { // Head Slot
+						game.player.unEquip(game.player.getHead());
+					} else if (407 <= x && x <= 425 && 76 <= y && y <= 93) { // Chest Slot
+						game.player.unEquip(game.player.getChest());
+					} else if (407 <= x && x <= 425 && 102 <= y && y <= 119) { // Legs Slot
+						game.player.unEquip(game.player.getLegs());
+					} else if (383 <= x && x <= 401 && 76 <= y && y <= 93) { // Weapon Slot
+						game.player.unEquip(game.player.getWeapon());
+					} else if (432 <= x && x <= 449 && 76 <= y && y <= 93) { // Shield Slot
+						game.player.unEquip(game.player.getShield());
+					} else if (346 <= x && x <= 363 && 150 <= y && y <= 168) { // Inventory Slot 1
+						game.player.equip(0);
+					} else if (370 <= x && x <= 387 && 150 <= y && y <= 168) { // Inventory Slot 2
+						game.player.equip(1);
+					} else if (394 <= x && x <= 412 && 150 <= y && y <= 168) { // Inventory Slot 3
+						game.player.equip(2);
+					} else if (419 <= x && x <= 437 && 150 <= y && y <= 168) { // Inventory Slot 4
+						game.player.equip(3);
+					} else if (444 <= x && x <= 462 && 150 <= y && y <= 168) { // Inventory Slot 5
+						game.player.equip(4);
+					} else if (469 <= x && x <= 486 && 150 <= y && y <= 168) { // Inventory Slot 6
+						game.player.equip(5);
+
 					} else if (407 <= x && x <= 425 && 51 <= y && y <= 69 && game.player.getHead() != null) { // Head Slot
 						slot = Slots.HEAD;
 					} else if (407 <= x && x <= 425 && 76 <= y && y <= 93 && game.player.getChest() != null) { // Chest Slot
@@ -238,7 +268,7 @@ public class Menu {
 	 * Render the current menu to the screen.
 	 * @param game 		The main game object.
 	 * @param screen 	Screen to render to.
-	 */	
+	 */
 	public void render(Game game, Screen screen) {
 		int width = 0;
 		int height = 0;

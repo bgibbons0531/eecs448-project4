@@ -6,12 +6,14 @@ import bgibbons.game.graphics.Colors;
 import bgibbons.game.graphics.Font;
 import bgibbons.game.graphics.Screen;
 import bgibbons.game.level.Level;
+import bgibbons.game.abilities.*;
 
 /**
  * An extension of the Mob class for a player.
  * @author Brad Gibbons
  * @author Chris Porras
- * @version 1.0 12 October 2016.
+ * @author Rony Singh
+ * @version 1.0 20 November 2016.
  */
 public class Player extends Mob {
 
@@ -34,17 +36,13 @@ public class Player extends Mob {
 	 * @param x 		The x coordinate the player will start at.
 	 * @param y 		The y coordinate the player will start at.
 	 * @param input 	The InputHandler used to control the player.
+	 * @param Class 	The Class type chosen for the charcter
 	 */
 	public Player(Level level, int x, int y, InputHandler input) {
 		super(level, "Player", x, y, 10, 1, 1, 100);
 		this.mainX = x;
 		this.mainY = y;
 		this.input = input;
-		inventory[0] = new Helmet(level,"Helmet","Standard",1,1,1);
-		inventory[1] = new Chest(level,"Chest","Standard",2,2,2);
-		inventory[2] = new Legs(level,"Legs","Standard",3,3,3);
-		inventory[3] = new Weapon(level,"Weapon","Standard",4,4,4);
-		inventory[4] = new Shield(level,"Shield","Standard",5,5,5);
 	}
 
 	/**
@@ -290,9 +288,11 @@ public class Player extends Mob {
 			Item temp = shield;
 			shield = e;
 			inventory[index] = temp;
+
 			this.dexterity += this.shield.dexterity;
 			this.intelligence += this.shield.intelligence;
 			this.vitality += this.shield.vitality;
+
 		}
 	}
 
@@ -427,5 +427,45 @@ public class Player extends Mob {
 	public void increaseVitality() {
 		vitality++;
 		attributePoints--;
+	}
+	//TODO comment and set stats
+	public void setPaladinInventory()
+	{
+		inventory[0] = new Weapon(level,"Weapon","Standard",5,4,6);
+		inventory[1] = new Shield(level,"Shield","Standard",5,4,6);
+		setPaladinAbilities();
+	}
+	public void setWizardInventory()
+	{
+		inventory[0] = new Helmet(level,"Helmet","Standard",5,6,4);
+		inventory[1] = new Weapon(level,"Weapon","Standard",5,6,4);
+		setWizardAbilities();
+	}
+	public void setHunterInventory()
+	{
+		inventory[0] = new Legs(level,"Legs","Standard",6,5,5);
+		inventory[1] = new Weapon(level,"Weapon","Standard",6,5,5);
+		setHunterAbilities();
+	}
+	public void setPaladinAbilities()
+	{
+		Mob.ability1 = Ability.STRIKE;
+		Mob.ability2 = Ability.SHIELD_BASH;
+		Mob.ability3 = Ability.DIVINE_CALL;
+		Mob.ability4 = Ability.HOLY_SMITE;
+	}
+	public void setWizardAbilities()
+	{
+		Mob.ability1 = Ability.BONK;
+		Mob.ability2 = Ability.SCORCH;
+		Mob.ability3 = Ability.FIRE_WALL;
+		Mob.ability4 = Ability.KABOOM;
+	}
+	public void setHunterAbilities()
+	{
+		Mob.ability1 = Ability.STAB;
+		Mob.ability2 = Ability.KNIFE_THROW;
+		Mob.ability3 = Ability.SMOKE_BOMB;
+		Mob.ability4 = Ability.MARK;
 	}
 }

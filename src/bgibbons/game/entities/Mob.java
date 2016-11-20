@@ -11,7 +11,8 @@ import java.lang.Math;
  * @author Brad Gibbons
  * @author Chris Porras
  * @author Jackson Schilmoeller
- * @version 1.0 12 October 2016
+ * @author Rony Singh
+ * @version 1.0 20 November 2016
  */
 public abstract class Mob extends Entity {
 
@@ -25,13 +26,16 @@ public abstract class Mob extends Entity {
 	protected int dexterity = 5;
 	protected int intelligence = 5;
 	protected int vitality = 5;
+
+	protected static Ability ability1;
+	protected static Ability ability2;
+	protected static Ability ability3;
+	protected static Ability ability4;
+
 	protected int baseDex = 5;
 	protected int baseInt = 5;
 	protected int baseVit = 5;
-	protected Ability ability1;
-	protected Ability ability2;
-	protected Ability ability3;
-	protected Ability ability4;
+
 
 	protected int speed;
 	protected int numSteps = 0;
@@ -72,10 +76,6 @@ public abstract class Mob extends Entity {
 		this.baseDex = 5;
 		this.baseInt = 5;
 		this.baseVit = 5;
-		this.ability1 = Ability.STRIKE;
-		this.ability2 = Ability.SHIELD_BASH;
-		this.ability3 = Ability.DIVINE_CALL;
-		this.ability4 = Ability.HOLY_SMITE;
 	}
 
 	/**
@@ -282,7 +282,7 @@ public abstract class Mob extends Entity {
 	 */
 	public Ability getAbility(int index) {
 		switch(index) {
-			case(1): 
+			case(1):
 				return ability1;
 			case(2):
 				return ability2;
