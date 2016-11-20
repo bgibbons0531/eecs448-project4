@@ -7,7 +7,7 @@ import java.lang.RuntimeException;
  * @author Rony Singh
  * @version 1.0. 50 November 2016.
  */
-public abstract class Ability 
+public abstract class Ability
 {
 	public static final Ability[] abilities = new Ability[256];
 	public static final Ability STRIKE = new OffensiveAbility(0, "Strike      ", 1, 1, "rank", 1, false);
@@ -15,15 +15,15 @@ public abstract class Ability
 	public static final Ability DIVINE_CALL = new DefensiveAbility(2, "DivineCall  ", 10, 2, "int", 5, 1);
 	public static final Ability HOLY_SMITE = new OffensiveAbility(3, "Holy  Smite ", 12, 10, "int", 2, false);
 
-	public static final Ability BONK = new OffensiveAbility(4, "BONK        ", 1, 2, false);
-	public static final Ability SCORCH = new OffensiveAbility(5, "Scorch        ", 6, 1, true);
-	public static final Ability FIRE_WALL = new DefensiveAbility(6, "Fire  Wall  ", 10, 2, 1);
-	public static final Ability KABOOM = new OffensiveAbility(7, "KABOOM      ", 12, 10, false);
+	public static final Ability BONK = new OffensiveAbility(4, "BONK        ", 1, 1, "rank", 1, false);
+	public static final Ability SCORCH = new OffensiveAbility(5, "Scorch        ", 6, 1, "rank", 3, true);
+	public static final Ability FIRE_WALL = new DefensiveAbility(6, "Fire  Wall  ", 10, 2, "int", 5, 1);
+	public static final Ability KABOOM = new OffensiveAbility(7, "KABOOM      ", 12, 10, "int", 2, false);
 
-	public static final Ability STAB = new OffensiveAbility(8, "Stab        ", 1, 2, false);
-	public static final Ability KNIFE_THROW = new OffensiveAbility(9, "Knife Throw ", 6, 1, true);
-	public static final Ability SMOKE_BOMB = new DefensiveAbility(10, "Smoke Bomb  ", 10, 2, 1);
-	public static final Ability MARK = new OffensiveAbility(11, "Mark        ", 12, 10, false);
+	public static final Ability STAB = new OffensiveAbility(8, "Stab        ", 1, 1, "rank", 1, false);
+	public static final Ability KNIFE_THROW = new OffensiveAbility(9, "Knife Throw ", 6, 1, "rank", 3, true);
+	public static final Ability SMOKE_BOMB = new DefensiveAbility(10, "Smoke Bomb  ", 10, 2, "int", 5, 1);
+	public static final Ability MARK = new OffensiveAbility(11, "Mark        ", 12, 10, "int", 2, false);
 
 	protected byte id;
 	protected String name;
@@ -71,7 +71,7 @@ public abstract class Ability
 
 	/**
 	 * Returns the damage of the ability.
-	 * @return The damage of the ability. 
+	 * @return The damage of the ability.
 	 */
 	public abstract int getDamage();
 
@@ -101,7 +101,7 @@ public abstract class Ability
 
 	/**
 	 * Returns the scaling of the ability. Specifically, the number of x stats required to increase the damage/heal by 1 point.
-	 * @return The scaling of the ability. 
+	 * @return The scaling of the ability.
 	 */
 	public abstract int getScale();
 }

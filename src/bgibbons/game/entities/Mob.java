@@ -73,11 +73,9 @@ public abstract class Mob extends Entity {
 		this.dexterity = 5;
 		this.intelligence = 5;
 		this.vitality = 5;
-
 		this.baseDex = 5;
 		this.baseInt = 5;
 		this.baseVit = 5;
-
 	}
 
 	/**
@@ -284,7 +282,7 @@ public abstract class Mob extends Entity {
 	 */
 	public Ability getAbility(int index) {
 		switch(index) {
-			case(1): 
+			case(1):
 				return ability1;
 			case(2):
 				return ability2;
