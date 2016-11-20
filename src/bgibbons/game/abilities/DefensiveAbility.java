@@ -4,6 +4,8 @@ public class DefensiveAbility extends Ability {
 
 	protected int heal;
 	protected int shield;
+	protected String type;
+	protected int scale;
 
 	/**
 	 * Sole constructor for the DefensiveAbility class.
@@ -13,10 +15,12 @@ public class DefensiveAbility extends Ability {
 	 * @param heal 		Amount of health the ability heals.
 	 * @param shield	Amount of shield the ability gives.
 	 */
-	public DefensiveAbility(int id, String name, int cooldown, int heal, int shield) {
+	public DefensiveAbility(int id, String name, int cooldown, int heal, String type, int scale, int shield) {
 		super(id, name, cooldown);
 		this.heal = heal;
 		this.shield = shield;
+		this.type = type;
+		this.scale = scale;
 	}
 
 	/**
@@ -25,6 +29,22 @@ public class DefensiveAbility extends Ability {
 	 */
 	public int getHeal() {
 		return heal;
+	}
+
+	/**
+	 * Returns the type of stat the ability scales with.
+	 * @return A string of the stat to scale with, empty string for no scaling, rank for scale on rank.
+	 */
+	public String getType(){
+		return type;
+	}
+
+	/**
+	 * Returns the scaling of the ability. Specifically, the number of x stats required to increase the damage/heal by 1 point.
+	 * @return The scaling of the ability. 
+	 */
+	public int getScale(){
+		return scale;
 	}
 
 	/**

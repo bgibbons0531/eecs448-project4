@@ -260,22 +260,39 @@ public class Player extends Mob {
 			Item temp = helmet;
 			helmet = e;
 			inventory[index] = temp;
+			this.dexterity += this.helmet.dexterity;
+			this.intelligence += this.helmet.intelligence;
+			this.vitality += this.helmet.vitality;
 		} else if (e instanceof Chest) {
 			Item temp = chest;
 			chest = e;
 			inventory[index] = temp;
+			this.dexterity += this.chest.dexterity;
+			this.intelligence += this.chest.intelligence;
+			this.vitality += this.chest.vitality;
 		} else if (e instanceof Legs) {
 			Item temp = legs;
 			legs = e;
 			inventory[index] = temp;
+			this.dexterity += this.legs.dexterity;
+			this.intelligence += this.legs.intelligence;
+			this.vitality += this.legs.vitality;
 		} else if (e instanceof Weapon) {
 			Item temp = weapon;
 			weapon = e;
 			inventory[index] = temp;
+			this.dexterity += this.weapon.dexterity;
+			this.intelligence += this.weapon.intelligence;
+			this.vitality += this.weapon.vitality;
 		} else if (e instanceof Shield) {
 			Item temp = shield;
 			shield = e;
 			inventory[index] = temp;
+
+			this.dexterity += this.shield.dexterity;
+			this.intelligence += this.shield.intelligence;
+			this.vitality += this.shield.vitality;
+
 		}
 	}
 
@@ -288,18 +305,33 @@ public class Player extends Mob {
 			if (inventory[i] == null) {
 				if (e instanceof Helmet) {
 					inventory[i] = e;
+					this.dexterity -= this.helmet.dexterity;
+					this.intelligence -= this.helmet.intelligence;
+					this.vitality -= this.helmet.vitality;
 					helmet = null;
 				} else if (e instanceof Chest) {
 					inventory[i] = e;
+					this.dexterity -= this.chest.dexterity;
+					this.intelligence -= this.chest.intelligence;
+					this.vitality -= this.chest.vitality;
 					chest = null;
 				} else if (e instanceof Legs) {
 					inventory[i] = e;
+					this.dexterity -= this.legs.dexterity;
+					this.intelligence -= this.legs.intelligence;
+					this.vitality -= this.legs.vitality;
 					legs = null;
 				} else if (e instanceof Weapon) {
 					inventory[i] = e;
+					this.dexterity -= this.weapon.dexterity;
+					this.intelligence -= this.weapon.intelligence;
+					this.vitality -= this.weapon.vitality;
 					weapon = null;
 				} else if (e instanceof Shield) {
 					inventory[i] = e;
+					this.dexterity -= this.shield.dexterity;
+					this.intelligence -= this.shield.intelligence;
+					this.vitality -= this.shield.vitality;
 					shield = null;
 				}
 				return;

@@ -10,10 +10,10 @@ import java.lang.RuntimeException;
 public abstract class Ability 
 {
 	public static final Ability[] abilities = new Ability[256];
-	public static final Ability STRIKE = new OffensiveAbility(0, "Strike      ", 1, 2, false);
-	public static final Ability SHIELD_BASH = new OffensiveAbility(1, "ShieldBash  ", 6, 1, true);
-	public static final Ability DIVINE_CALL = new DefensiveAbility(2, "DivineCall  ", 10, 2, 1);
-	public static final Ability HOLY_SMITE = new OffensiveAbility(3, "Holy  Smite ", 12, 10, false);
+	public static final Ability STRIKE = new OffensiveAbility(0, "Strike      ", 1, 1, "rank", 1, false);
+	public static final Ability SHIELD_BASH = new OffensiveAbility(1, "ShieldBash  ", 6, 1, "rank", 3, true);
+	public static final Ability DIVINE_CALL = new DefensiveAbility(2, "DivineCall  ", 10, 2, "int", 5, 1);
+	public static final Ability HOLY_SMITE = new OffensiveAbility(3, "Holy  Smite ", 12, 10, "int", 2, false);
 
 	public static final Ability BONK = new OffensiveAbility(4, "BONK        ", 1, 2, false);
 	public static final Ability SCORCH = new OffensiveAbility(5, "Scorch        ", 6, 1, true);
@@ -93,4 +93,15 @@ public abstract class Ability
 	 */
 	public abstract int getShield();
 
+	/**
+	 * Returns the type of stat the ability scales with.
+	 * @return A string of the stat to scale with, empty string for no scaling, rank for scale on rank.
+	 */
+	public abstract String getType();
+
+	/**
+	 * Returns the scaling of the ability. Specifically, the number of x stats required to increase the damage/heal by 1 point.
+	 * @return The scaling of the ability. 
+	 */
+	public abstract int getScale();
 }

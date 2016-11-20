@@ -18,6 +18,7 @@ import java.util.Random;
  * Class to handle the game level including the tiles and and entities.
  * @author Brad Gibbons
  * @author Jackson Schilmoeller
+ * @author Chris Porras
  * @version 1.0 12 October, 2016
  */
 public class Level {
@@ -26,6 +27,9 @@ public class Level {
 	public int width;
 	public int height;
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
+	public ArrayList<Orc> area1Orcs = new ArrayList<Orc>();
+	public ArrayList<Orc> area2Orcs = new ArrayList<Orc>();
+	public ArrayList<Orc> area3Orcs = new ArrayList<Orc>();
 	private String tileImagePath;
 	private String entityImagePath;
 	private BufferedImage tileImage;
@@ -142,6 +146,7 @@ public class Level {
 	 */
 	public void tick() {
 		int winner;
+		Entity eLoser = null;
 		Entity eWinner = null;
 		for (Entity e : entities) { 
 			e.tick();
@@ -151,17 +156,20 @@ public class Level {
 					Random rand = new Random();
 					winner = rand.nextInt(1);
 					if(winner == 0){
-						eWinner = e1;
+						eWinner = e;
+						eLoser = e1;
 					}
 					else if(winner == 1){
-						eWinner = e;
+						eWinner = e1;
+						eLoser = e;
 					}
 				}
 			}
 		}
 
-		if(eWinner instanceof Mob){
-			removeEntity(eWinner);
+		if(eLoser instanceof Mob && eWinner instanceof Mob){
+			removeEntity(eLoser);
+			((Mob)eWinner).addExp(20);
 		}
 		for (Tile t : Tile.tiles) {
 			if (t == null) {
@@ -235,6 +243,17 @@ public class Level {
 	 */
 	public void addEntity(Entity entity) {
 		this.entities.add(entity);
+		if(entity instanceof Orc){								//adds orcs to their proper arraylist based on starting location
+			if((entity.x)<65*8 && (entity.x)>8){
+				this.area1Orcs.add((Orc)entity);
+			}
+			else if((entity.x)>84*8 && (entity.x)<148*8){
+				this.area2Orcs.add((Orc)entity);
+			}
+			else if((entity.x)>167*8 && (entity.x)<232*8){
+				this.area3Orcs.add((Orc)entity);
+			}
+		}
 		entity.setLevel(this);
 	}
 

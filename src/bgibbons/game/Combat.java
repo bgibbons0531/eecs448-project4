@@ -78,21 +78,93 @@ public class Combat {
 
 		//if the ability is usable
 		if(canUse){
+			//damage stat calculation
+			int damage;
+			if(ability.getDamage() == 0){
+				damage = 0;
+			}
+			else{
+				if(ability.getType() == ""){
+					damage = ability.getDamage();
+				}
+				else if(ability.getType() == "rank"){
+					damage = (combatant1.mob.getRank() / ability.getScale()) + ability.getDamage();
+				}
+				else if(ability.getType() == "int"){
+					damage = (combatant1.mob.getIntelligence() / ability.getScale()) + ability.getDamage();
+				}
+				else if(ability.getType() == "dex"){
+					damage = (combatant1.mob.getDexterity() / ability.getScale()) + ability.getDamage();
+				}
+				else if(ability.getType() == "vit"){
+					damage = (combatant1.mob.getVitality() / ability.getScale()) + ability.getDamage();
+				}
+				else{
+					damage = ability.getDamage();
+				}
+			}
+			//heal stat calculation 
+			int heal;
+			if(ability.getHeal() == 0)
+				heal = 0;
+			else{
+				if(ability.getType() == ""){
+					heal = ability.getHeal();
+				}
+				else if(ability.getType() == "rank"){
+					heal = (combatant1.mob.getRank() / ability.getScale()) + ability.getHeal();
+				}
+				else if(ability.getType() == "int"){
+					heal = (combatant1.mob.getIntelligence() / ability.getScale()) + ability.getHeal();
+				}
+				else if(ability.getType() == "dex"){
+					heal = (combatant1.mob.getDexterity() / ability.getScale()) + ability.getHeal();
+				}
+				else if(ability.getType() == "vit"){
+					heal = (combatant1.mob.getVitality() / ability.getScale()) + ability.getHeal();
+				}
+				else{
+					heal = ability.getHeal();
+				}
+			}
+			int shield;
+			if(ability.getShield() == 0){
+				shield = 0;
+			}
+			else{
+				if(ability.getType() == ""){
+					shield = ability.getShield();
+				}
+				else if(ability.getType() == "rank"){
+					shield = (combatant1.mob.getRank() / ability.getScale()) + ability.getShield();
+				}
+				else if(ability.getType() == "int"){
+					shield = (combatant1.mob.getIntelligence() / ability.getScale()) + ability.getShield();
+				}
+				else if(ability.getType() == "dex"){
+					shield = (combatant1.mob.getDexterity() / ability.getScale()) + ability.getShield();
+				}
+				else if(ability.getType() == "vit"){
+					shield = (combatant1.mob.getVitality() / ability.getScale()) + ability.getShield();
+				}
+				else{
+					shield = ability.getShield();
+				}
+			}
+			int cooldown = ability.getCooldown();
+
+			//combat effect render variables
 			if (ability instanceof OffensiveAbility) {
 				enemyOffRenderStart = combatTicks;
-				enemyDamageRender = ability.getDamage();
+				enemyDamageRender = damage;
 				enemyDamageRenderStart = combatTicks;
 			} else if (ability instanceof DefensiveAbility) {
 				playerDefRenderStart = combatTicks;
-				playerHealRender = ability.getHeal();
+				playerHealRender = heal;
 				playerHealRenderStart = combatTicks;
-				playerShieldRender = ability.getShield();
+				playerShieldRender = shield;
 				playerShieldRenderStart = combatTicks;
 			}
-			int damage = ability.getDamage();
-			int heal = ability.getHeal();
-			int shield = ability.getShield();
-			int cooldown = ability.getCooldown();
 
 			//check if ability stuns
 			if(ability.getStun()){
@@ -265,6 +337,10 @@ public class Combat {
 			if(this.ability4CD > 0) {
 				this.ability4CD -= 1;
 			}
+		}
+
+		public void useAbility(Combatant target) {
+
 		}
 	}
 

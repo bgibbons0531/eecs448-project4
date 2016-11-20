@@ -26,10 +26,16 @@ public abstract class Mob extends Entity {
 	protected int dexterity = 5;
 	protected int intelligence = 5;
 	protected int vitality = 5;
+
 	protected static Ability ability1;
 	protected static Ability ability2;
 	protected static Ability ability3;
 	protected static Ability ability4;
+
+	protected int baseDex = 5;
+	protected int baseInt = 5;
+	protected int baseVit = 5;
+
 
 	protected int speed;
 	protected int numSteps = 0;
@@ -67,6 +73,11 @@ public abstract class Mob extends Entity {
 		this.dexterity = 5;
 		this.intelligence = 5;
 		this.vitality = 5;
+
+		this.baseDex = 5;
+		this.baseInt = 5;
+		this.baseVit = 5;
+
 	}
 
 	/**
@@ -118,7 +129,7 @@ public abstract class Mob extends Entity {
 		Tile lastTile = level.getTile((this.x + x)>>3, (this.y + y)>>3);
 		Tile newTile = level.getTile((this.x + x + xa)>>3, (this.y + y + ya)>>3);
 
-		if (!lastTile.equals(newTile) && newTile.isSolid()) {
+		if (!lastTile.equals(newTile) && newTile.isSolid() || (this instanceof Orc && newTile.getId()==4)) {
 			return true;
 		}
 		return false;
