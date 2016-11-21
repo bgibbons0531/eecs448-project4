@@ -20,7 +20,7 @@ public class Player extends Mob {
 	public int mainX;
 	public int mainY;
 	private InputHandler input;
-	private int color = Colors.get(-1, 111, 145, 543);
+	private int color;
 	private int scale = 1;
 	private Item helmet = null;
 	private Item chest = null;
@@ -36,7 +36,6 @@ public class Player extends Mob {
 	 * @param x 		The x coordinate the player will start at.
 	 * @param y 		The y coordinate the player will start at.
 	 * @param input 	The InputHandler used to control the player.
-	 * @param Class 	The Class type chosen for the charcter
 	 */
 	public Player(Level level, int x, int y, InputHandler input) {
 		super(level, "Player", x, y, 10, 1, 1, 100);
@@ -428,25 +427,39 @@ public class Player extends Mob {
 		vitality++;
 		attributePoints--;
 	}
-	//TODO comment and set stats
-	public void setPaladinInventory()
+	/**
+	 * Set Paladin color, inventory and calls to set abilities.
+	 */
+	public void setPaladin()
 	{
+		color = Colors.get(-1, 111, 250, 543);
 		inventory[0] = new Weapon(level,"Weapon","Standard",5,4,6);
 		inventory[1] = new Shield(level,"Shield","Standard",5,4,6);
 		setPaladinAbilities();
 	}
-	public void setWizardInventory()
+	/**
+	 * Set Wizard color, inventory and calls to set abilities.
+	 */
+	public void setWizard()
 	{
+		color = Colors.get(-1, 500, 0, 543);
 		inventory[0] = new Helmet(level,"Helmet","Standard",5,6,4);
 		inventory[1] = new Weapon(level,"Weapon","Standard",5,6,4);
 		setWizardAbilities();
 	}
-	public void setHunterInventory()
+	/**
+	 * Set Wizard color, inventory and calls to set abilities.
+	 */
+	public void setHunter()
 	{
+		color = Colors.get(-1, 0, 300, 543);
 		inventory[0] = new Legs(level,"Legs","Standard",6,5,5);
 		inventory[1] = new Weapon(level,"Weapon","Standard",6,5,5);
 		setHunterAbilities();
 	}
+	/**
+	 * Set Paladin abilities.
+	 */
 	public void setPaladinAbilities()
 	{
 		Mob.ability1 = Ability.STRIKE;
@@ -454,6 +467,9 @@ public class Player extends Mob {
 		Mob.ability3 = Ability.DIVINE_CALL;
 		Mob.ability4 = Ability.HOLY_SMITE;
 	}
+	/**
+	 * Set Wizard abilities.
+	 */
 	public void setWizardAbilities()
 	{
 		Mob.ability1 = Ability.BONK;
@@ -461,6 +477,9 @@ public class Player extends Mob {
 		Mob.ability3 = Ability.FIRE_WALL;
 		Mob.ability4 = Ability.KABOOM;
 	}
+	/**
+	 * Set Hunter abilities.
+	 */
 	public void setHunterAbilities()
 	{
 		Mob.ability1 = Ability.STAB;
