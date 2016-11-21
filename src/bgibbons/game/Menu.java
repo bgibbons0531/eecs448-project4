@@ -22,7 +22,7 @@ public class Menu {
 	public Slots slot;
 
 	private boolean itemSelected;
-	
+
 
 	private InputHandler input;
 
@@ -53,15 +53,15 @@ public class Menu {
 					break;
 				case CLASSES:
 					if (28 <= x && x <= 215 && 103 <= y && y <= 166) {
-						game.player.setPaladinInventory();
+						game.player.setPaladin();
 						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
 					} else if (28 <= x && x <= 215 && 214 <= y && y <= 266) {
-						game.player.setWizardInventory();
+						game.player.setWizard();
 						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
 					} else if (28 <= x && x <= 215 && 299 <= y && y <= 366) {
-						game.player.setHunterInventory();
+						game.player.setHunter();
 						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
 					}
