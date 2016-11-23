@@ -23,6 +23,12 @@ import java.util.Random;
 public class Level {
 	
 	private byte[] tiles;
+	private byte[] straightPassage;
+	private byte[] leftPassage;
+	private byte[] rightPassage;
+	private byte[] smallRoom;
+	private byte[] mediumRoom;
+	private byte[] largeRoom;
 	public int width;
 	public int height;
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
@@ -44,6 +50,12 @@ public class Level {
 		} else {
 			this.width = 64;
 			this.height = 64;
+			this.straightPassage = new byte[3*8];
+			this.leftPassage = new byte[8*8];
+			this.rightPassage = new byte[8*8];
+			this.smallRoom = new byte[6*6];
+			this.mediumRoom = new byte[10*10];
+			this.largeRoom = new byte[16*16];
 			tiles = new byte[width*height];
 			this.generateLevel();
 		}
@@ -134,7 +146,15 @@ public class Level {
 	 * Generates the level tiles if no file is specified.
 	 */
 	public void generateLevel() {
-
+		//set all tiles to grass with stone borders
+		for (int y=0; y<height; y++) {
+			for (int x=0; x<width; x++) {
+				if(y == 0 || x == 0 || y == (height - 1) || x == (width - 1))
+					this.tiles[x+y*width] = 1;
+				else
+					this.tiles[x+y*width] = 2;
+			}
+		}
 	}
 	
 	/**
