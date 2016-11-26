@@ -31,6 +31,8 @@ public class Level {
 	private byte[] largeRoom;
 	public int width;
 	public int height;
+	public int start;
+	public int end;
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	private String tileImagePath;
 	private String entityImagePath;
@@ -48,8 +50,11 @@ public class Level {
 		if (tileImagePath != null) {
 			this.loadLevelFromFile();
 		} else {
+			Random rand = new Random();
 			this.width = 64;
 			this.height = 64;
+			this.start = rand.nextInt(63);
+			this.end = rand.nextInt(63);
 			this.straightPassage = new byte[3*8];
 			this.leftPassage = new byte[8*8];
 			this.rightPassage = new byte[8*8];
@@ -155,6 +160,35 @@ public class Level {
 					this.tiles[x+y*width] = 2;
 			}
 		}
+		//begin procedural generation
+		//set start tiles
+		this.tiles[0+start*width] = 2;
+		this.tiles[0+(start+1)*width] = 2;
+		//set end tiles
+		this.tiles[(width - 1)+end*width] = 2;
+		this.tiles[(width - 1)+(end+1)*width] = 2;
+		//loop through all the tiles
+		for (int y=0; y<height; y++){
+			for (int x=0; x<width; x++){
+				//
+			}
+		}
+	}
+
+	/**
+	 * Returns the start tile
+	 * @return The int corresponding to the start tile.
+	 */
+	public int getStart() {
+		return start;
+	}
+
+	/**
+	 * Returns the end tile
+	 * @return The int corresponding to the end tile.
+	 */
+	public int getEnd() {
+		return end;
 	}
 	
 	/**

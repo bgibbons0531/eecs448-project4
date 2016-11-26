@@ -216,14 +216,14 @@ public class Game extends Canvas implements Runnable
 				//cases for level change
 				if(player.x > 520 && player.x <= 528 && player.getLevel() == main_level){
 					player.setLevel(dungeon1);
-					player.x = 16;
-					player.y = 16;
+					player.x = 8;
+					player.y = dungeon1.getStart()*8;
 					dungeon1.addEntity(main_level.removeEntity(player));
 				}
 				else if(player.x > 1192 && player.x <= 1200 && player.getLevel() == main_level){
 					player.setLevel(dungeon2);
-					player.x = 16;
-					player.y = 16;
+					player.x = 8;
+					player.y = dungeon2.getStart()*8;
 					dungeon2.addEntity(main_level.removeEntity(player));
 				}
 				else if(player.x >= 506 && player.getLevel() == dungeon1){
@@ -233,6 +233,16 @@ public class Game extends Canvas implements Runnable
 				}
 				else if(player.x >= 506 && player.getLevel() == dungeon2){
 					player.x = 1344;
+					player.y = main_level.height*8/2;
+					main_level.addEntity(dungeon2.removeEntity(player));
+				}
+				else if(player.x < 8 && player.getLevel() == dungeon1){
+					player.x = 496;
+					player.y = main_level.height*8/2;
+					main_level.addEntity(dungeon1.removeEntity(player));
+				}
+				else if(player.x < 8 && player.getLevel() == dungeon2){
+					player.x = 1334;
 					player.y = main_level.height*8/2;
 					main_level.addEntity(dungeon2.removeEntity(player));
 				}
