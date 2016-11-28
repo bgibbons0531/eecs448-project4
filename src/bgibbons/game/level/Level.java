@@ -151,28 +151,76 @@ public class Level {
 	 * Generates the level tiles if no file is specified.
 	 */
 	public void generateLevel() {
-		//set all tiles to grass with stone borders
+		//set all tiles to stone
 		for (int y=0; y<height; y++) {
 			for (int x=0; x<width; x++) {
-				if(y == 0 || x == 0 || y == (height - 1) || x == (width - 1))
-					this.tiles[x+y*width] = 1;
-				else
-					this.tiles[x+y*width] = 2;
+				this.tiles[x+y*width] = 1;
 			}
 		}
 		//begin procedural generation
 		//set start tiles
 		this.tiles[0+start*width] = 2;
 		this.tiles[0+(start+1)*width] = 2;
+		this.tiles[1+start*width] = 2;
+		this.tiles[1+(start+1)*width] = 2;
+		this.tiles[2+start*width] = 2;
+		this.tiles[2+(start+1)*width] = 2;
 		//set end tiles
 		this.tiles[(width - 1)+end*width] = 2;
 		this.tiles[(width - 1)+(end+1)*width] = 2;
-		//loop through all the tiles
-		for (int y=0; y<height; y++){
-			for (int x=0; x<width; x++){
-				//
+		//loop through all the tiles, minus borders
+		Random rand = new Random();
+		int temp = 0;
+		int test = 0;
+		Boolean[][] map = new ;
+		//initialize map
+		for()
+		//while either end tile has no adjacent spaces (other than the other end tile)
+		//while(this.tiles[(width - 2)+end*width] != 2 && test <= 100){
+			//System.out.println("moo");
+			for (int y=2; y<(height-2); y++){
+				for (int x=2; x<(width-2); x++){
+					//if tile has only one adjacent space, randomly change an adjacent tile
+					if(checkTile(x, y) && map[x][y] != true){
+						temp = rand.nextInt(3);
+						if(temp == 0){
+							this.tiles[(x+1)+y*width] = 2;
+							map[x][y] = true;
+						}
+						else if(temp == 1){
+							this.tiles[(x-1)+y*width] = 2;
+							map[x][y] = true;
+						}
+						else if(temp == 2){
+							this.tiles[x+(y+1)*width] = 2;
+							map[x][y] = true;
+						}
+						else if(temp == 3){
+							this.tiles[x+(y-1)*width] = 2;
+							map[x][y] = true;
+						}
+					}
+				}
+			}
+			//test++;
+	}
+
+	public boolean checkTile(int x, int y){
+		if(this.tiles[x+y*width] == 2){
+			if(this.tiles[(x-1)+y*width] == 2){
+				return true;
+			}
+			else if(this.tiles[x+(y+1)*width] == 2){
+				return true;
+			}
+			else if(this.tiles[(x+1)+y*width] == 2){
+				return true;
+			}
+			else if(this.tiles[x+(y-1)*width] == 2){
+				return true;
 			}
 		}
+		return false;
 	}
 
 	/**
