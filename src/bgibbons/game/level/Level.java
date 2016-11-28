@@ -53,8 +53,10 @@ public class Level {
 			Random rand = new Random();
 			this.width = 64;
 			this.height = 64;
-			this.start = rand.nextInt(63);
-			this.end = rand.nextInt(63);
+			this.start = rand.nextInt(height-1) + 1;
+			System.out.println(start);
+			this.end = rand.nextInt(height-1) + 1;
+			System.out.println(end);
 			this.straightPassage = new byte[3*8];
 			this.leftPassage = new byte[8*8];
 			this.rightPassage = new byte[8*8];
@@ -157,7 +159,36 @@ public class Level {
 				this.tiles[x+y*width] = 1;
 			}
 		}
-		//begin procedural generation
+		//begin procedural generation, algorithm based on The Game of Life by John Conway
+		//loop through all the tiles, minus borders
+		Random rand = new Random();
+		int temp = 0;
+		int test = 0;
+		Boolean[][] map = new Boolean[width][height];
+		//initialize map with a 45% of being true
+		for (int y=0; y<height; y++) {
+			for (int x=0; x<width; x++) {
+				if(rand.nextInt(100) <= 40)
+					map[x][y] = true;
+				else
+					map[x][y] = false;
+			}
+		}
+
+		for(int i=0; i<2; i++){
+			map = proceduralStep(map);
+		}
+
+		//apply tiles to map
+		for (int y=2; y<(height-2); y++){
+			for (int x=2; x<(width-2); x++){
+				if(map[x][y])
+					this.tiles[x+y*width] = 2;
+				else
+					this.tiles[x+y*width] = 1;
+			}
+		}
+
 		//set start tiles
 		this.tiles[0+start*width] = 2;
 		this.tiles[0+(start+1)*width] = 2;
@@ -168,59 +199,54 @@ public class Level {
 		//set end tiles
 		this.tiles[(width - 1)+end*width] = 2;
 		this.tiles[(width - 1)+(end+1)*width] = 2;
-		//loop through all the tiles, minus borders
-		Random rand = new Random();
-		int temp = 0;
-		int test = 0;
-		Boolean[][] map = new ;
-		//initialize map
-		for()
-		//while either end tile has no adjacent spaces (other than the other end tile)
-		//while(this.tiles[(width - 2)+end*width] != 2 && test <= 100){
-			//System.out.println("moo");
-			for (int y=2; y<(height-2); y++){
-				for (int x=2; x<(width-2); x++){
-					//if tile has only one adjacent space, randomly change an adjacent tile
-					if(checkTile(x, y) && map[x][y] != true){
-						temp = rand.nextInt(3);
-						if(temp == 0){
-							this.tiles[(x+1)+y*width] = 2;
-							map[x][y] = true;
-						}
-						else if(temp == 1){
-							this.tiles[(x-1)+y*width] = 2;
-							map[x][y] = true;
-						}
-						else if(temp == 2){
-							this.tiles[x+(y+1)*width] = 2;
-							map[x][y] = true;
-						}
-						else if(temp == 3){
-							this.tiles[x+(y-1)*width] = 2;
-							map[x][y] = true;
-						}
+		this.tiles[(width - 2)+end*width] = 2;
+		this.tiles[(width - 2)+(end+1)*width] = 2;
+		this.tiles[(width - 3)+end*width] = 2;
+		this.tiles[(width - 3)+(end+1)*width] = 2;
+	}
+
+	public Boolean[][] proceduralStep(Boolean[][] oldMap){
+		Boolean[][] newMap = new Boolean[width][height];
+		for(int y=0; y<oldMap[0].length; y++){
+			for(int x=0; x<oldMap.length; x++){
+				int neighbours = checkTile(oldMap, x, y);
+				if(oldMap[x][y]){
+					if(neighbours < 2){
+						newMap[x][y] = false;
+					}
+					else{
+						newMap[x][y] = true;
+					}
+				}
+				else{
+					if(neighbours > 3){
+						newMap[x][y] = true;
+					}
+					else{
+						newMap[x][y] = false;
 					}
 				}
 			}
-			//test++;
+		}
+		return newMap;
 	}
 
-	public boolean checkTile(int x, int y){
-		if(this.tiles[x+y*width] == 2){
-			if(this.tiles[(x-1)+y*width] == 2){
-				return true;
-			}
-			else if(this.tiles[x+(y+1)*width] == 2){
-				return true;
-			}
-			else if(this.tiles[(x+1)+y*width] == 2){
-				return true;
-			}
-			else if(this.tiles[x+(y-1)*width] == 2){
-				return true;
+	public int checkTile(Boolean[][] map, int x, int y){
+		int count = 0;
+		for(int j=-1; j<=1; j++){
+			for(int i=-1; i<=1; i++){
+				if(i==0 && j==0){
+					//Looking at current tile
+				}
+				else if((x+i) < 0 || (y+j) < 0 || (x+i) >= map.length || (y+j) >= map[0].length){
+					count++;
+				}
+				else if(map[x+i][y+j]){
+					count++;
+				}
 			}
 		}
-		return false;
+		return count;
 	}
 
 	/**
