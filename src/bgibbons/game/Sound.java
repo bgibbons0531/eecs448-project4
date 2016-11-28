@@ -39,7 +39,20 @@ public class Sound
       ex.printStackTrace();
     }
   }
-
+  public void playFX()//Play the music
+  {
+    try
+    {
+      new Thread(){
+        public void run(){
+          clip.play();
+        }
+      }.start();
+      isPlaying = true;
+    }catch(Exception ex){
+      ex.printStackTrace();
+    }
+  }
   public void pause() {
     isPlaying = false;
     clip.stop();
