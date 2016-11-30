@@ -266,5 +266,49 @@ public class Level {
 		if(entities.remove(entity))
 			return entity;
 		return null;
-	} 	
+	}
+
+	/**
+	 * Respawns orcs on the level randomly
+	 */ 
+	public void respawnOrcs() {
+		int[] gridPopulation = new int[4];
+		ArrayList<Orc> orcsInArea = new ArrayList<Orc>();
+		Orc tempOrc;
+		int leastPopGrid;
+
+		for(int i = 0; i < 3; i++){
+			leastPopGrid = 0;
+			if(i == 0){
+				orcsInArea = (ArrayList<Orc>)area1Orcs.clone();
+				for(int k = 0; k<orcsInArea.size(); k++){
+					tempOrc = orcsInArea.get(k);
+					if((tempOrc.x)<33*8 && (tempOrc.y)<32*8){
+						gridPopulation[0] ++;
+					}
+					else if((tempOrc.x)>33*8 && (tempOrc.y)<32*8){
+						gridPopulation[1] ++;
+					}
+					else if((tempOrc.x)<33*8 && (tempOrc.y)>32*8){
+						gridPopulation[2] ++;
+					}
+					else if((tempOrc.x)>33*8 && (tempOrc.y)>32*8){
+						gridPopulation[3] ++;
+					}
+				}
+				for(int k = 1; k<4; k++){
+					if(gridPopulation[k]<gridPopulation[leastPopGrid]){
+						leastPopGrid = k;
+					}
+				}
+				
+			}
+			if(i == 1){
+				orcsInArea = (ArrayList<Orc>)area2Orcs.clone();
+			}
+			if(i == 2){
+				orcsInArea = (ArrayList<Orc>)area3Orcs.clone();
+			}
+		}
+	}	
 }
