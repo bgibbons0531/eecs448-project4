@@ -337,7 +337,7 @@ public class Level {
 			while(!orcPlaced){
 				orcX = rand.nextInt(32)+(xGridBoundary-32);
 				orcY = rand.nextInt(32)+1;
-				if(!getTile(orcX, orcY).isSolid() && getTile(orcX, orcY).getId()!=3){
+				if(getTile(orcX, orcY).getId()==2){
 					Entity e = new Orc(this, orcX*8, orcY*8);
 					this.addEntity(e);
 					orcPlaced = true;
@@ -348,7 +348,7 @@ public class Level {
 			while(!orcPlaced){
 				orcX = rand.nextInt(32)+xGridBoundary;
 				orcY = rand.nextInt(32)+1;
-				if(!getTile(orcX, orcY).isSolid() && getTile(orcX, orcY).getId()!=3){
+				if(getTile(orcX, orcY).getId()==2){
 					Entity e = new Orc(this, orcX*8, orcY*8);
 					this.addEntity(e);
 					orcPlaced = true;
@@ -359,7 +359,7 @@ public class Level {
 			while(!orcPlaced){
 				orcX = rand.nextInt(32)+(xGridBoundary-32);
 				orcY = rand.nextInt(32)+32;
-				if(!getTile(orcX, orcY).isSolid() && getTile(orcX, orcY).getId()!=3){
+				if(getTile(orcX, orcY).getId()==2){
 					Entity e = new Orc(this, orcX*8, orcY*8);
 					this.addEntity(e);
 					orcPlaced = true;
@@ -370,7 +370,7 @@ public class Level {
 			while(!orcPlaced){
 				orcX = rand.nextInt(32)+xGridBoundary;
 				orcY = rand.nextInt(32)+32;
-				if(!getTile(orcX, orcY).isSolid() && getTile(orcX, orcY).getId()!=3){
+				if(getTile(orcX, orcY).getId()==2){
 					Entity e = new Orc(this, orcX*8, orcY*8);
 					this.addEntity(e);
 					orcPlaced = true;
