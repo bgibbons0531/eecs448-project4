@@ -296,8 +296,8 @@ public class Level {
 
 	/**
 	 * Respawns orcs on the level randomly
-	 * @param ArrayList of Orcs containing the orcs in the area that respawning it occuring
-	 * @param int to mark the boundary of the grid separating the different grids in the area for respawning
+	 * @param orcsInArea, ArrayList of Orcs containing the orcs in the area that respawning it occuring
+	 * @param xGridBoundary, int to mark the boundary of the grid separating the different grids in the area for respawning
 	 */ 
 	public void respawnOrcs(ArrayList<Orc> orcsInArea, int xGridBoundary) {
 		int[] gridPopulation = new int[4];
