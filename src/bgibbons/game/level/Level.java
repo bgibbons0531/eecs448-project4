@@ -93,7 +93,10 @@ public class Level {
 				} if (entityColors[x+y*width] == 0xFF005500) {
 					Entity e = new Orc(this, x*8, y*8);
 					this.addEntity(e);
-				} 
+				} if (entityColors[x+y*width] == 0xFFFF0000){
+					Entity e = new Boss(this, x*8, y*8);
+					this.addEntity(e);
+				}
 			}
 		}
 	}

@@ -15,7 +15,7 @@ public abstract class Enemy extends Mob {
 
 	protected int xTile;
 	protected int yTile;
-	protected int scale = 1;
+	protected int scale;
 	protected int color;
 
 
@@ -31,12 +31,14 @@ public abstract class Enemy extends Mob {
 	 * @param speed 	The speed of the enemy.
 	 * @param rank 		The starting rank of the enemy.
 	 * @param maxExp	The maximum experience of the enemy.
+	 * @param scale 	The scale of the e
 	 */
-	public Enemy(Level level, int x, int y, int xTile, int yTile, int color, int maxHealth, int speed, int rank, int maxExp) {
+	public Enemy(Level level, int x, int y, int xTile, int yTile, int color, int maxHealth, int speed, int rank, int maxExp, int scale) {
 		super(level, "Enemy", x, y, maxHealth, speed, rank, maxExp);
 		this.xTile = xTile;
 		this.yTile = yTile;
 		this.color = color;
+		this.scale = scale;
 	}
 
 	/**
