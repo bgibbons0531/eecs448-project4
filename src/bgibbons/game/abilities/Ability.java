@@ -1,6 +1,7 @@
 package bgibbons.game.abilities;
 import java.lang.RuntimeException;
-
+import bgibbons.game.Sound;
+import bgibbons.game.entities.Mob;
 /**
  * Base ability class to be extended by other abilities.
  * @author Brad Gibbons
@@ -28,7 +29,7 @@ public abstract class Ability
 	protected byte id;
 	protected String name;
 	protected int cooldown;
-
+	public static Sound sound;
 	/**
 	 * Constructor for the Ability clas.
 	 * @param id 		Unique id for the ability.
@@ -44,7 +45,42 @@ public abstract class Ability
 
 		abilities[id] = this;
 	}
-
+	/**
+	 * Plays ability 1 sound.
+	 */
+	public static void playAbility1Sound()
+	{
+		if(Mob.ability1.getName()=="BONK        "){
+		sound = new Sound("/res/sounds/Combat/Wizard/Bonk.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+	}
+	/**
+	 * Plays ability 2 sound.
+	 */
+	public static void playAbility2Sound()
+	{
+		if(Mob.ability2.getName()=="Scorch        "){
+		sound = new Sound("/res/sounds/Combat/Wizard/Scorch.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();	}			//Play the sound.
+	}
+	/**
+	 * Plays ability 3 sound.
+	 */
+	public static void playAbility3Sound()
+	{
+		if(Mob.ability3.getName()=="Fire  Wall  "){
+		sound = new Sound("/res/sounds/Combat/Wizard/FireWall.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+	}
+	/**
+	 * Plays ability 4 sound.
+	 */
+	public static void playAbility4Sound()
+	{
+		if(Mob.ability4.getName()=="KABOOM      "){
+		sound = new Sound("/res/sounds/Combat/Wizard/KABOOM.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+	}
 	/**
 	 * Returns the Id of the Ability.
 	 * @return The Id of the Ability.

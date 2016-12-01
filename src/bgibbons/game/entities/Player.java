@@ -1,5 +1,6 @@
 package bgibbons.game.entities;
 
+import bgibbons.game.*;
 import bgibbons.game.InputHandler;
 import bgibbons.game.entities.*;
 import bgibbons.game.graphics.Colors;
@@ -29,7 +30,7 @@ public class Player extends Mob {
 	private Item shield = null;
 	private Item[] inventory = new Item[6];
 	private int attributePoints = 0;
-
+	public Sound sound;			//Declare the Sound object.
 	/**
 	 * Constructor the Player object.
 	 * @param level 	Level for the player to be added to.
@@ -262,6 +263,8 @@ public class Player extends Mob {
 			this.dexterity += this.helmet.dexterity;
 			this.intelligence += this.helmet.intelligence;
 			this.vitality += this.helmet.vitality;
+			sound = new Sound("/res/sounds/item.wav"); 		//Intialize BGM sound object with path.
+			sound.playFX();				//Play the sound.
 		} else if (e instanceof Chest) {
 			Item temp = chest;
 			chest = e;
@@ -269,6 +272,8 @@ public class Player extends Mob {
 			this.dexterity += this.chest.dexterity;
 			this.intelligence += this.chest.intelligence;
 			this.vitality += this.chest.vitality;
+			sound = new Sound("/res/sounds/item.wav"); 		//Intialize BGM sound object with path.
+			sound.playFX();				//Play the sound.
 		} else if (e instanceof Legs) {
 			Item temp = legs;
 			legs = e;
@@ -276,6 +281,8 @@ public class Player extends Mob {
 			this.dexterity += this.legs.dexterity;
 			this.intelligence += this.legs.intelligence;
 			this.vitality += this.legs.vitality;
+			sound = new Sound("/res/sounds/item.wav"); 		//Intialize BGM sound object with path.
+			sound.playFX();				//Play the sound.
 		} else if (e instanceof Weapon) {
 			Item temp = weapon;
 			weapon = e;
@@ -283,6 +290,8 @@ public class Player extends Mob {
 			this.dexterity += this.weapon.dexterity;
 			this.intelligence += this.weapon.intelligence;
 			this.vitality += this.weapon.vitality;
+			sound = new Sound("/res/sounds/item.wav"); 		//Intialize BGM sound object with path.
+			sound.playFX();				//Play the sound.
 		} else if (e instanceof Shield) {
 			Item temp = shield;
 			shield = e;
@@ -291,6 +300,8 @@ public class Player extends Mob {
 			this.dexterity += this.shield.dexterity;
 			this.intelligence += this.shield.intelligence;
 			this.vitality += this.shield.vitality;
+			sound = new Sound("/res/sounds/item.wav"); 		//Intialize BGM sound object with path.
+			sound.playFX();				//Play the sound.
 
 		}
 	}
@@ -308,30 +319,40 @@ public class Player extends Mob {
 					this.intelligence -= this.helmet.intelligence;
 					this.vitality -= this.helmet.vitality;
 					helmet = null;
+					sound = new Sound("/res/sounds/item.wav"); 		//Intialize BGM sound object with path.
+					sound.playFX();				//Play the sound.
 				} else if (e instanceof Chest) {
 					inventory[i] = e;
 					this.dexterity -= this.chest.dexterity;
 					this.intelligence -= this.chest.intelligence;
 					this.vitality -= this.chest.vitality;
 					chest = null;
+					sound = new Sound("/res/sounds/item.wav"); 		//Intialize BGM sound object with path.
+					sound.playFX();				//Play the sound.
 				} else if (e instanceof Legs) {
 					inventory[i] = e;
 					this.dexterity -= this.legs.dexterity;
 					this.intelligence -= this.legs.intelligence;
 					this.vitality -= this.legs.vitality;
 					legs = null;
+					sound = new Sound("/res/sounds/item.wav"); 		//Intialize BGM sound object with path.
+					sound.playFX();				//Play the sound.
 				} else if (e instanceof Weapon) {
 					inventory[i] = e;
 					this.dexterity -= this.weapon.dexterity;
 					this.intelligence -= this.weapon.intelligence;
 					this.vitality -= this.weapon.vitality;
 					weapon = null;
+					sound = new Sound("/res/sounds/item.wav"); 		//Sound set
+					sound.playFX();				//Play the sound.
 				} else if (e instanceof Shield) {
 					inventory[i] = e;
 					this.dexterity -= this.shield.dexterity;
 					this.intelligence -= this.shield.intelligence;
 					this.vitality -= this.shield.vitality;
 					shield = null;
+					sound = new Sound("/res/sounds/item.wav"); 		//Sound set
+					sound.playFX();				//Play the sound.
 				}
 				return;
 			}
