@@ -34,15 +34,18 @@ public class Level {
 	private String entityImagePath;
 	private BufferedImage tileImage;
 	private BufferedImage entityImage;
+	private boolean mainLevel;
 
 	/**
 	 * Constructor for the Level object.
 	 * @param tileImagePath 	Path to the location of the level tile image.
 	 * @param entityImagePath 	Path to the location of the level entity image.
+	 * @param mainLevel		True if mainLevel, false otherwise
 	 */
-	public Level(String tileImagePath, String entityImagePath) {
+	public Level(String tileImagePath, String entityImagePath, boolean mainLevel) {
 		this.tileImagePath = tileImagePath;
 		this.entityImagePath = entityImagePath;
+		this.mainLevel = mainLevel;
 		if (tileImagePath != null) {
 			this.loadLevelFromFile();
 		} else {
@@ -90,7 +93,10 @@ public class Level {
 				} if (entityColors[x+y*width] == 0xFF005500) {
 					Entity e = new Orc(this, x*8, y*8);
 					this.addEntity(e);
-				} 
+				} if (entityColors[x+y*width] == 0xFFFF0000){
+					Entity e = new Boss(this, x*8, y*8);
+					this.addEntity(e);
+				}
 			}
 		}
 	}
@@ -178,6 +184,18 @@ public class Level {
 				t.tick();
 			}
 		}
+		if(mainLevel){
+			if(this.area1Orcs.size()<20){
+				this.respawnOrcs(area1Orcs, 33);
+			}
+			if(this.area2Orcs.size()<20){
+				this.respawnOrcs(area2Orcs, 117);
+			}
+			if(this.area3Orcs.size()<20){
+				this.respawnOrcs(area3Orcs, 200);
+			}
+		}
+	
 	}
 
 	/**
@@ -263,8 +281,101 @@ public class Level {
 	 * @return An entity, if the entity was in the level and successfully removed, otherwise null.
 	 */
 	public Entity removeEntity(Entity entity){
+		if(entity instanceof Orc){								//removes orcs from their proper arraylist based on death location
+			if((entity.x)<65*8 && (entity.x)>8){
+				this.area1Orcs.remove((Orc)entity);
+			}
+			else if((entity.x)>84*8 && (entity.x)<148*8){
+				this.area2Orcs.remove((Orc)entity);
+			}
+			else if((entity.x)>167*8 && (entity.x)<232*8){
+				this.area3Orcs.remove((Orc)entity);
+			}
+		}
 		if(entities.remove(entity))
 			return entity;
 		return null;
-	} 	
+	}
+
+	/**
+	 * Respawns orcs on the level randomly
+	 * @param orcsInArea, ArrayList of Orcs containing the orcs in the area that respawning it occuring
+	 * @param xGridBoundary, int to mark the boundary of the grid separating the different grids in the area for respawning
+	 */ 
+	public void respawnOrcs(ArrayList<Orc> orcsInArea, int xGridBoundary) {
+		int[] gridPopulation = new int[4];
+		Orc tempOrc;
+		int leastPopGrid;
+		int orcX;
+		int orcY;
+		boolean orcPlaced;
+		Random rand = new Random();
+
+		leastPopGrid = 0;
+		orcPlaced = false;
+		for(int k = 0; k<orcsInArea.size(); k++){
+			tempOrc = orcsInArea.get(k);
+			if((tempOrc.x)<xGridBoundary*8 && (tempOrc.y)<32*8){
+				gridPopulation[0] ++;
+			}
+			else if((tempOrc.x)>xGridBoundary*8 && (tempOrc.y)<32*8){
+				gridPopulation[1] ++;
+			}
+			else if((tempOrc.x)<xGridBoundary*8 && (tempOrc.y)>32*8){
+				gridPopulation[2] ++;
+			}
+			else if((tempOrc.x)>xGridBoundary*8 && (tempOrc.y)>32*8){
+				gridPopulation[3] ++;
+			}
+		}
+		for(int k = 1; k<4; k++){
+			if(gridPopulation[k]<gridPopulation[leastPopGrid]){
+				leastPopGrid = k;
+			}
+		}
+		if(leastPopGrid==0){
+			while(!orcPlaced){
+				orcX = rand.nextInt(32)+(xGridBoundary-32);
+				orcY = rand.nextInt(32)+1;
+				if(getTile(orcX, orcY).getId()==2){
+					Entity e = new Orc(this, orcX*8, orcY*8);
+					this.addEntity(e);
+					orcPlaced = true;
+				}
+			}
+		}
+		else if(leastPopGrid==1){
+			while(!orcPlaced){
+				orcX = rand.nextInt(32)+xGridBoundary;
+				orcY = rand.nextInt(32)+1;
+				if(getTile(orcX, orcY).getId()==2){
+					Entity e = new Orc(this, orcX*8, orcY*8);
+					this.addEntity(e);
+					orcPlaced = true;
+				}
+			}
+		}
+		else if(leastPopGrid==2){
+			while(!orcPlaced){
+				orcX = rand.nextInt(32)+(xGridBoundary-32);
+				orcY = rand.nextInt(32)+32;
+				if(getTile(orcX, orcY).getId()==2){
+					Entity e = new Orc(this, orcX*8, orcY*8);
+					this.addEntity(e);
+					orcPlaced = true;
+				}
+			}
+		}
+		else if(leastPopGrid==3){
+			while(!orcPlaced){
+				orcX = rand.nextInt(32)+xGridBoundary;
+				orcY = rand.nextInt(32)+32;
+				if(getTile(orcX, orcY).getId()==2){
+					Entity e = new Orc(this, orcX*8, orcY*8);
+					this.addEntity(e);
+					orcPlaced = true;
+				}
+			}
+		}
+	}
 }
