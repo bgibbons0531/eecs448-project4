@@ -1,6 +1,7 @@
 package bgibbons.game.abilities;
 import java.lang.RuntimeException;
-
+import bgibbons.game.Sound;
+import bgibbons.game.entities.Mob;
 /**
  * Base ability class to be extended by other abilities.
  * @author Brad Gibbons
@@ -9,26 +10,27 @@ import java.lang.RuntimeException;
  */
 public abstract class Ability
 {
+	//Knight's abilities
 	public static final Ability[] abilities = new Ability[256];
 	public static final Ability STRIKE = new OffensiveAbility(0, "Strike      ", 1, 1, "rank", 1, false);
 	public static final Ability SHIELD_BASH = new OffensiveAbility(1, "ShieldBash  ", 6, 1, "rank", 3, true);
 	public static final Ability DIVINE_CALL = new DefensiveAbility(2, "DivineCall  ", 10, 2, "int", 5, 1);
 	public static final Ability HOLY_SMITE = new OffensiveAbility(3, "Holy  Smite ", 12, 10, "int", 2, false);
-
+	//Wizard's abilities
 	public static final Ability BONK = new OffensiveAbility(4, "BONK        ", 1, 1, "rank", 1, false);
-	public static final Ability SCORCH = new OffensiveAbility(5, "Scorch        ", 6, 1, "rank", 3, true);
+	public static final Ability SCORCH = new OffensiveAbility(5, "Scorch        ", 4, 1, "rank", 3, true);
 	public static final Ability FIRE_WALL = new DefensiveAbility(6, "Fire  Wall  ", 10, 2, "int", 5, 1);
-	public static final Ability KABOOM = new OffensiveAbility(7, "KABOOM      ", 12, 10, "int", 2, false);
-
+	public static final Ability KABOOM = new OffensiveAbility(7, "KABOOM      ", 12, 15, "int", 2, false);
+	//Hunter's abilities
 	public static final Ability STAB = new OffensiveAbility(8, "Stab        ", 1, 1, "rank", 1, false);
-	public static final Ability KNIFE_THROW = new OffensiveAbility(9, "Knife Throw ", 6, 1, "rank", 3, true);
-	public static final Ability SMOKE_BOMB = new DefensiveAbility(10, "Smoke Bomb  ", 10, 2, "int", 5, 1);
-	public static final Ability MARK = new OffensiveAbility(11, "Mark        ", 12, 10, "int", 2, false);
+	public static final Ability KNIFE_THROW = new OffensiveAbility(9, "Knife Throw ", 6, 1, "dex", 3, true);
+	public static final Ability SMOKE_BOMB = new DefensiveAbility(10, "Smoke Bomb  ", 10, 2, "dex", 5, 1);
+	public static final Ability MARK = new OffensiveAbility(11, "Mark        ", 12, 10, "dex", 2, false);
 
 	protected byte id;
 	protected String name;
 	protected int cooldown;
-
+	public static Sound sound;
 	/**
 	 * Constructor for the Ability clas.
 	 * @param id 		Unique id for the ability.
@@ -44,7 +46,74 @@ public abstract class Ability
 
 		abilities[id] = this;
 	}
+	/**
+	 * Plays ability 1 sound.
+	 */
+	public static void playAbility1Sound()
+	{
+		if(Mob.ability1.getName()=="Strike      "){
+		sound = new Sound("/res/sounds/Combat/Knight/Strike.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();	}			//Play the sound.
 
+		if(Mob.ability1.getName()=="BONK        "){
+		sound = new Sound("/res/sounds/Combat/Wizard/Bonk.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+
+		if(Mob.ability1.getName()=="Stab        "){
+		sound = new Sound("/res/sounds/Combat/Hunter/Stab.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+	}
+	/**
+	 * Plays ability 2 sound.
+	 */
+	public static void playAbility2Sound()
+	{
+		if(Mob.ability2.getName()=="ShieldBash  "){
+		sound = new Sound("/res/sounds/Combat/Knight/ShieldBash.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();	}			//Play the sound.
+
+		if(Mob.ability2.getName()=="Scorch        "){
+		sound = new Sound("/res/sounds/Combat/Wizard/Scorch.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();	}			//Play the sound.
+
+		if(Mob.ability2.getName()=="Knife Throw "){
+		sound = new Sound("/res/sounds/Combat/Hunter/KnifeThrow.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();	}			//Play the sound.
+	}
+	/**
+	 * Plays ability 3 sound.
+	 */
+	public static void playAbility3Sound()
+	{
+		if(Mob.ability3.getName()=="DivineCall  "){
+		sound = new Sound("/res/sounds/Combat/Knight/DivineCall.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+
+		if(Mob.ability3.getName()=="Fire  Wall  "){
+		sound = new Sound("/res/sounds/Combat/Wizard/FireWall.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+
+		if(Mob.ability3.getName()=="Smoke Bomb  "){
+		sound = new Sound("/res/sounds/Combat/Hunter/SmokeBomb.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+	}
+	/**
+	 * Plays ability 4 sound.
+	 */
+	public static void playAbility4Sound()
+	{
+		if(Mob.ability4.getName()=="Holy  Smite "){
+		sound = new Sound("/res/sounds/Combat/Knight/HolySmite.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+
+		if(Mob.ability4.getName()=="KABOOM      "){
+		sound = new Sound("/res/sounds/Combat/Wizard/KABOOM.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+
+		if(Mob.ability4.getName()=="Mark        "){
+		sound = new Sound("/res/sounds/Combat/Hunter/Mark.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+	}
 	/**
 	 * Returns the Id of the Ability.
 	 * @return The Id of the Ability.

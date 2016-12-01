@@ -1,5 +1,6 @@
 package bgibbons.game;
 
+import bgibbons.game.*;
 import bgibbons.game.Game;
 import bgibbons.game.entities.*;
 import bgibbons.game.graphics.Colors;
@@ -15,6 +16,7 @@ import bgibbons.game.graphics.Screen;
 public class Menu {
 
 	public enum MenuStates { START, CLASSES, CLOSED, OPEN, STATS, GEAR, HELP, COMBAT }
+
 	public enum Slots { NONE, HEAD, CHEST, LEGS, WEAPON, SHIELD, INVENTORY1, INVENTORY2, INVENTORY3, INVENTORY4, INVENTORY5, INVENTORY6 }
 
 	public MenuStates state;
@@ -23,9 +25,9 @@ public class Menu {
 
 	private boolean itemSelected;
 
-
 	private InputHandler input;
 
+	public Sound sound;
 	/**
 	 * Constructor for the menu object to take in and InputHandler.
 	 * @param input 	InputHandler to interact with menu.
@@ -49,39 +51,50 @@ public class Menu {
 				case START:
 					if (151 <= x && x <= 338 && 176 <= y && y <= 240) {
 						game.state = Game.States.CLASSES;
+						sound = new Sound("/res/sounds/Menu/click.wav"); 		//Intialize SFX sound object with path.
+						sound.playFX();				//Play the sound.
 					}
 					break;
 				case CLASSES:
 					if (28 <= x && x <= 215 && 103 <= y && y <= 166) {
-						game.player.setPaladin();
+						game.player.setKnight();
 						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
+						sound.playFX();				//Play the sound.
 					} else if (28 <= x && x <= 215 && 214 <= y && y <= 266) {
 						game.player.setWizard();
 						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
+						sound.playFX();				//Play the sound.
 					} else if (28 <= x && x <= 215 && 299 <= y && y <= 366) {
 						game.player.setHunter();
 						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
+						sound.playFX();				//Play the sound.
 					}
 					break;
 				case CLOSED:
 					if (393 <= x && y <= 24) { // Menu button
 						state = MenuStates.OPEN;
+						sound.playFX();				//Play the sound.
 					}
 					break;
 				case OPEN:
 					if (393 <= x && y <= 24) { // Close button
 						state = MenuStates.CLOSED;
+						sound.playFX();				//Play the sound.
 					} else if (393 <= x && 25 <= y && y <= 48) { // Stats button
 						state = MenuStates.STATS;
+						sound.playFX();				//Play the sound.
 					} else if (393 <= x && 49 <= y && y <= 72) { // Gear button
 						state = MenuStates.GEAR;
+						sound.playFX();				//Play the sound.
 					} else if (393 <= x && x <= 440 && 73 <= y && y <= 96 && game.state != Game.States.POSTCOMBAT) { // Pause/ Play button
+						sound.playFX();				//Play the sound.
 						if (game.state == Game.States.RUNNING) game.state = Game.States.PAUSED;
 						else game.state = Game.States.RUNNING;
 					} else if (441 <= x && 73 <= y && y <= 96) { // Mute/ Unmute button
+						sound.playFX();				//Play the sound.
 						if (game.sound.isPlaying) {
 							game.sound.pause();
 						} else {
@@ -89,15 +102,19 @@ public class Menu {
 						}
 					} else if (393 <= x && 97 <= y && y <= 120) { // Help button
 						state = MenuStates.HELP;
+						sound.playFX();				//Play the sound.
 					} else if (393 <= x && 121 <= y && y <= 144) { // Exit button
+						sound.playFX();				//Play the sound.
 						game.close();
 					}
 					break;
 				case STATS:
 					if (343 <= x && x <= 392 && y <= 24) { // Back button
 						state = MenuStates.OPEN;
+						sound.playFX();				//Play the sound.
 					} else if (393 <= x && y <= 24) { // Close button
 						state = MenuStates.CLOSED;
+						sound.playFX();				//Play the sound.
 					} else if (322 <= x && x <= 338 && 52 <= y && y <= 68) {
 						if (game.player.getAttributePoints() > 0) game.player.increaseDexterity();
 					} else if (322 <= x && x <= 338 && 78 <= y && y <= 92) {
@@ -109,9 +126,10 @@ public class Menu {
 				case GEAR:
 					if (343 <= x && x <= 392 && y <= 24) { // Back button
 						state = MenuStates.OPEN;
+						sound.playFX();				//Play the sound.
 					} else if (393 <= x && y <= 24) { // Close button
 						state = MenuStates.CLOSED;
-
+						sound.playFX();				//Play the sound.
 					} else if (407 <= x && x <= 425 && 51 <= y && y <= 69) { // Head Slot
 						game.player.unEquip(game.player.getHead());
 					} else if (407 <= x && x <= 425 && 76 <= y && y <= 93) { // Chest Slot
@@ -241,19 +259,25 @@ public class Menu {
 				case HELP:
 					if (343 <= x && x <= 392 && y <= 24) { // Back button
 						state = MenuStates.OPEN;
+						sound.playFX();				//Play the sound.
 					} else if (393 <= x && y <= 24) { // Close button
 						state = MenuStates.CLOSED;
+						sound.playFX();				//Play the sound.
 					}
 					break;
 				case COMBAT:
 					if (52 <= x && x <= 244 && 248 <= y && y <= 293) { // Ability 1
 						game.combat.useAbility(game.player.getAbility(1));
+
 					} else if (248 <= x && x <= 435 && 248 <= y && y <= 293) { // Ability 2
 						game.combat.useAbility(game.player.getAbility(2));
+
 					} else if (52 <= x && x <= 244 && 299 <= y && y <= 341) { // Ability 3
 						game.combat.useAbility(game.player.getAbility(3));
+
 					} else if (248 <= x && x <= 435 && 299 <= y && y <= 341) { // Ability 4
 						game.combat.useAbility(game.player.getAbility(4));
+
 					}
 					break;
 				default:

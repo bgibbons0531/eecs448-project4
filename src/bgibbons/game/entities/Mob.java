@@ -27,10 +27,10 @@ public abstract class Mob extends Entity {
 	protected int intelligence = 5;
 	protected int vitality = 5;
 
-	protected static Ability ability1;
-	protected static Ability ability2;
-	protected static Ability ability3;
-	protected static Ability ability4;
+	public static Ability ability1;
+	public static Ability ability2;
+	public static Ability ability3;
+	public static Ability ability4;
 
 	protected int baseDex = 5;
 	protected int baseInt = 5;
