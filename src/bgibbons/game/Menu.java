@@ -57,7 +57,7 @@ public class Menu {
 					break;
 				case CLASSES:
 					if (28 <= x && x <= 215 && 103 <= y && y <= 166) {
-						game.player.setPaladin();
+						game.player.setKnight();
 						game.state = Game.States.RUNNING;
 						state = MenuStates.CLOSED;
 						sound.playFX();				//Play the sound.

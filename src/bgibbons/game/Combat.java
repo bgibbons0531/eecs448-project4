@@ -182,22 +182,22 @@ public class Combat {
 			//set cooldown timer for ability, currently assumes player/mob1 used ability
 			if (ability == combatant1.mob.getAbility(1)){
 				combatant1.ability1CD = cooldown;
-				Ability.playAbility1Sound();
+				Ability.playAbility1Sound();					//Calls Ability 1 Sound
 			}
 			else if (ability == combatant1.mob.getAbility(2))
 			{
 				combatant1.ability2CD = cooldown;
-				Ability.playAbility2Sound();
+				Ability.playAbility2Sound();					//Calls Ability 2 Sound
 			}
 			else if (ability == combatant1.mob.getAbility(3))
 			{
 				combatant1.ability3CD = cooldown;
-				Ability.playAbility3Sound();
+				Ability.playAbility3Sound();					//Calls Ability 3 Sound
 			}
 			else if (ability == combatant1.mob.getAbility(4))
 			{
 				combatant1.ability4CD = cooldown;
-				Ability.playAbility4Sound();
+				Ability.playAbility4Sound();					//Calls Ability 4 Sound
 			}
 		}
 	}
