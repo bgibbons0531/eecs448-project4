@@ -50,8 +50,16 @@ public abstract class Ability
 	 */
 	public static void playAbility1Sound()
 	{
+		if(Mob.ability1.getName()=="Strike      "){
+		sound = new Sound("/res/sounds/Combat/Paladin/Strike.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();	}			//Play the sound.
+
 		if(Mob.ability1.getName()=="BONK        "){
 		sound = new Sound("/res/sounds/Combat/Wizard/Bonk.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+
+		if(Mob.ability1.getName()=="Stab        "){
+		sound = new Sound("/res/sounds/Combat/Hunter/Stab.wav"); 		//Intialize SFX sound object with path.
 		sound.playFX();}				//Play the sound.
 	}
 	/**
@@ -59,8 +67,16 @@ public abstract class Ability
 	 */
 	public static void playAbility2Sound()
 	{
+		if(Mob.ability2.getName()=="ShieldBash  "){
+		sound = new Sound("/res/sounds/Combat/Paladin/ShieldBash.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();	}			//Play the sound.
+
 		if(Mob.ability2.getName()=="Scorch        "){
 		sound = new Sound("/res/sounds/Combat/Wizard/Scorch.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();	}			//Play the sound.
+
+		if(Mob.ability2.getName()=="Knife Throw "){
+		sound = new Sound("/res/sounds/Combat/Hunter/KnifeThrow.wav"); 		//Intialize SFX sound object with path.
 		sound.playFX();	}			//Play the sound.
 	}
 	/**
@@ -68,8 +84,16 @@ public abstract class Ability
 	 */
 	public static void playAbility3Sound()
 	{
+		if(Mob.ability3.getName()=="DivineCall  "){
+		sound = new Sound("/res/sounds/Combat/Paladin/DivineCall.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+
 		if(Mob.ability3.getName()=="Fire  Wall  "){
 		sound = new Sound("/res/sounds/Combat/Wizard/FireWall.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+
+		if(Mob.ability3.getName()=="Smoke Bomb  "){
+		sound = new Sound("/res/sounds/Combat/Hunter/SmokeBomb.wav"); 		//Intialize SFX sound object with path.
 		sound.playFX();}				//Play the sound.
 	}
 	/**
@@ -77,8 +101,16 @@ public abstract class Ability
 	 */
 	public static void playAbility4Sound()
 	{
+		if(Mob.ability4.getName()=="Holy  Smite "){
+		sound = new Sound("/res/sounds/Combat/Paladin/HolySmite.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+
 		if(Mob.ability4.getName()=="KABOOM      "){
 		sound = new Sound("/res/sounds/Combat/Wizard/KABOOM.wav"); 		//Intialize SFX sound object with path.
+		sound.playFX();}				//Play the sound.
+
+		if(Mob.ability4.getName()=="Mark        "){
+		sound = new Sound("/res/sounds/Combat/Hunter/Mark.wav"); 		//Intialize SFX sound object with path.
 		sound.playFX();}				//Play the sound.
 	}
 	/**

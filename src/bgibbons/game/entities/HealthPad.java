@@ -3,6 +3,7 @@ package bgibbons.game.entities;
 import bgibbons.game.graphics.Colors;
 import bgibbons.game.graphics.Screen;
 import bgibbons.game.level.Level;
+import bgibbons.game.Sound;
 
 /**
  * An extension of the Entity class for a HealthPad.
@@ -10,14 +11,14 @@ import bgibbons.game.level.Level;
  * @version 1.0 24 October 2016.
  */
 public class HealthPad extends Entity {
-	
+
 	private int tileId;
 	private int color;
 	private int health;
 	private boolean active;
 	private int respawnRate; // Number of ticks between health pad respawning
 	private int nextRespawn; // Tickcount at next pick up
-
+	public Sound sound;
 	/**
 	 * Constructor for the HealthPad object.
 	 * @param level 	Level to add the HealthPad to.
@@ -61,6 +62,8 @@ public class HealthPad extends Entity {
 	 */
 	public int activate() {
 		if (active) {
+			sound = new Sound("/res/sounds/World/Health.wav"); 		//Intialize SFX sound object with path.
+			sound.playFX();				//Play the sound.
 			active = false;
 			color = Colors.get(-1, 000, 000, 555);
 			nextRespawn = tickCount + respawnRate;
