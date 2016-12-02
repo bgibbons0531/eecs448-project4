@@ -49,10 +49,14 @@ public class Game extends Canvas implements Runnable
 	public InputHandler input;	// Decleare the InputHandler object.
 	public Level main_level;	// Declare the Level object.
 	public Level combatLevel;	// Declare the combat level object.
+	public Level dungeon1;		// Declare the first dungeon level.
+	public Level dungeon2;		// Declare the second dungeon level.
 	public Combat combat; 		// Declare the combat object.
 	public Player player;		// Declare the Player object.
 	public Menu menu;			// Declare the Menu object.
-	public Sound sound;			//Declare the Sound object.
+	public Sound sound;			// Declare the Sound object.
+
+>>>>>>> dungeon
 	public enum States {START, CLASSES, RUNNING, PAUSED, COMBAT, POSTCOMBAT, OVER}
 	public States state;
 	/**
@@ -99,6 +103,8 @@ public class Game extends Canvas implements Runnable
 		input = new InputHandler(this);													// Initialize the InputHandler to interact with the Game.
 		main_level = new Level("/res/levels/main_level.png", "/res/entities/main_level.png", true);						// Initialize the Level object with the map and entities to be added on startup.
 		combatLevel = new Level("/res/levels/combat_level.png", null, false);			// Initialize the combat level object with the map, but no entities.
+		dungeon1 = new Level(null, null, false);												// Initialize the first dungeon level, map and entities to be added procedurally
+		dungeon2 = new Level(null, null, false);												// Initialize the second dungeon level, map and entities to be added procedurally
 		player = new Player(main_level, 16, main_level.height*8/2, input);				// Initialize the Player object with the level at the set coordinates interacting with the input handler.
 		main_level.addEntity(player);													// Add the player to the level.
 		menu = new Menu(input);															// Initialize the Menu object with the input handler.
@@ -205,6 +211,39 @@ public class Game extends Canvas implements Runnable
 					combat = new Combat(player, (Mob)e);
 				} else if (e instanceof HealthPad) {
 					player.heal(((HealthPad)e).activate());
+				}
+				//cases for level change
+				if(player.x > 520 && player.x <= 528 && player.getLevel() == main_level){
+					player.setLevel(dungeon1);
+					player.x = 8;
+					player.y = dungeon1.getStart()*8;
+					dungeon1.addEntity(main_level.removeEntity(player));
+				}
+				else if(player.x > 1192 && player.x <= 1200 && player.getLevel() == main_level){
+					player.setLevel(dungeon2);
+					player.x = 8;
+					player.y = dungeon2.getStart()*8;
+					dungeon2.addEntity(main_level.removeEntity(player));
+				}
+				else if(player.x >= 506 && player.getLevel() == dungeon1){
+					player.x = 672;
+					player.y = main_level.height*8/2;
+					main_level.addEntity(dungeon1.removeEntity(player));
+				}
+				else if(player.x >= 506 && player.getLevel() == dungeon2){
+					player.x = 1344;
+					player.y = main_level.height*8/2;
+					main_level.addEntity(dungeon2.removeEntity(player));
+				}
+				else if(player.x < 8 && player.getLevel() == dungeon1){
+					player.x = 496;
+					player.y = main_level.height*8/2;
+					main_level.addEntity(dungeon1.removeEntity(player));
+				}
+				else if(player.x < 8 && player.getLevel() == dungeon2){
+					player.x = 1334;
+					player.y = main_level.height*8/2;
+					main_level.addEntity(dungeon2.removeEntity(player));
 				}
 				menu.tick(this);
 				break;

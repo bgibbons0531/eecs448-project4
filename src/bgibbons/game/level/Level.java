@@ -26,6 +26,8 @@ public class Level {
 	private byte[] tiles;
 	public int width;
 	public int height;
+	public int start;
+	public int end;
 	public ArrayList<Entity> entities = new ArrayList<Entity>();
 	public ArrayList<Orc> area1Orcs = new ArrayList<Orc>();
 	public ArrayList<Orc> area2Orcs = new ArrayList<Orc>();
@@ -49,8 +51,13 @@ public class Level {
 		if (tileImagePath != null) {
 			this.loadLevelFromFile();
 		} else {
+			Random rand = new Random();
 			this.width = 64;
 			this.height = 64;
+			this.start = rand.nextInt(height-1) + 1;
+			System.out.println(start);
+			this.end = rand.nextInt(height-1) + 1;
+			System.out.println(end);
 			tiles = new byte[width*height];
 			this.generateLevel();
 		}
@@ -144,7 +151,214 @@ public class Level {
 	 * Generates the level tiles if no file is specified.
 	 */
 	public void generateLevel() {
+		//set all tiles to stone
+		for (int y=0; y<height; y++) {
+			for (int x=0; x<width; x++) {
+				this.tiles[x+y*width] = 1;
+			}
+		}
+		//begin procedural generation, algorithm based on The Game of Life by John Conway
+		//loop through all the tiles, minus borders
+		Random rand = new Random();
+		int temp = 0;
+		int test = 0;
+		Boolean[][] map = new Boolean[width][height];
+		//initialize map with a 45% of being live
+		for (int y=0; y<height; y++) {
+			for (int x=0; x<width; x++) {
+				if(rand.nextInt(100) <= 40)
+					map[x][y] = true;
+				else
+					map[x][y] = false;
+			}
+		}
 
+		//generate map
+		for(int i=0; i<2; i++){
+			map = proceduralStep(map);
+		}
+
+		//set forced values for map
+		map[0][start] = true;
+		map[0][start+1] = true;
+		map[1][start] = true;
+		map[1][start+1] = true;
+		map[2][start] = true;
+		map[2][start+1] = true;
+		map[3][start] = true;
+		map[3][start+1] = true;
+		map[4][start] = true;
+		map[4][start+1] = true;
+		map[width-1][end] = true;
+		map[width-1][end+1] = true;
+		map[width-2[end] = true;
+		map[width-2][end+1] = true;
+		map[width-3][end] = true;
+		map[width-3][end+1] = true;
+		map[width-4][end] = true;
+		map[width-4][end+1] = true;
+		map[width-5][end] = true;
+		map[width-5][end+1] = true;
+
+		while(checkValidDungeon(map, 0, start)){
+			for(int i=0; i<2; i++){
+				map = proceduralStep(map);
+			}
+
+			map[0][start] = true;
+			map[0][start+1] = true;
+			map[1][start] = true;
+			map[1][start+1] = true;
+			map[2][start] = true;
+			map[2][start+1] = true;
+			map[3][start] = true;
+			map[3][start+1] = true;
+			map[4][start] = true;
+			map[4][start+1] = true;
+			map[width-1][end] = true;
+			map[width-1][end+1] = true;
+			map[width-2[end] = true;
+			map[width-2][end+1] = true;
+			map[width-3][end] = true;
+			map[width-3][end+1] = true;
+			map[width-4][end] = true;
+			map[width-4][end+1] = true;
+			map[width-5][end] = true;
+			map[width-5][end+1] = true;
+		}
+
+		//apply tiles to map
+		for (int y=2; y<(height-2); y++){
+			for (int x=2; x<(width-2); x++){
+				if(map[x][y])
+					this.tiles[x+y*width] = 2;
+				else
+					this.tiles[x+y*width] = 1;
+			}
+		}
+
+		//set forced start tiles
+		this.tiles[0+start*width] = 2;
+		this.tiles[0+(start+1)*width] = 2;
+		this.tiles[1+start*width] = 2;
+		this.tiles[1+(start+1)*width] = 2;
+		this.tiles[2+start*width] = 2;
+		this.tiles[2+(start+1)*width] = 2;
+		this.tiles[3+start*width] = 2;
+		this.tiles[3+(start+1)*width] = 2;
+		this.tiles[4+start*width] = 2;
+		this.tiles[4+(start+1)*width] = 2;
+		//set forced end tiles
+		this.tiles[(width - 1)+end*width] = 2;
+		this.tiles[(width - 1)+(end+1)*width] = 2;
+		this.tiles[(width - 2)+end*width] = 2;
+		this.tiles[(width - 2)+(end+1)*width] = 2;
+		this.tiles[(width - 3)+end*width] = 2;
+		this.tiles[(width - 3)+(end+1)*width] = 2;
+		this.tiles[(width - 4)+end*width] = 2;
+		this.tiles[(width - 4)+(end+1)*width] = 2;
+		this.tiles[(width - 5)+end*width] = 2;
+		this.tiles[(width - 5)+(end+1)*width] = 2;
+	}
+
+	public boolean checkValidDungeon(Boolean[][] map, int x, int y){
+		Boolean[][] tempMap = map;
+		if(x == 63 && y == end){
+			return true;
+		}
+		else if(tempMap[x][y+1]){
+			tempMap[x][y] = false;
+			y++;
+			checkValidDungeon(tempMap, x, y);
+		}
+		else if(tempMap[x+1][y]){
+			tempMap[x][y] = false;
+			x++;
+			checkValidDungeon(tempMap, x, y);
+		}
+		else if(tempMap[x][y-1]){
+			tempMap[x][y] = false;
+			y--;
+			checkValidDungeon(tempMap, x, y);
+		}
+		else if(tempMap[x-1][y]){
+			tempMap[x][y] = false;
+			x--;
+			checkValidDungeon(tempMap, x, y);
+		}
+		return false;
+	}
+
+	/**
+	 * Uses 4 rules of "The Game of Life" to generate a new map.
+	 * @param oldMap	Old boolean map representing the dungeon.
+	 * @return A new boolean map representing the dungeon.
+	 */
+	public Boolean[][] proceduralStep(Boolean[][] oldMap){
+		Boolean[][] newMap = new Boolean[width][height];
+		for(int y=0; y<oldMap[0].length; y++){
+			for(int x=0; x<oldMap.length; x++){
+				int neighbours = checkTile(oldMap, x, y);
+				if(oldMap[x][y]){
+					if(neighbours < 2){
+						newMap[x][y] = false;
+					}
+					else{
+						newMap[x][y] = true;
+					}
+				}
+				else{
+					if(neighbours > 3){
+						newMap[x][y] = true;
+					}
+					else{
+						newMap[x][y] = false;
+					}
+				}
+			}
+		}
+		return newMap;
+	}
+
+	/**
+	 * Counts the number of live tiles surrounding the passed tile.
+	 * @param map 	The boolean map representing the dungeon.
+	 * @param x 	The x coordinate of the current tile.
+	 * @param y 	The y coordinate of the current tile.
+	 * @return The number of live tiles surrounding the passed tile.
+	 */
+	public int checkTile(Boolean[][] map, int x, int y){
+		int count = 0;
+		for(int j=-1; j<=1; j++){
+			for(int i=-1; i<=1; i++){
+				if(i==0 && j==0){
+					//Looking at current tile
+				}
+				else if((x+i) < 0 || (y+j) < 0 || (x+i) >= map.length || (y+j) >= map[0].length){
+					count++;
+				}
+				else if(map[x+i][y+j]){
+					count++;
+				}
+			}
+		}
+		return count;
+	}
+
+	/**
+	 * Returns the start tile
+	 * @return The int corresponding to the start tile.
+	 */
+	public int getStart() {
+		return start;
+	}
+
+	/**
+	 * Returns the end tile
+	 * @return The int corresponding to the end tile.
+	 */
+	public int getEnd() {
+		return end;
 	}
 	
 	/**
