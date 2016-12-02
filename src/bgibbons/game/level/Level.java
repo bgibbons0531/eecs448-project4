@@ -23,12 +23,6 @@ import java.util.Random;
 public class Level {
 	
 	private byte[] tiles;
-	private byte[] straightPassage;
-	private byte[] leftPassage;
-	private byte[] rightPassage;
-	private byte[] smallRoom;
-	private byte[] mediumRoom;
-	private byte[] largeRoom;
 	public int width;
 	public int height;
 	public int start;
@@ -57,12 +51,6 @@ public class Level {
 			System.out.println(start);
 			this.end = rand.nextInt(height-1) + 1;
 			System.out.println(end);
-			this.straightPassage = new byte[3*8];
-			this.leftPassage = new byte[8*8];
-			this.rightPassage = new byte[8*8];
-			this.smallRoom = new byte[6*6];
-			this.mediumRoom = new byte[10*10];
-			this.largeRoom = new byte[16*16];
 			tiles = new byte[width*height];
 			this.generateLevel();
 		}
@@ -165,7 +153,7 @@ public class Level {
 		int temp = 0;
 		int test = 0;
 		Boolean[][] map = new Boolean[width][height];
-		//initialize map with a 45% of being true
+		//initialize map with a 45% of being live
 		for (int y=0; y<height; y++) {
 			for (int x=0; x<width; x++) {
 				if(rand.nextInt(100) <= 40)
@@ -175,8 +163,58 @@ public class Level {
 			}
 		}
 
+		//generate map
 		for(int i=0; i<2; i++){
 			map = proceduralStep(map);
+		}
+
+		//set forced values for map
+		map[0][start] = true;
+		map[0][start+1] = true;
+		map[1][start] = true;
+		map[1][start+1] = true;
+		map[2][start] = true;
+		map[2][start+1] = true;
+		map[3][start] = true;
+		map[3][start+1] = true;
+		map[4][start] = true;
+		map[4][start+1] = true;
+		map[width-1][end] = true;
+		map[width-1][end+1] = true;
+		map[width-2[end] = true;
+		map[width-2][end+1] = true;
+		map[width-3][end] = true;
+		map[width-3][end+1] = true;
+		map[width-4][end] = true;
+		map[width-4][end+1] = true;
+		map[width-5][end] = true;
+		map[width-5][end+1] = true;
+
+		while(checkValidDungeon(map, 0, start)){
+			for(int i=0; i<2; i++){
+				map = proceduralStep(map);
+			}
+
+			map[0][start] = true;
+			map[0][start+1] = true;
+			map[1][start] = true;
+			map[1][start+1] = true;
+			map[2][start] = true;
+			map[2][start+1] = true;
+			map[3][start] = true;
+			map[3][start+1] = true;
+			map[4][start] = true;
+			map[4][start+1] = true;
+			map[width-1][end] = true;
+			map[width-1][end+1] = true;
+			map[width-2[end] = true;
+			map[width-2][end+1] = true;
+			map[width-3][end] = true;
+			map[width-3][end+1] = true;
+			map[width-4][end] = true;
+			map[width-4][end+1] = true;
+			map[width-5][end] = true;
+			map[width-5][end+1] = true;
 		}
 
 		//apply tiles to map
@@ -189,22 +227,63 @@ public class Level {
 			}
 		}
 
-		//set start tiles
+		//set forced start tiles
 		this.tiles[0+start*width] = 2;
 		this.tiles[0+(start+1)*width] = 2;
 		this.tiles[1+start*width] = 2;
 		this.tiles[1+(start+1)*width] = 2;
 		this.tiles[2+start*width] = 2;
 		this.tiles[2+(start+1)*width] = 2;
-		//set end tiles
+		this.tiles[3+start*width] = 2;
+		this.tiles[3+(start+1)*width] = 2;
+		this.tiles[4+start*width] = 2;
+		this.tiles[4+(start+1)*width] = 2;
+		//set forced end tiles
 		this.tiles[(width - 1)+end*width] = 2;
 		this.tiles[(width - 1)+(end+1)*width] = 2;
 		this.tiles[(width - 2)+end*width] = 2;
 		this.tiles[(width - 2)+(end+1)*width] = 2;
 		this.tiles[(width - 3)+end*width] = 2;
 		this.tiles[(width - 3)+(end+1)*width] = 2;
+		this.tiles[(width - 4)+end*width] = 2;
+		this.tiles[(width - 4)+(end+1)*width] = 2;
+		this.tiles[(width - 5)+end*width] = 2;
+		this.tiles[(width - 5)+(end+1)*width] = 2;
 	}
 
+	public boolean checkValidDungeon(Boolean[][] map, int x, int y){
+		Boolean[][] tempMap = map;
+		if(x == 63 && y == end){
+			return true;
+		}
+		else if(tempMap[x][y+1]){
+			tempMap[x][y] = false;
+			y++;
+			checkValidDungeon(tempMap, x, y);
+		}
+		else if(tempMap[x+1][y]){
+			tempMap[x][y] = false;
+			x++;
+			checkValidDungeon(tempMap, x, y);
+		}
+		else if(tempMap[x][y-1]){
+			tempMap[x][y] = false;
+			y--;
+			checkValidDungeon(tempMap, x, y);
+		}
+		else if(tempMap[x-1][y]){
+			tempMap[x][y] = false;
+			x--;
+			checkValidDungeon(tempMap, x, y);
+		}
+		return false;
+	}
+
+	/**
+	 * Uses 4 rules of "The Game of Life" to generate a new map.
+	 * @param oldMap	Old boolean map representing the dungeon.
+	 * @return A new boolean map representing the dungeon.
+	 */
 	public Boolean[][] proceduralStep(Boolean[][] oldMap){
 		Boolean[][] newMap = new Boolean[width][height];
 		for(int y=0; y<oldMap[0].length; y++){
@@ -231,6 +310,13 @@ public class Level {
 		return newMap;
 	}
 
+	/**
+	 * Counts the number of live tiles surrounding the passed tile.
+	 * @param map 	The boolean map representing the dungeon.
+	 * @param x 	The x coordinate of the current tile.
+	 * @param y 	The y coordinate of the current tile.
+	 * @return The number of live tiles surrounding the passed tile.
+	 */
 	public int checkTile(Boolean[][] map, int x, int y){
 		int count = 0;
 		for(int j=-1; j<=1; j++){
