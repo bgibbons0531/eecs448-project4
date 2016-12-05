@@ -191,7 +191,7 @@ public class Level {
 		map[4][start+1] = true;
 		map[width-1][end] = true;
 		map[width-1][end+1] = true;
-		map[width-2[end] = true;
+		map[width-2][end] = true;
 		map[width-2][end+1] = true;
 		map[width-3][end] = true;
 		map[width-3][end+1] = true;
@@ -217,7 +217,7 @@ public class Level {
 			map[4][start+1] = true;
 			map[width-1][end] = true;
 			map[width-1][end+1] = true;
-			map[width-2[end] = true;
+			map[width-2][end] = true;
 			map[width-2][end+1] = true;
 			map[width-3][end] = true;
 			map[width-3][end+1] = true;
