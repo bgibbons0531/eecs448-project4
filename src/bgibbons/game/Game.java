@@ -55,7 +55,7 @@ public class Game extends Canvas implements Runnable
 	public Player player;		// Declare the Player object.
 	public Menu menu;			// Declare the Menu object.
 	public Sound sound;			// Declare the Sound object.
-	
+
 	public enum States {START, CLASSES, RUNNING, PAUSED, COMBAT, POSTCOMBAT, OVER}
 	public States state;
 	/**
@@ -111,7 +111,6 @@ public class Game extends Canvas implements Runnable
 		sound = new Sound("/res/sounds/BGM.wav"); 		//Intialize BGM sound object with path.
 		//sound.play();				//Play the sound.
 		startTime = System.currentTimeMillis();
-		testBandit = new Bandit(main_level, 32, main_level.height*8/2);
 	}
 
 	/**
