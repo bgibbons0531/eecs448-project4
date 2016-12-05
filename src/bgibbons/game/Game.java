@@ -22,6 +22,7 @@ import bgibbons.game.level.Level;
  * @author Brad Gibbons
  * @author Jackson Schilmoeller
  * @author Rony Singh
+ * @author Chris Porras
  * @version 1.0 20 November 2016
  */
 public class Game extends Canvas implements Runnable
@@ -55,7 +56,7 @@ public class Game extends Canvas implements Runnable
 	public Player player;		// Declare the Player object.
 	public Menu menu;			// Declare the Menu object.
 	public Sound sound;			// Declare the Sound object.
-
+	
 	public enum States {START, CLASSES, RUNNING, PAUSED, COMBAT, POSTCOMBAT, OVER}
 	public States state;
 	/**

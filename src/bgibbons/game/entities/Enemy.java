@@ -31,7 +31,7 @@ public abstract class Enemy extends Mob {
 	 * @param speed 	The speed of the enemy.
 	 * @param rank 		The starting rank of the enemy.
 	 * @param maxExp	The maximum experience of the enemy.
-	 * @param scale 	The scale of the e
+	 * @param scale 	The scale of the enemy
 	 */
 	public Enemy(Level level, int x, int y, int xTile, int yTile, int color, int maxHealth, int speed, int rank, int maxExp, int scale) {
 		super(level, "Enemy", x, y, maxHealth, speed, rank, maxExp);
