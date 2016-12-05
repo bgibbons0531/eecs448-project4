@@ -25,7 +25,7 @@ public class Bandit extends Enemy{
    * @param y     The y coordinate the bandit will start at.
    */
   public Bandit(Level level, int x, int y) {
-    super(level, x, y, 0, 24, Colors.get(-1, 000, 320, 231), 10, 1, 1, 100, 1);
+    super(level, x, y, 0, 24, Colors.get(-1, 000, 020, 543), 10, 1, 1, 100, 1);
   }
 
   public void rankUp(){
