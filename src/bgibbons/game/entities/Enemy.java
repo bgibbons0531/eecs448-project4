@@ -51,7 +51,7 @@ public abstract class Enemy extends Mob {
 		}
 
 		if(this instanceof Orc){
-			moveOrc();
+			move();
 		}
 
 
@@ -162,7 +162,7 @@ public abstract class Enemy extends Mob {
 	public abstract void rankUp();
 	
 	/*
-	* Method to determine the movement of orcs
+	* Method to determine the movement of enemies
 	*/
-	public abstract void moveOrc();
+	public abstract void move();
 }

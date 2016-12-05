@@ -111,7 +111,6 @@ public class Game extends Canvas implements Runnable
 		sound = new Sound("/res/sounds/BGM.wav"); 		//Intialize BGM sound object with path.
 		//sound.play();				//Play the sound.
 		startTime = System.currentTimeMillis();
-
 	}
 
 	/**

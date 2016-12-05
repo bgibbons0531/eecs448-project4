@@ -42,7 +42,7 @@ public class Orc extends Enemy {
 	/*
 	* Method to determine the movement of orcs
 	*/
-	public void moveOrc() {
+	public void move() {
 
 		Random rand = new Random();
 

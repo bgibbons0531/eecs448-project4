@@ -30,7 +30,7 @@ public class Boss extends Enemy{
     vitality ++;
   }
 
-  public void moveOrc(){
+  public void move(){
     
   }
 }
