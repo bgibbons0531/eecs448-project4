@@ -41,8 +41,13 @@ public class Vampire extends Enemy{
 
     if(stepsTaken >= stop){
       stepsTaken = 0;
-      stop = rand.nextInt(5)+1;
       direction = rand.nextInt(10);
+      if(direction<4){
+        stop = rand.nextInt(10)+5;
+      }
+      else{
+        stop = rand.nextInt(30)+11;
+      }
     }
 
     // Move bandit

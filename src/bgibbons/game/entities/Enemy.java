@@ -50,10 +50,7 @@ public abstract class Enemy extends Mob {
 			rankUp();
 		}
 
-		if(this instanceof Orc){
-			move();
-		}
-
+		move();
 
 		tickCount++;
 	}

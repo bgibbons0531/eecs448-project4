@@ -762,4 +762,36 @@ public class Level {
 			}
 		}
 	}
+
+	/**
+	 * Spawns enemies for dungeons
+	 * @param dungeonNum 	The number indicating which dungeon is spawning the entities. 1 spawns bandits, 2 spawns vampires
+	 */
+	public void spawn(int dungeonNum){
+		Random rand = new Random();
+		boolean enemyPlaced = false;
+		int enemyX;
+		int enemyY;
+
+		for(int i = 0; i<40; i++){
+			enemyPlaced=false;
+			while(!enemyPlaced){
+				enemyX = rand.nextInt(63)+1;
+				enemyY = rand.nextInt(63)+1;
+				if(getTile(enemyX,enemyY).getId() == 2){
+					if(dungeonNum == 1){
+						Entity e = new Bandit(this, enemyX*8, enemyY*8);
+						this.addEntity(e);
+						enemyPlaced=true;
+					}
+					else if(dungeonNum == 2){
+						Entity e = new Vampire(this, enemyX*8, enemyY*8);
+						this.addEntity(e);
+						enemyPlaced=true;
+					}
+
+				}
+			}
+		}
+	}
 }
