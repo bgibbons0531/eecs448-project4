@@ -6,7 +6,7 @@ import bgibbons.game.graphics.Screen;
 import bgibbons.game.level.Level;
 
 /**
- * An extension of the Mob class for an orc.
+ * An extension of the Mob class for an Enemy.
  * @author Chris Porras based on Player.java
  * @version 1.0 20 October 2016.
  */
