@@ -113,6 +113,12 @@ public class Game extends Canvas implements Runnable
 		state = States.START;
 		sound = new Sound("/res/sounds/BGM.wav"); 		//Intialize BGM sound object with path.
 		//sound.play();				//Play the sound.
+		for(int i = 0; i < main_level.area2Orcs.size(); i++){
+			main_level.area2Orcs.get(i).setRank(5);
+		}
+		for(int i = 0; i < main_level.area3Orcs.size(); i++){
+			main_level.area3Orcs.get(i).setRank(10);
+		}
 		startTime = System.currentTimeMillis();
 	}
 

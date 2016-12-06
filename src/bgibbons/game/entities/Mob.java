@@ -210,6 +210,17 @@ public abstract class Mob extends Entity {
 	}
 
 	/**
+	 * Sets the Mob's rank.
+	 * @param rank 	the Mob's new rank
+	 */
+	public void setRank(int rank){
+		this.rank = rank;
+		this.dexterity = rank + 5;
+		this.vitality = rank + 5;
+		this.intelligence = rank + 5;
+	}
+
+	/**
 	 * Level up the mob once max exp is reached.
 	 */
 	public abstract void rankUp();
