@@ -13,6 +13,7 @@ public abstract class Entity {
 
 	public int x, y;
 	protected Level level;
+	protected Level prevLevel;
 	protected int tickCount;
 
 	/**
@@ -29,6 +30,7 @@ public abstract class Entity {
 	 */
 	public final void init(Level level) {
 		this.level = level;
+		this.level = prevLevel;
 		this.tickCount = 0;
 	}
 
@@ -64,5 +66,21 @@ public abstract class Entity {
 	 */
 	public void setLevel(Level level){
 		this.level = level;
+	}
+
+	/**
+	 * Returns the previous level of the entity
+	 * @return level 	The previous level of the entity
+	 */
+	public Level getPrevLevel(){
+		return this.prevLevel;
+	}
+
+	/**
+	 * Sets the previous level of the entity
+	 * @param level 	The previous level of the entity
+	 */
+	public void setPrevLevel(Level level){
+		this.prevLevel = level;
 	}
 }

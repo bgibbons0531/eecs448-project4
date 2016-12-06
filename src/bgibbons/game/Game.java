@@ -199,6 +199,7 @@ public class Game extends Canvas implements Runnable
 					player.y = combatLevel.height*8/2;
 					e.x = (combatLevel.width*8) - 24;
 					e.y = combatLevel.height*8/2;
+					player.setPrevLevel(player.getLevel());
 					combatLevel.addEntity(player.getLevel().removeEntity(e));
 					combatLevel.addEntity(player.getLevel().removeEntity(player));
 					player.move(-1,0);
@@ -281,7 +282,7 @@ public class Game extends Canvas implements Runnable
 					player.x = player.mainX;
 					player.y = player.mainY;
 					combatLevel.entities.clear();
-					main_level.addEntity(player);
+					player.getPrevLevel().addEntity(player);
 				}
 				break;
 			case OVER:
