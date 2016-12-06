@@ -54,9 +54,9 @@ public class Level {
 			Random rand = new Random();
 			this.width = 64;
 			this.height = 64;
-			this.start = rand.nextInt(height-1) + 1;
+			this.start = rand.nextInt(height-3) + 1;
 			System.out.println(start);
-			this.end = rand.nextInt(height-1) + 1;
+			this.end = rand.nextInt(height-3) + 1;
 			System.out.println(end);
 			tiles = new byte[width*height];
 			this.generateLevel();
@@ -163,9 +163,17 @@ public class Level {
 		int temp = 0;
 		int test = 0;
 		Boolean[][] map = new Boolean[width][height];
-		//initialize map with a 45% of being live
+
+		//initialize map to all false
 		for (int y=0; y<height; y++) {
 			for (int x=0; x<width; x++) {
+				map[x][y] = false;
+			}
+		}
+
+		//initialize map with a 45% of being live
+		for (int y=2; y<(height-2); y++) {
+			for (int x=2; x<(width-2); x++) {
 				if(rand.nextInt(100) <= 40)
 					map[x][y] = true;
 				else
@@ -200,7 +208,22 @@ public class Level {
 		map[width-5][end] = true;
 		map[width-5][end+1] = true;
 
-		while(checkValidDungeon(map, 0, start)){
+		while(!checkValidDungeon(map, 0, start)){
+			for (int y=0; y<height; y++) {
+				for (int x=0; x<width; x++) {
+					map[x][y] = false;
+				}
+			}
+
+			for (int y=2; y<(height-2); y++) {
+				for (int x=2; x<(width-2); x++) {
+					if(rand.nextInt(100) <= 40)
+						map[x][y] = true;
+					else
+						map[x][y] = false;
+				}
+			}
+
 			for(int i=0; i<2; i++){
 				map = proceduralStep(map);
 			}
@@ -225,6 +248,7 @@ public class Level {
 			map[width-4][end+1] = true;
 			map[width-5][end] = true;
 			map[width-5][end+1] = true;
+			System.out.println("moomoomoomoo");
 		}
 
 		//apply tiles to map
@@ -262,31 +286,177 @@ public class Level {
 	}
 
 	public boolean checkValidDungeon(Boolean[][] map, int x, int y){
+		boolean check = true;
 		Boolean[][] tempMap = map;
-		if(x == 63 && y == end){
-			return true;
+		int dir = 1;
+		x++;
+		x++;
+		while((!(x == 1 && y == start) && !(x == 62 && y == end)) && dir != 4){
+			switch(dir){
+				case 0:	
+					if(x != 0 && x != tempMap.length && y != 0 && y != tempMap[0].length){
+						if(!tempMap[x-1][y]){
+							//System.out.println("left wall found");
+							if(tempMap[x][y-1]){
+								//System.out.println("can go forward");
+								y--;
+							}
+							else if(tempMap[x+1][y]){
+								//System.out.println("can go right");
+								x++;
+								dir = 1;
+							}
+							else if(tempMap[x][y+1]){
+								//System.out.println("can go back");
+								y++;
+								dir = 2;
+							}
+							else{
+								//System.out.println("rip, no way out");
+								dir = 4;
+								check = false;
+							}
+						}
+						else{
+							//System.out.println("left wall not found, go left");
+							x--;
+							dir = 3;
+						}
+					}
+					else{
+						//System.out.println("rip, out of bounds");
+						dir = 4;
+						check = false;
+					}
+					break;
+				case 1:
+					if(x != 0 && x != tempMap.length && y != 0 && y != tempMap[0].length){
+						if(!tempMap[x][y-1]){
+							//System.out.println("left wall found");
+							if(tempMap[x+1][y]){
+								//System.out.println("can go forward");
+								x++;
+							}
+							else if(tempMap[x][y+1]){
+								//System.out.println("can go right");
+								y++;
+								dir = 2;
+							}
+							else if(tempMap[x-1][y]){
+								//System.out.println("can go back");
+								x--;
+								dir = 3;
+							}
+							else{
+								//System.out.println("rip, no way out");
+								dir = 4;
+								check = false;
+							}
+						}
+						else{
+							//System.out.println("left wall not found, go left");
+							y--;
+							dir = 0;
+						}
+					}
+					else{
+						//System.out.println("rip, out of bounds");
+						dir = 4;
+						check = false;
+					}
+					break;
+				case 2:
+					if(x != 0 && x != tempMap.length && y != 0 && y != tempMap[0].length){
+						if(!tempMap[x+1][y]){
+							//System.out.println("left wall found");
+							if(tempMap[x][y+1]){
+								//System.out.println("can go forward");
+								y++;
+							}
+							else if(tempMap[x-1][y]){
+								//System.out.println("can go right");
+								x--;
+								dir = 3;
+							}
+							else if(tempMap[x][y-1]){
+								//System.out.println("can go back");
+								y--;
+								dir = 0;
+							}
+							else{
+								//System.out.println("rip, no way out");
+								dir = 4;
+								check = false;
+							}
+						}
+						else{
+							//System.out.println("left wall not found, go left");
+							x++;
+							dir = 1;
+						}
+					}
+					else{
+						//System.out.println("rip, out of bounds");
+						dir = 4;
+						check = false;
+					}
+					break;
+				case 3:
+					if(x != 0 && x != tempMap.length && y != 0 && y != tempMap[0].length){
+						if(!tempMap[x][y+1]){
+							//System.out.println("left wall found");
+							if(tempMap[x-1][y]){
+								//System.out.println("can go forward");
+								x--;
+								dir = 3;
+							}
+							else if(tempMap[x][y-1]){
+								//System.out.println("can go right");
+								y--;
+								dir = 0;
+							}
+							else if(tempMap[x+1][y]){
+								//System.out.println("can go back");
+								x++;
+								dir = 1;
+							}
+							else{
+								//System.out.println("rip, no way out");
+								dir = 4;
+								check = false;
+							}
+						}
+						else{
+							//System.out.println("left wall not found, go left");
+							y++;
+							dir = 2;
+						}
+					}
+					else{
+						//System.out.println("rip, out of bounds");
+						dir = 4;
+						check = false;
+					}
+					break;
+				case 4:
+					//System.out.println("rip, dir 4");
+					check = false;
+					break;
+				default:
+					check = false;
+					break;
+			}
 		}
-		else if(tempMap[x][y+1]){
-			tempMap[x][y] = false;
-			y++;
-			checkValidDungeon(tempMap, x, y);
+		if(x == 62 && y == end){
+			System.out.println("end found");
 		}
-		else if(tempMap[x+1][y]){
-			tempMap[x][y] = false;
-			x++;
-			checkValidDungeon(tempMap, x, y);
+		else if(x == 1 && y == start){
+			System.out.println("start found");
 		}
-		else if(tempMap[x][y-1]){
-			tempMap[x][y] = false;
-			y--;
-			checkValidDungeon(tempMap, x, y);
+		else{
+			System.out.println(check);
 		}
-		else if(tempMap[x-1][y]){
-			tempMap[x][y] = false;
-			x--;
-			checkValidDungeon(tempMap, x, y);
-		}
-		return false;
+		return check;
 	}
 
 	/**
