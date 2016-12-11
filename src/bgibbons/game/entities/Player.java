@@ -31,6 +31,8 @@ public class Player extends Mob {
 	private Item[] inventory = new Item[6];
 	private int attributePoints = 0;
 	public Sound sound;			//Declare the Sound object.
+	public String playerClass;
+
 	/**
 	 * Constructor the Player object.
 	 * @param level 	Level for the player to be added to.
@@ -43,6 +45,7 @@ public class Player extends Mob {
 		this.mainX = x;
 		this.mainY = y;
 		this.input = input;
+		this.playerClass = "Standard";
 	}
 
 	/**
@@ -453,6 +456,7 @@ public class Player extends Mob {
 	 */
 	public void setKnight()
 	{
+		playerClass = "Knight";
 		color = Colors.get(-1, 111, 250, 543);
 		inventory[0] = new Weapon(level,"Weapon","Standard",5,4,6);
 		inventory[1] = new Shield(level,"Shield","Standard",5,4,6);
@@ -463,6 +467,7 @@ public class Player extends Mob {
 	 */
 	public void setWizard()
 	{
+		playerClass = "Wizard";
 		color = Colors.get(-1, 500, 0, 543);
 		inventory[0] = new Helmet(level,"Helmet","Standard",5,6,4);
 		inventory[1] = new Weapon(level,"Weapon","Standard",5,6,4);
@@ -473,6 +478,7 @@ public class Player extends Mob {
 	 */
 	public void setHunter()
 	{
+		playerClass = "Hunter";
 		color = Colors.get(-1, 0, 300, 543);
 		inventory[0] = new Legs(level,"Legs","Standard",6,5,5);
 		inventory[1] = new Weapon(level,"Weapon","Standard",6,5,5);
@@ -507,5 +513,13 @@ public class Player extends Mob {
 		Mob.ability2 = Ability.KNIFE_THROW;
 		Mob.ability3 = Ability.SMOKE_BOMB;
 		Mob.ability4 = Ability.MARK;
+	}
+
+	/**
+	 * Returns the player's class.
+	 * @return The player's class.
+	 */
+	public String getPlayerClass() {
+		return playerClass;
 	}
 }

@@ -61,6 +61,7 @@ public class Game extends Canvas implements Runnable
 	public Sound lootFX;  	// Declare a sound object for the loot.
 	public enum States {START, CLASSES, RUNNING, PAUSED, COMBAT, POSTCOMBAT, OVER}
 	public States state;
+	public boolean boss = false;
 	private int drop;	//Determines the loot to be dropped.
 	private int RNG1;	//Determines the vit stat of the loot.
 	private int RNG2;	//Determines the int stat of the loot.
@@ -206,6 +207,9 @@ public class Game extends Canvas implements Runnable
 				player.getLevel().tick();
 				Entity e = player.getLevel().getTouching(player);
 				if(e instanceof Mob) {
+					if (e instanceof Boss) {
+						boss = true;
+					}
 					player.mainX = player.x;
 					player.mainY = player.y;
 					player.x = 24;
@@ -304,6 +308,10 @@ public class Game extends Canvas implements Runnable
 					combatLevel.removeEntity(combat.combatant2.mob);
 					player.addKill();
 					player.addExp(20);
+					if (boss) {
+						endTime = System.currentTimeMillis();
+						state = States.OVER;
+					}
 				} else if (!combat.inCombat) {
 					endTime = System.currentTimeMillis();
 					state = States.OVER;
@@ -410,10 +418,14 @@ public class Game extends Canvas implements Runnable
 				} else {
 					Font.render("Victory", screen, screen.xOffset+7*8, screen.yOffset+1*8, Colors.get(-1,-1,-1,555), 1);
 				}
-				Font.render("Class:", screen, screen.xOffset+1*8, screen.yOffset+3*8, Colors.get(-1,-1,-1,555), 1);
+				Font.render("Class:" + player.getPlayerClass(), screen, screen.xOffset+1*8, screen.yOffset+3*8, Colors.get(-1,-1,-1,555), 1);
 				Font.render("Rank:" + player.getRank(), screen, screen.xOffset+1*8, screen.yOffset+5*8, Colors.get(-1,-1,-1,555), 1);
 				Font.render("Kills:" + player.getKillCount(), screen, screen.xOffset+1*8, screen.yOffset+7*8, Colors.get(-1,-1,-1,555), 1);
-				Font.render("Time:" + ((endTime - startTime)/60000) + ":" + ((endTime - startTime)/1000), screen, screen.xOffset+1*8, screen.yOffset+9*8, Colors.get(-1,-1,-1,555), 1);
+				String s_String = "";
+				if ((endTime - startTime)/1000%60 < 10) {
+					s_String = "0";
+				}
+				Font.render("Time:" + ((endTime - startTime)/60000) + ":" + s_String + ((endTime - startTime)/1000%60), screen, screen.xOffset+1*8, screen.yOffset+9*8, Colors.get(-1,-1,-1,555), 1);
 				break;
 			default:
 				break;
