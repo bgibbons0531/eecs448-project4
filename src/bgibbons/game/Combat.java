@@ -33,6 +33,7 @@ public class Combat {
 	private int playerHealRender;
 	private int playerShieldRenderStart;
 	private int playerShieldRender;
+	private String currentAbility;
 	public Sound sound;			//Declare the Sound object.
 	/**
 	 * Constructor for the Comabt object.
@@ -183,21 +184,25 @@ public class Combat {
 			if (ability == combatant1.mob.getAbility(1)){
 				combatant1.ability1CD = cooldown;
 				Ability.playAbility1Sound();					//Calls Ability 1 Sound
+				currentAbility=combatant1.mob.getAbility(1).getName();
 			}
 			else if (ability == combatant1.mob.getAbility(2))
 			{
 				combatant1.ability2CD = cooldown;
 				Ability.playAbility2Sound();					//Calls Ability 2 Sound
+				currentAbility=combatant1.mob.getAbility(2).getName();
 			}
 			else if (ability == combatant1.mob.getAbility(3))
 			{
 				combatant1.ability3CD = cooldown;
 				Ability.playAbility3Sound();					//Calls Ability 3 Sound
+				currentAbility=combatant1.mob.getAbility(3).getName();
 			}
 			else if (ability == combatant1.mob.getAbility(4))
 			{
 				combatant1.ability4CD = cooldown;
 				Ability.playAbility4Sound();					//Calls Ability 4 Sound
+				currentAbility=combatant1.mob.getAbility(4).getName();
 			}
 		}
 	}
@@ -229,41 +234,135 @@ public class Combat {
 	 * @param screen 	Screen to render to.
 	 */
 	public void render(Screen screen) {
-		// Render Enemy effects
+		/*
+		*	Rendering Enemy Combat Effects
+		*/
+		//Enemy Health
 		String health = combatant2.mob.getCurrentHealth() + "/" + combatant2.mob.getMaxHealth();
 		Font.render(health, screen, (20-health.length()-1)*8, 5*8, Colors.get(-1,-1,-1,100), 1);
 		if (enemyDamageRenderStart != 0 && combatTicks <= enemyDamageRenderStart + 45) {
 			Font.render("" + enemyDamageRender, screen, 16*8, 6*8, Colors.get(-1,-1,-1,100), 1);
 		}
-		if (enemyOffRenderStart != 0 && combatTicks <= enemyOffRenderStart + 30) {
-			screen.render(16*8, 7*8, 30+27*32, Colors.get(-1,100,200,300), 0x00, 1); // Top left
-			screen.render(17*8, 7*8, 31+27*32, Colors.get(-1,100,200,300), 0x00, 1); // Top right
-			screen.render(16*8, 8*8, 30+28*32, Colors.get(-1,100,200,300), 0x00, 1); // Bottom left
-			screen.render(17*8, 8*8, 31+28*32, Colors.get(-1,100,200,300), 0x00, 1); // Bottom right
+		//If player ability is Strike/Stab/KnifeThrow.
+		if(currentAbility=="Strike      " || currentAbility=="Stab        " ||currentAbility=="Knife Throw ")
+		{
+			if (enemyOffRenderStart != 0 && combatTicks <= enemyOffRenderStart + 30) {
+				screen.render(16*8, 7*8, 30+27*32, Colors.get(-1,100,200,300), 0x00, 1); // Top left
+				screen.render(17*8, 7*8, 31+27*32, Colors.get(-1,100,200,300), 0x00, 1); // Top right
+				screen.render(16*8, 8*8, 30+28*32, Colors.get(-1,100,200,300), 0x00, 1); // Bottom left
+				screen.render(17*8, 8*8, 31+28*32, Colors.get(-1,100,200,300), 0x00, 1); // Bottom right
+			}
 		}
-
-		// Render Player effects
+		//If player ability is Bonk/ShieldBash.
+		if(currentAbility=="BONK        " || currentAbility=="ShieldBash  ")
+		{
+			if (enemyOffRenderStart != 0 && combatTicks <= enemyOffRenderStart + 30) {
+				screen.render(16*8, 7*8, 26+27*32, Colors.get(-1,100,510,300), 0x00, 1); // Top left
+				screen.render(17*8, 7*8, 27+27*32, Colors.get(-1,100,510,300), 0x00, 1); // Top right
+				screen.render(16*8, 8*8, 26+28*32, Colors.get(-1,100,510,300), 0x00, 1); // Bottom left
+				screen.render(17*8, 8*8, 27+28*32, Colors.get(-1,100,510,300), 0x00, 1); // Bottom right
+			}
+		}
+		//If player ability is Scorch.
+		if(currentAbility=="Scorch        ")
+		{
+			if (enemyOffRenderStart != 0 && combatTicks <= enemyOffRenderStart + 30) {
+				screen.render(16*8, 7*8, 28+27*32, Colors.get(-1,500,510,550), 0x00, 1);// Top left
+				screen.render(17*8, 7*8, 29+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top right
+				screen.render(16*8, 8*8, 28+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom left
+				screen.render(17*8, 8*8, 29+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom right
+			}
+		}
+		//If player ability is KABOOM.
+		if(currentAbility=="KABOOM      ")
+		{
+			if (enemyOffRenderStart != 0 && combatTicks <= enemyOffRenderStart + 30) {
+				screen.render(16*8, 7*8, 28+25*32, Colors.get(-1,500,510,550), 0x00, 1); // Top left
+				screen.render(17*8, 7*8, 29+25*32, Colors.get(-1,500,510,550), 0x00, 1); // Top right
+				screen.render(16*8, 8*8, 28+26*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom left
+				screen.render(17*8, 8*8, 29+26*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom right
+			}
+		}
+		//If player ability is Holy Smite.
+		if(currentAbility=="Holy  Smite ")
+		{
+			if (enemyOffRenderStart != 0 && combatTicks <= enemyOffRenderStart + 30) {
+				screen.render(16*8, 7*8, 24+25*32, Colors.get(-1,555,005,550), 0x00, 1); // Top left
+				screen.render(17*8, 7*8, 25+25*32, Colors.get(-1,555,005,550), 0x00, 1); // Top right
+				screen.render(16*8, 8*8, 24+26*32, Colors.get(-1,555,005,550), 0x00, 1); // Bottom left
+				screen.render(17*8, 8*8, 25+26*32, Colors.get(-1,555,005,550), 0x00, 1); // Bottom right
+			}
+		}
+		//If player ability is Mark.
+		if(currentAbility=="Mark        ")
+		{
+			if (enemyOffRenderStart != 0 && combatTicks <= enemyOffRenderStart + 30) {
+				screen.render(16*8, 7*8, 24+27*32, Colors.get(-1,000,550,500), 0x00, 1); // Top left
+				screen.render(17*8, 7*8, 25+27*32, Colors.get(-1,000,550,500), 0x00, 1); // Top right
+				screen.render(16*8, 8*8, 24+28*32, Colors.get(-1,000,550,500), 0x00, 1); // Bottom left
+				screen.render(17*8, 8*8, 25+28*32, Colors.get(-1,000,550,500), 0x00, 1); // Bottom right
+			}
+		}
+		/*
+		* Render Player effects that are done onto the player
+		*/
 		if (playerDamageRenderStart != 0 && combatTicks <= playerDamageRenderStart + 45) {
 			Font.render("" + playerDamageRender, screen, 2*8, 6*8, Colors.get(-1,-1,-1,100), 1);
 		}
+		//If the player takes damage
 		if (playerOffRenderStart != 0 && combatTicks <= playerOffRenderStart + 30) {
 			screen.render(2*8, 7*8, 30+27*32, Colors.get(-1,100,200,300), 0x00, 1); // Top left
 			screen.render(3*8, 7*8, 31+27*32, Colors.get(-1,100,200,300), 0x00, 1); // Top right
 			screen.render(2*8, 8*8, 30+28*32, Colors.get(-1,100,200,300), 0x00, 1); // Bottom left
 			screen.render(3*8, 8*8, 31+28*32, Colors.get(-1,100,200,300), 0x00, 1); // Bottom right
 		}
+		//If the ability is Divine Call.
+		if(currentAbility=="DivineCall  ")
+		{
+			if (playerDefRenderStart != 0 && combatTicks <= playerDefRenderStart + 30) {
+				screen.render(2*8, 7*8, 30+25*32, Colors.get(-1,111,330,004), 0x00, 1); // Top left
+				screen.render(3*8, 7*8, 31+25*32, Colors.get(-1,111,330,004), 0x00, 1); // Top right
+				screen.render(2*8, 8*8, 30+26*32, Colors.get(-1,111,330,004), 0x00, 1); // Bottom left
+				screen.render(3*8, 8*8, 31+26*32, Colors.get(-1,111,330,004), 0x00, 1); // Bottom right
+			}
+			if (playerHealRenderStart != 0 && combatTicks <= playerHealRenderStart + 45) {
+				Font.render("" + playerHealRender, screen, 1*8, 6*8, Colors.get(-1,-1,-1,020), 1);
+			}
+			if (playerShieldRenderStart != 0 && combatTicks <= playerShieldRenderStart + 45) {
+				Font.render("" + playerShieldRender, screen, 3*8, 6*8, Colors.get(-1,-1,-1,330), 1);
+			}
+		}
+		//If the ability is Smoke Bomb.
+		if(currentAbility=="Smoke Bomb  ")
+		{
+			if (playerDefRenderStart != 0 && combatTicks <= playerDefRenderStart + 30) {
+				screen.render(2*8, 7*8, 26+25*32, Colors.get(-1,111,222,000), 0x00, 1); // Top left
+				screen.render(3*8, 7*8, 27+25*32, Colors.get(-1,111,222,000), 0x00, 1); // Top right
+				screen.render(2*8, 8*8, 26+26*32, Colors.get(-1,111,222,000), 0x00, 1); // Bottom left
+				screen.render(3*8, 8*8, 27+26*32, Colors.get(-1,111,222,000), 0x00, 1); // Bottom right
+			}
+		}
+		//If the ability is Fire Wall.
+		if(currentAbility=="Fire  Wall  ")
+		{
+			if (playerDefRenderStart != 0 && combatTicks <= playerDefRenderStart + 30) {
+				//Upper Flame
+				screen.render(5*8, 6*8, 28+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top left
+				screen.render(6*8, 6*8, 29+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top right
+				screen.render(5*8, 7*8, 28+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom left
+				screen.render(6*8, 7*8, 29+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom right
+				//Middle Flame
+				screen.render(5*8, 7*8, 28+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top left
+				screen.render(6*8, 7*8, 29+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top right
+				screen.render(5*8, 8*8, 28+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom left
+				screen.render(6*8, 8*8, 29+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom right
+				//Bottom Flame
+				screen.render(5*8, 8*8, 28+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top left
+				screen.render(6*8, 8*8, 29+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top right
+				screen.render(5*8, 9*8, 28+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom left
+				screen.render(6*8, 9*8, 29+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom right
 
-		if (playerDefRenderStart != 0 && combatTicks <= playerDefRenderStart + 30) {
-			screen.render(2*8, 7*8, 30+25*32, Colors.get(-1,111,330,004), 0x00, 1); // Top left
-			screen.render(3*8, 7*8, 31+25*32, Colors.get(-1,111,330,004), 0x00, 1); // Top right
-			screen.render(2*8, 8*8, 30+26*32, Colors.get(-1,111,330,004), 0x00, 1); // Bottom left
-			screen.render(3*8, 8*8, 31+26*32, Colors.get(-1,111,330,004), 0x00, 1); // Bottom right
-		}
-		if (playerHealRenderStart != 0 && combatTicks <= playerHealRenderStart + 45) {
-			Font.render("" + playerHealRender, screen, 1*8, 6*8, Colors.get(-1,-1,-1,020), 1);
-		}
-		if (playerShieldRenderStart != 0 && combatTicks <= playerShieldRenderStart + 45) {
-			Font.render("" + playerShieldRender, screen, 3*8, 6*8, Colors.get(-1,-1,-1,330), 1);
+			}
 		}
 	}
 
