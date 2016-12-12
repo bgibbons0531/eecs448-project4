@@ -32,6 +32,7 @@ public class Level {
 	public ArrayList<Orc> area1Orcs = new ArrayList<Orc>();
 	public ArrayList<Orc> area2Orcs = new ArrayList<Orc>();
 	public ArrayList<Orc> area3Orcs = new ArrayList<Orc>();
+	public Entity boss;
 	private String tileImagePath;
 	private String entityImagePath;
 	private BufferedImage tileImage;
@@ -103,6 +104,7 @@ public class Level {
 				} if (entityColors[x+y*width] == 0xFFFF0000){
 					Entity e = new Boss(this, x*8, y*8);
 					this.addEntity(e);
+					this.boss = e;
 				}
 			}
 		}
@@ -560,6 +562,10 @@ public class Level {
 		if(eLoser instanceof Mob && eWinner instanceof Mob){
 			removeEntity(eLoser);
 			((Mob)eWinner).addExp(20);
+			if(((Mob)eWinner).getRank()>((Mob)this.boss).getRank()){
+				((Mob)this.boss).rankUp();
+				removeEntity(eWinner);
+			}
 		}
 		for (Tile t : Tile.tiles) {
 			if (t == null) {
