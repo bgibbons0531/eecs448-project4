@@ -8,6 +8,8 @@ import java.awt.image.DataBufferInt;
 import java.awt.image.BufferStrategy;
 import java.awt.Graphics;
 
+import java.util.Random;
+
 import javax.swing.JFrame;
 
 import bgibbons.game.entities.*;
@@ -56,9 +58,14 @@ public class Game extends Canvas implements Runnable
 	public Player player;		// Declare the Player object.
 	public Menu menu;			// Declare the Menu object.
 	public Sound sound;			// Declare the Sound object.
-	
+	public Sound lootFX;  	// Declare a sound object for the loot.
 	public enum States {START, CLASSES, RUNNING, PAUSED, COMBAT, POSTCOMBAT, OVER}
 	public States state;
+	public boolean boss = false;
+	private int drop;	//Determines the loot to be dropped.
+	private int RNG1;	//Determines the vit stat of the loot.
+	private int RNG2;	//Determines the int stat of the loot.
+	private int RNG3;	//Determines the dex stat of the loot.
 	/**
 	 * Constructor for the Game object to initialize the JFrame.
 	 */
@@ -112,6 +119,7 @@ public class Game extends Canvas implements Runnable
 		menu = new Menu(input);															// Initialize the Menu object with the input handler.
 		state = States.START;
 		sound = new Sound("/res/sounds/BGM.wav"); 		//Intialize BGM sound object with path.
+		lootFX = new Sound("/res/sounds/World/Pick.wav"); //Loot pickup SFX.
 		//sound.play();				//Play the sound.
 		for(int i = 0; i < main_level.area2Orcs.size(); i++){
 			main_level.area2Orcs.get(i).setRank(5);
@@ -199,6 +207,9 @@ public class Game extends Canvas implements Runnable
 				player.getLevel().tick();
 				Entity e = player.getLevel().getTouching(player);
 				if(e instanceof Mob) {
+					if (e instanceof Boss) {
+						boss = true;
+					}
 					player.mainX = player.x;
 					player.mainY = player.y;
 					player.x = 24;
@@ -264,10 +275,43 @@ public class Game extends Canvas implements Runnable
 				if (!combat.inCombat && player.getCurrentHealth() > 0) {
 					state = States.POSTCOMBAT;
 					menu.state = Menu.MenuStates.CLOSED;
-					combatLevel.addEntity(new Helmet(combatLevel,"Helmet","Standard",0,0,0));
+					Random rand = new Random();
+					Random rand1 = new Random();
+					Random rand2 = new Random();
+					Random rand3 = new Random();
+					drop=rand.nextInt(5);	//Random for each item, Check case and drops an item on end of combat.
+					if(drop==0)
+					{RNG1=rand1.nextInt(8)+1;	//RNG the stat.
+					 RNG2=rand2.nextInt(8)+1;	//RNG the stat.
+					 RNG3=rand3.nextInt(8)+1;	//RNG the stat.
+					 combatLevel.addEntity(new Helmet(combatLevel,"Helmet","Of doom!",player.getRank()+RNG1,player.getRank()+RNG2,player.getRank()+RNG3));}
+					else if(drop==1)
+					{RNG1=rand1.nextInt(8)+1;	//RNG the stat.
+					 RNG2=rand2.nextInt(8)+1;	//RNG the stat.
+ 					 RNG3=rand3.nextInt(8)+1;	//RNG the stat.
+					 combatLevel.addEntity(new Chest(combatLevel,"Chest","Of doom!",player.getRank()+RNG1,player.getRank()+RNG2,player.getRank()+RNG3));}
+					else if(drop==2)
+					{RNG1=rand1.nextInt(8)+1;	//RNG the stat.
+					 RNG2=rand2.nextInt(8)+1;	//RNG the stat.
+ 					 RNG3=rand3.nextInt(8)+1;	//RNG the stat.
+					 combatLevel.addEntity(new Legs(combatLevel,"Legs","Of doom!",player.getRank()+RNG1,player.getRank()+RNG2,player.getRank()+RNG3));}
+					else if(drop==3)
+					{RNG1=rand1.nextInt(8)+1;	//RNG the stat.
+					 RNG2=rand2.nextInt(8)+1;	//RNG the stat.
+ 					 RNG3=rand3.nextInt(8)+1;	//RNG the stat.
+					 combatLevel.addEntity(new Shield(combatLevel,"Shield","Of doom!",player.getRank()+RNG1,player.getRank()+RNG2,player.getRank()+RNG3));}
+					else if(drop==4)
+					{RNG1=rand1.nextInt(8)+1;	//RNG the stat.
+					 RNG2=rand2.nextInt(8)+1;	//RNG the stat.
+ 					 RNG3=rand3.nextInt(8)+1;	//RNG the stat.
+					 combatLevel.addEntity(new Weapon(combatLevel,"Weapon","Of doom!",player.getRank()+RNG1,player.getRank()+RNG2,player.getRank()+RNG3));}
 					combatLevel.removeEntity(combat.combatant2.mob);
 					player.addKill();
 					player.addExp(20);
+					if (boss) {
+						endTime = System.currentTimeMillis();
+						state = States.OVER;
+					}
 				} else if (!combat.inCombat) {
 					endTime = System.currentTimeMillis();
 					state = States.OVER;
@@ -280,6 +324,7 @@ public class Game extends Canvas implements Runnable
 				if (e instanceof Item) {
 					if (player.pickUp((Item)e)) {
 						combatLevel.removeEntity(e);
+						lootFX.playFX();
 					}
 				}
 				if (player.x >= 154) {
@@ -373,10 +418,14 @@ public class Game extends Canvas implements Runnable
 				} else {
 					Font.render("Victory", screen, screen.xOffset+7*8, screen.yOffset+1*8, Colors.get(-1,-1,-1,555), 1);
 				}
-				Font.render("Class:", screen, screen.xOffset+1*8, screen.yOffset+3*8, Colors.get(-1,-1,-1,555), 1);
+				Font.render("Class:" + player.getPlayerClass(), screen, screen.xOffset+1*8, screen.yOffset+3*8, Colors.get(-1,-1,-1,555), 1);
 				Font.render("Rank:" + player.getRank(), screen, screen.xOffset+1*8, screen.yOffset+5*8, Colors.get(-1,-1,-1,555), 1);
 				Font.render("Kills:" + player.getKillCount(), screen, screen.xOffset+1*8, screen.yOffset+7*8, Colors.get(-1,-1,-1,555), 1);
-				Font.render("Time:" + ((endTime - startTime)/60000) + ":" + ((endTime - startTime)/1000), screen, screen.xOffset+1*8, screen.yOffset+9*8, Colors.get(-1,-1,-1,555), 1);
+				String s_String = "";
+				if ((endTime - startTime)/1000%60 < 10) {
+					s_String = "0";
+				}
+				Font.render("Time:" + ((endTime - startTime)/60000) + ":" + s_String + ((endTime - startTime)/1000%60), screen, screen.xOffset+1*8, screen.yOffset+9*8, Colors.get(-1,-1,-1,555), 1);
 				break;
 			default:
 				break;

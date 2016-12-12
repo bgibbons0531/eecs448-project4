@@ -106,6 +106,9 @@ public class Menu {
 					} else if (393 <= x && 121 <= y && y <= 144) { // Exit button
 						sound.playFX();				//Play the sound.
 						game.close();
+					} else {
+						state = MenuStates.CLOSED;
+						sound.playFX();	
 					}
 					break;
 				case STATS:
@@ -121,6 +124,9 @@ public class Menu {
 						if (game.player.getAttributePoints() > 0) game.player.increaseIntelligence();
 					} else if (322 <= x && x <= 338 && 102 <= y && y <= 117) {
 						if (game.player.getAttributePoints() > 0) game.player.increaseVitality();
+					} else {
+						state = MenuStates.CLOSED;
+						sound.playFX();	
 					}
 					break;
 				case GEAR:
@@ -254,6 +260,9 @@ public class Menu {
 							}
 							slot = Slots.NONE;
 						}
+					} else {
+						state = MenuStates.CLOSED;
+						sound.playFX();	
 					}
 					break;
 				case HELP:
@@ -263,6 +272,9 @@ public class Menu {
 					} else if (393 <= x && y <= 24) { // Close button
 						state = MenuStates.CLOSED;
 						sound.playFX();				//Play the sound.
+					} else {
+						state = MenuStates.CLOSED;
+						sound.playFX();	
 					}
 					break;
 				case COMBAT:
