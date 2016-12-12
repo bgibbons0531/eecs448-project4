@@ -6,6 +6,7 @@ public class OffensiveAbility extends Ability {
 	protected boolean stun;
 	protected String type;
 	protected int scale;
+	protected int duration;
 
 	/**
 	 * Sole constructor for the OffensiveAbility class.
@@ -15,12 +16,13 @@ public class OffensiveAbility extends Ability {
 	 * @param damage 	Amount of damage the ability does.
 	 * @param stun 		If the ability stuns or not.
 	 */
-	public OffensiveAbility(int id, String name, int cooldown, int damage, String type, int scale, boolean stun) {
+	public OffensiveAbility(int id, String name, int cooldown, int damage, String type, int scale, boolean stun, int duration) {
 		super(id, name, cooldown);
 		this.damage = damage;
 		this.stun = stun;
 		this.type = type;
 		this.scale = scale;
+		this.duration = duration;
 	}
 
 	/**
@@ -54,6 +56,14 @@ public class OffensiveAbility extends Ability {
 	 */
 	public boolean getStun() {
 		return stun;
+	}
+
+	/**
+	 * Returns the duration of the ability.
+	 * @return the duration of the ability.
+	 */
+	public int getDuration() {
+		return duration;
 	}
 
 	/**

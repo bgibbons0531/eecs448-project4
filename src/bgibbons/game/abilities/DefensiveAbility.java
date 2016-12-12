@@ -70,4 +70,12 @@ public class DefensiveAbility extends Ability {
 	public boolean getStun() {
 		return false;
 	}
+
+	/**
+	 * Returns the duration of the ability.
+	 * @return An int that specifies the duration of the ability.
+	 */
+	public int getDuration() {
+		return 0;
+	}
 }

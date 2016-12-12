@@ -349,10 +349,6 @@ public class Combat {
 				this.ability4CD -= 1;
 			}
 		}
-
-		public void useAbility(Combatant target) {
-
-		}
 	}
 
 }

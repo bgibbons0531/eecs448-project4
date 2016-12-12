@@ -12,20 +12,20 @@ public abstract class Ability
 {
 	//Knight's abilities
 	public static final Ability[] abilities = new Ability[256];
-	public static final Ability STRIKE = new OffensiveAbility(0, "Strike      ", 1, 1, "rank", 1, false);
-	public static final Ability SHIELD_BASH = new OffensiveAbility(1, "ShieldBash  ", 6, 1, "rank", 3, true);
+	public static final Ability STRIKE = new OffensiveAbility(0, "Strike      ", 1, 1, "vit", 1, false, 0);
+	public static final Ability SHIELD_BASH = new OffensiveAbility(1, "ShieldBash  ", 6, 1, "vit", 3, true, 0);
 	public static final Ability DIVINE_CALL = new DefensiveAbility(2, "DivineCall  ", 10, 2, "int", 5, 1);
-	public static final Ability HOLY_SMITE = new OffensiveAbility(3, "Holy  Smite ", 12, 10, "int", 2, false);
+	public static final Ability HOLY_SMITE = new OffensiveAbility(3, "Holy  Smite ", 12, 10, "int", 2, false, 0);
 	//Wizard's abilities
-	public static final Ability BONK = new OffensiveAbility(4, "BONK        ", 1, 1, "rank", 1, false);
-	public static final Ability SCORCH = new OffensiveAbility(5, "Scorch        ", 4, 1, "rank", 3, true);
-	public static final Ability FIRE_WALL = new DefensiveAbility(6, "Fire  Wall  ", 10, 2, "int", 5, 1);
-	public static final Ability KABOOM = new OffensiveAbility(7, "KABOOM      ", 12, 15, "int", 2, false);
+	public static final Ability BONK = new OffensiveAbility(4, "BONK        ", 1, 1, "vit", 4, false, 0);
+	public static final Ability SCORCH = new OffensiveAbility(5, "Scorch        ", 4, 1, "int", 2, false, 4);
+	public static final Ability FIRE_WALL = new OffensiveAbility(6, "Fire  Wall  ", 10, 2, "int", 3, false, 3);
+	public static final Ability KABOOM = new OffensiveAbility(7, "KABOOM      ", 12, 15, "int", 1, false, 0);
 	//Hunter's abilities
-	public static final Ability STAB = new OffensiveAbility(8, "Stab        ", 1, 1, "rank", 1, false);
-	public static final Ability KNIFE_THROW = new OffensiveAbility(9, "Knife Throw ", 6, 1, "dex", 3, true);
-	public static final Ability SMOKE_BOMB = new DefensiveAbility(10, "Smoke Bomb  ", 10, 2, "dex", 5, 1);
-	public static final Ability MARK = new OffensiveAbility(11, "Mark        ", 12, 10, "dex", 2, false);
+	public static final Ability STAB = new OffensiveAbility(8, "Stab        ", 1, 1, "dex", 3, false, 0);
+	public static final Ability KNIFE_THROW = new OffensiveAbility(9, "Knife Throw ", 6, 1, "dex", 1, false, 0);
+	public static final Ability SMOKE_BOMB = new OffensiveAbility(10, "Smoke Bomb  ", 10, 0, "dex", 5, false, 3);
+	public static final Ability MARK = new OffensiveAbility(11, "Mark        ", 12, 10, "dex", 2, false, 5);
 
 	protected byte id;
 	protected String name;
@@ -173,4 +173,10 @@ public abstract class Ability
 	 * @return The scaling of the ability.
 	 */
 	public abstract int getScale();
+
+	/**
+	 * Returns the duration of the ability.
+	 * @return An int that specifies the duration of the ability.
+	 */
+	public abstract int getDuration();
 }
