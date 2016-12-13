@@ -38,8 +38,8 @@ public class Orc extends Enemy {
 		intelligence ++;
 		vitality ++;
 		if (this.rank%2 == 1) {
-			this.maxHealth++;
-			this.currentHealth++;
+			this.maxHealth+=2;
+			this.currentHealth+=2;
 		}
 	}
 
