@@ -32,6 +32,7 @@ public class Level {
 	public ArrayList<Orc> area1Orcs = new ArrayList<Orc>();
 	public ArrayList<Orc> area2Orcs = new ArrayList<Orc>();
 	public ArrayList<Orc> area3Orcs = new ArrayList<Orc>();
+	public Entity boss;
 	private String tileImagePath;
 	private String entityImagePath;
 	private BufferedImage tileImage;
@@ -103,6 +104,7 @@ public class Level {
 				} if (entityColors[x+y*width] == 0xFFFF0000){
 					Entity e = new Boss(this, x*8, y*8);
 					this.addEntity(e);
+					this.boss = e;
 				}
 			}
 		}
@@ -560,6 +562,10 @@ public class Level {
 		if(eLoser instanceof Mob && eWinner instanceof Mob){
 			removeEntity(eLoser);
 			((Mob)eWinner).addExp(20);
+			if(((Mob)eWinner).getRank()>((Mob)this.boss).getRank()){
+				((Mob)this.boss).rankUp();
+				removeEntity(eWinner);
+			}
 		}
 		for (Tile t : Tile.tiles) {
 			if (t == null) {
@@ -570,13 +576,13 @@ public class Level {
 		}
 		if(mainLevel){
 			if(this.area1Orcs.size()<20){
-				this.respawnOrcs(area1Orcs, 33);
+				this.respawnOrcs(area1Orcs, 33, 1);
 			}
 			if(this.area2Orcs.size()<20){
-				this.respawnOrcs(area2Orcs, 117);
+				this.respawnOrcs(area2Orcs, 117, 5);
 			}
 			if(this.area3Orcs.size()<20){
-				this.respawnOrcs(area3Orcs, 200);
+				this.respawnOrcs(area3Orcs, 200, 10);
 			}
 		}
 	
@@ -685,8 +691,9 @@ public class Level {
 	 * Respawns orcs on the level randomly
 	 * @param orcsInArea, ArrayList of Orcs containing the orcs in the area that respawning it occuring
 	 * @param xGridBoundary, int to mark the boundary of the grid separating the different grids in the area for respawning
+	 * @param rank, int telling which rank to set the new orc at
 	 */ 
-	public void respawnOrcs(ArrayList<Orc> orcsInArea, int xGridBoundary) {
+	public void respawnOrcs(ArrayList<Orc> orcsInArea, int xGridBoundary, int rank) {
 		int[] gridPopulation = new int[4];
 		Orc tempOrc;
 		int leastPopGrid;
@@ -724,6 +731,7 @@ public class Level {
 				if(getTile(orcX, orcY).getId()==2){
 					Entity e = new Orc(this, orcX*8, orcY*8);
 					this.addEntity(e);
+					((Mob)e).setRank(rank);
 					orcPlaced = true;
 				}
 			}
@@ -735,6 +743,7 @@ public class Level {
 				if(getTile(orcX, orcY).getId()==2){
 					Entity e = new Orc(this, orcX*8, orcY*8);
 					this.addEntity(e);
+					((Mob)e).setRank(rank);
 					orcPlaced = true;
 				}
 			}
@@ -746,6 +755,7 @@ public class Level {
 				if(getTile(orcX, orcY).getId()==2){
 					Entity e = new Orc(this, orcX*8, orcY*8);
 					this.addEntity(e);
+					((Mob)e).setRank(rank);
 					orcPlaced = true;
 				}
 			}
@@ -757,6 +767,7 @@ public class Level {
 				if(getTile(orcX, orcY).getId()==2){
 					Entity e = new Orc(this, orcX*8, orcY*8);
 					this.addEntity(e);
+					((Mob)e).setRank(rank);
 					orcPlaced = true;
 				}
 			}

@@ -37,6 +37,10 @@ public class Orc extends Enemy {
 		dexterity ++;
 		intelligence ++;
 		vitality ++;
+		if (this.rank%2 == 1) {
+			this.maxHealth+=2;
+			this.currentHealth+=2;
+		}
 	}
 
 	/*
