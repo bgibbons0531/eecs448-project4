@@ -1,3 +1,5 @@
+/*
+
 package bgibbons.game;
 import bgibbons.game.entities.*;
 public class Test_Rony
@@ -94,6 +96,8 @@ public class Test_Rony
     }
   }
   /************************************************************************************************/
+
+  /*
   public boolean testItemGetters(Item e)
   {
     if(e.getDexterity() instanceof Integer && e.getVitality() instanceof Integer && e.getIntelligence() instanceof Integer)
@@ -161,3 +165,5 @@ public class Test_Rony
     }
   }
 }
+
+*/
