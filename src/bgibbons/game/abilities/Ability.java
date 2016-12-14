@@ -19,13 +19,13 @@ public abstract class Ability
 	//Wizard's abilities
 	public static final Ability BONK = new OffensiveAbility(4, "BONK        ", 1, 1, "vit", 20, false, 0);
 	public static final Ability SCORCH = new OffensiveAbility(5, "Scorch        ", 4, 1, "int", 10, false, 4);
-	public static final Ability FIRE_WALL = new OffensiveAbility(6, "Fire  Wall  ", 10, 2, "int", 10, false, 3);
+	public static final Ability FIRE_WALL = new OffensiveAbility(6, "Fire  Wall  ", 10, 2, "int", 10, false, 5);
 	public static final Ability KABOOM = new OffensiveAbility(7, "KABOOM      ", 12, 15, "int", 10, false, 0);
 	//Hunter's abilities
 	public static final Ability STAB = new OffensiveAbility(8, "Stab        ", 1, 1, "dex", 15, false, 0);
 	public static final Ability KNIFE_THROW = new OffensiveAbility(9, "Knife Throw ", 6, 1, "dex", 5, false, 0);
-	public static final Ability SMOKE_BOMB = new OffensiveAbility(10, "Smoke Bomb  ", 10, 0, "dex", 5, false, 3);
-	public static final Ability MARK = new OffensiveAbility(11, "Mark        ", 12, 0, "dex", 5, false, 5);
+	public static final Ability SMOKE_BOMB = new OffensiveAbility(10, "Smoke Bomb  ", 10, 0, "dex", 5, false, 6);
+	public static final Ability MARK = new OffensiveAbility(11, "Mark        ", 6, 0, "dex", 5, false, 5);
 
 	protected byte id;
 	protected String name;

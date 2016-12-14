@@ -23,6 +23,8 @@ public class Combat {
 	private int stunDuration;
 	private int burnDamage;
 	private int burnDuration;
+	private int wallDamage;
+	private int wallDuration;
 	private int blindDuration;
 	private int markDuration;
 	private int combatTicks;
@@ -115,20 +117,23 @@ public class Combat {
 			if(ability.getDuration() != 0){
 				if(ability.getName() == "Scorch        "){
 					this.burnDamage = damage;
-					this.burnDuration = ability.getDuration();
+					this.burnDuration = ability.getDuration() * 60;
 					combatant2.burn();
 					combatant2.burnStart = this.combatTicks;
 				}
 				else if(ability.getName() == "Fire  Wall  "){
-
+					this.wallDamage = damage;
+					this.wallDuration = ability.getDuration() * 60;
+					combatant2.isWalled = true;
+					combatant2.wallStart = this.combatTicks;
 				}
 				else if(ability.getName() == "Smoke Bomb  "){
-					this.blindDuration = ability.getDuration();
+					this.blindDuration = ability.getDuration() * 60;
 					combatant2.blind();
 					combatant2.blindStart = this.combatTicks;
 				}
 				else if(ability.getName() == "Mark        "){
-					this.markDuration = ability.getDuration();
+					this.markDuration = ability.getDuration() * 60;
 					combatant2.mark();
 					combatant2.markStart = this.combatTicks;
 				}
@@ -252,8 +257,12 @@ public class Combat {
 		}
 		//check if burn expires
 		if(combatant2.isBurned && (this.combatTicks - combatant2.burnStart) > this.burnDuration){
-			System.out.println("Burn expired");
 			combatant2.isBurned = false;
+		}
+		//check if wall expires
+		if(combatant2.isWalled && (this.combatTicks - combatant2.wallStart) > this.wallDuration){
+			System.out.println(combatant2.isWalled);
+			combatant2.isWalled = false;
 		}
 		//check if blind expires
 		if(combatant2.isBlinded && (this.combatTicks - combatant2.blindStart) > this.blindDuration){
@@ -267,25 +276,42 @@ public class Combat {
 		if (combatTicks % 120 == 0 && combatTicks > 0 && !combatant2.isStunned) {
 			int enemyDamage = combatant2.mob.getVitality() / 5;
 			if(!combatant2.isBlinded){
-				inCombat = combatant1.takeDamage(enemyDamage);
-				this.attackMissed = false;
+				if(!combatant2.isWalled){
+					inCombat = combatant1.takeDamage(enemyDamage);
+					playerDamageRender = enemyDamage;
+					this.attackMissed = false;
+				}
+				else{
+					inCombat = combatant2.takeDamage(this.wallDamage);
+					playerDamageRender = 0;
+					this.attackMissed = false;
+				}
 			}
 			else{
 				Random rand = new Random();
 				int temp = rand.nextInt(3);
 				if(temp == 0){
-					inCombat = combatant1.takeDamage(enemyDamage);
-					this.attackMissed = false;
+					if(!combatant2.isWalled){
+						inCombat = combatant1.takeDamage(enemyDamage);
+						playerDamageRender = enemyDamage;
+						this.attackMissed = false;
+					}
+					else{
+						inCombat = combatant2.takeDamage(this.wallDamage);
+						playerDamageRender = 0;
+						this.attackMissed = false;
+					}
 				}
 				else{
+					playerDamageRender = 0;
 					this.attackMissed = true;
 				}
 			}
 			playerOffRenderStart = combatTicks;
-			playerDamageRender = enemyDamage;
+			
 			playerDamageRenderStart = combatTicks;
 		}
-		if(combatTicks % 120 == 0 && combatTicks > 0  && combatant2.isBurned){
+		if(combatTicks % 60 == 0 && combatTicks > 0  && combatant2.isBurned){
 			inCombat = combatant2.takeDamage(burnDamage);
 		}
 		//update cooldowns for abilities
@@ -441,10 +467,12 @@ public class Combat {
 		public Mob mob;
 		public Boolean isStunned;
 		public Boolean isBurned;
+		public Boolean isWalled;
 		public Boolean isBlinded;
 		public Boolean isMarked;
 		public int stunStart;
 		public int burnStart;
+		public int wallStart;
 		public int blindStart;
 		public int markStart;
 		public int shield;
@@ -461,10 +489,12 @@ public class Combat {
 			this.mob = mob;
 			this.isStunned = false;
 			this.isBurned = false;
+			this.isWalled = false;
 			this.isBlinded = false;
 			this.isMarked = false;
 			this.stunStart = 0;
 			this.burnStart = 0;
+			this.wallStart = 0;
 			this.blindStart = 0;
 			this.markStart = 0;
 			this.shield = 0;
