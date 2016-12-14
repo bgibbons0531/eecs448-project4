@@ -6,6 +6,8 @@ import bgibbons.game.graphics.Colors;
 import bgibbons.game.graphics.Font;
 import bgibbons.game.graphics.Screen;
 
+import java.util.Random;
+
 /**
  * Object to handle combat interactions.
  * @author Brad Gibbons
@@ -19,7 +21,12 @@ public class Combat {
 	public Combatant combatant2;
 	public Boolean inCombat;
 	private int stunDuration;
+	private int burnDamage;
+	private int burnDuration;
+	private int blindDuration;
+	private int markDuration;
 	private int combatTicks;
+	private Boolean attackMissed;
 
 	private int enemyOffRenderStart;
 	private int enemyDamageRenderStart;
@@ -104,6 +111,34 @@ public class Combat {
 					damage = ability.getDamage();
 				}
 			}
+			//special ability processing
+			if(ability.getDuration() != 0){
+				if(ability.getName() == "Scorch        "){
+					this.burnDamage = damage;
+					this.burnDuration = ability.getDuration();
+					combatant2.burn();
+					combatant2.burnStart = this.combatTicks;
+				}
+				else if(ability.getName() == "Fire  Wall  "){
+
+				}
+				else if(ability.getName() == "Smoke Bomb  "){
+					this.blindDuration = ability.getDuration();
+					combatant2.blind();
+					combatant2.blindStart = this.combatTicks;
+				}
+				else if(ability.getName() == "Mark        "){
+					this.markDuration = ability.getDuration();
+					combatant2.mark();
+					combatant2.markStart = this.combatTicks;
+				}
+			}
+
+			//check for damage amplification
+			if(combatant2.isMarked){
+				damage = damage * 2;
+			}
+
 			//heal stat calculation
 			int heal;
 			if(ability.getHeal() == 0)
@@ -173,7 +208,7 @@ public class Combat {
 				combatant2.stunStart = this.combatTicks;
 			}
 			//deal damage, currently always targets mob2 and assumes mob1 is player
-			//check if combat continues
+			//check if combat continues;
 			inCombat = combatant2.takeDamage(damage);
 
 			//heal then shield target mob, for now always mob1
@@ -215,12 +250,43 @@ public class Combat {
 		if(combatant2.isStunned && (this.combatTicks - combatant2.stunStart) > this.stunDuration){
 			combatant2.isStunned = false;
 		}
+		//check if burn expires
+		if(combatant2.isBurned && (this.combatTicks - combatant2.burnStart) > this.burnDuration){
+			System.out.println("Burn expired");
+			combatant2.isBurned = false;
+		}
+		//check if blind expires
+		if(combatant2.isBlinded && (this.combatTicks - combatant2.blindStart) > this.blindDuration){
+			combatant2.isBlinded = false;
+		}
+		//check if mark expires
+		if(combatant2.isMarked && (this.combatTicks - combatant2.markStart) > this.markDuration){
+			combatant2.isMarked = false;
+		}
 		//enemy attack
 		if (combatTicks % 120 == 0 && combatTicks > 0 && !combatant2.isStunned) {
-			inCombat = combatant1.takeDamage(1);
+			int enemyDamage = combatant2.mob.getVitality() / 5;
+			if(!combatant2.isBlinded){
+				inCombat = combatant1.takeDamage(enemyDamage);
+				this.attackMissed = false;
+			}
+			else{
+				Random rand = new Random();
+				int temp = rand.nextInt(3);
+				if(temp == 0){
+					inCombat = combatant1.takeDamage(enemyDamage);
+					this.attackMissed = false;
+				}
+				else{
+					this.attackMissed = true;
+				}
+			}
 			playerOffRenderStart = combatTicks;
-			playerDamageRender = 1;
+			playerDamageRender = enemyDamage;
 			playerDamageRenderStart = combatTicks;
+		}
+		if(combatTicks % 120 == 0 && combatTicks > 0  && combatant2.isBurned){
+			inCombat = combatant2.takeDamage(burnDamage);
 		}
 		//update cooldowns for abilities
 		if (combatTicks % 60 == 0) {
@@ -374,7 +440,13 @@ public class Combat {
 	public class Combatant {
 		public Mob mob;
 		public Boolean isStunned;
+		public Boolean isBurned;
+		public Boolean isBlinded;
+		public Boolean isMarked;
 		public int stunStart;
+		public int burnStart;
+		public int blindStart;
+		public int markStart;
 		public int shield;
 		public int ability1CD;
 		public int ability2CD;
@@ -388,6 +460,13 @@ public class Combat {
 		public Combatant(Mob mob) {
 			this.mob = mob;
 			this.isStunned = false;
+			this.isBurned = false;
+			this.isBlinded = false;
+			this.isMarked = false;
+			this.stunStart = 0;
+			this.burnStart = 0;
+			this.blindStart = 0;
+			this.markStart = 0;
 			this.shield = 0;
 			this.ability1CD = 0;
 			this.ability2CD = 0;
@@ -415,6 +494,27 @@ public class Combat {
 		 */
 		public void stun() {
 			this.isStunned = true;
+		}
+
+		/**
+		 * Sets the burn status effect for a combatant.
+		 */
+		public void burn() {
+			this.isBurned = true;
+		}
+
+		/**
+		 * Sets the blind status effect for a combatant.
+		 */
+		public void blind() {
+			this.isBlinded = true;
+		}
+
+		/**
+		 * Sets the mark status effect for a combatant.
+		 */
+		public void mark() {
+			this.isMarked = true;
 		}
 
 		/**
