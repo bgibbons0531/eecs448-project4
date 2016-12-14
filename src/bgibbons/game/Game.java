@@ -63,9 +63,9 @@ public class Game extends Canvas implements Runnable
 	public States state;
 	public boolean boss = false;
 	private int drop;	//Determines the loot to be dropped.
-	private int RNG1;	//Determines the vit stat of the loot.
-	private int RNG2;	//Determines the int stat of the loot.
-	private int RNG3;	//Determines the dex stat of the loot.
+	private int rng1;	//Determines the vit stat of the loot.
+	private int rng2;	//Determines the int stat of the loot.
+	private int rng3;	//Determines the dex stat of the loot.
 	/**
 	 * Constructor for the Game object to initialize the JFrame.
 	 */
@@ -280,31 +280,29 @@ public class Game extends Canvas implements Runnable
 					Random rand2 = new Random(System.currentTimeMillis());
 					Random rand3 = new Random(System.currentTimeMillis());
 					drop=rand.nextInt(5);	//Random for each item, Check case and drops an item on end of combat.
+					rng1=rand1.nextInt(3);	//RNG the stat.
+				  rng2=rand2.nextInt(3);	//RNG the stat.
+					rng3=rand3.nextInt(3);	//RNG the stat.
 					if(drop==0)
-					{RNG1=rand1.nextInt(3);	//RNG the stat.
-					 RNG2=rand2.nextInt(3);	//RNG the stat.
-					 RNG3=rand3.nextInt(3);	//RNG the stat.
-					 combatLevel.addEntity(new Helmet(combatLevel,"Helmet","Of doom!",player.getRank()+RNG1,player.getRank()+RNG2,player.getRank()+RNG3));}
+					{
+					 combatLevel.addEntity(new Helmet(combatLevel,"Helmet","Of doom!",combat.combatant2.mob.getRank()+rng1,combat.combatant2.mob.getRank()+rng2,combat.combatant2.mob.getRank()+rng3));
+				 	}
 					else if(drop==1)
-					{RNG1=rand1.nextInt(3);	//RNG the stat.
-					 RNG2=rand2.nextInt(3);	//RNG the stat.
- 					 RNG3=rand3.nextInt(3);	//RNG the stat.
-					 combatLevel.addEntity(new Chest(combatLevel,"Chest","Of doom!",player.getRank()+RNG1,player.getRank()+RNG2,player.getRank()+RNG3));}
+					{
+					 combatLevel.addEntity(new Chest(combatLevel,"Chest","Of doom!",combat.combatant2.mob.getRank()+rng1,combat.combatant2.mob.getRank()+rng2,combat.combatant2.mob.getRank()+rng3));
+				 	}
 					else if(drop==2)
-					{RNG1=rand1.nextInt(3);	//RNG the stat.
-					 RNG2=rand2.nextInt(3);	//RNG the stat.
- 					 RNG3=rand3.nextInt(3);	//RNG the stat.
-					 combatLevel.addEntity(new Legs(combatLevel,"Legs","Of doom!",player.getRank()+RNG1,player.getRank()+RNG2,player.getRank()+RNG3));}
+					{
+					 combatLevel.addEntity(new Legs(combatLevel,"Legs","Of doom!",combat.combatant2.mob.getRank()+rng1,combat.combatant2.mob.getRank()+rng2,combat.combatant2.mob.getRank()+rng3));
+				 	}
 					else if(drop==3)
-					{RNG1=rand1.nextInt(3);	//RNG the stat.
-					 RNG2=rand2.nextInt(3);	//RNG the stat.
- 					 RNG3=rand3.nextInt(3);	//RNG the stat.
-					 combatLevel.addEntity(new Shield(combatLevel,"Shield","Of doom!",player.getRank()+RNG1,player.getRank()+RNG2,player.getRank()+RNG3));}
+					{
+					 combatLevel.addEntity(new Shield(combatLevel,"Shield","Of doom!",combat.combatant2.mob.getRank()+rng1,combat.combatant2.mob.getRank()+rng2,combat.combatant2.mob.getRank()+rng3));
+				 	}
 					else if(drop==4)
-					{RNG1=rand1.nextInt(3);	//RNG the stat.
-					 RNG2=rand2.nextInt(3);	//RNG the stat.
- 					 RNG3=rand3.nextInt(3);	//RNG the stat.
-					 combatLevel.addEntity(new Weapon(combatLevel,"Weapon","Of doom!",player.getRank()+RNG1,player.getRank()+RNG2,player.getRank()+RNG3));}
+					{
+					 combatLevel.addEntity(new Weapon(combatLevel,"Weapon","Of doom!",combat.combatant2.mob.getRank()+rng1,combat.combatant2.mob.getRank()+rng2,combat.combatant2.mob.getRank()+rng3));
+				 	}
 					combatLevel.removeEntity(combat.combatant2.mob);
 					player.addKill();
 					player.addExp(20);
