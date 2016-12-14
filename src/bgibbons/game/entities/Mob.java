@@ -65,8 +65,8 @@ public abstract class Mob extends Entity {
 		this.y = y;
 		this.maxExp = maxExp;
 		this.currentExp = 0;
-		this.maxHealth = maxHealth + ((rank-1)/2);
-		this.currentHealth = maxHealth + ((rank-1)/2);
+		this.maxHealth = maxHealth;
+		this.currentHealth = maxHealth;
 		this.speed = speed;
 		this.isMoving = false;
 		this.isSwimming = false;
@@ -218,6 +218,8 @@ public abstract class Mob extends Entity {
 		this.dexterity = rank + 5;
 		this.vitality = rank + 5;
 		this.intelligence = rank + 5;
+		this.maxHealth = rank * 2 + 10;
+		this.currentHealth = this.maxHealth;
 	}
 
 	/**
