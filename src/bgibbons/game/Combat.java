@@ -308,7 +308,7 @@ public class Combat {
 				}
 			}
 			playerOffRenderStart = combatTicks;
-			
+
 			playerDamageRenderStart = combatTicks;
 		}
 		if(combatTicks % 60 == 0 && combatTicks > 0  && combatant2.isBurned){
@@ -395,6 +395,38 @@ public class Combat {
 				screen.render(17*8, 8*8, 25+28*32, Colors.get(-1,000,550,500), 0x00, 1); // Bottom right
 			}
 		}
+		//If the ability is Smoke Bomb.
+		if(currentAbility=="Smoke Bomb  ")
+		{
+			if (enemyOffRenderStart != 0 && combatTicks <= enemyOffRenderStart + 30) {
+				screen.render(2*8, 7*8, 26+25*32, Colors.get(-1,111,222,000), 0x00, 1); // Top left
+				screen.render(3*8, 7*8, 27+25*32, Colors.get(-1,111,222,000), 0x00, 1); // Top right
+				screen.render(2*8, 8*8, 26+26*32, Colors.get(-1,111,222,000), 0x00, 1); // Bottom left
+				screen.render(3*8, 8*8, 27+26*32, Colors.get(-1,111,222,000), 0x00, 1); // Bottom right
+			}
+		}
+		//If the ability is Fire Wall.
+		if(currentAbility=="Fire  Wall  ")
+		{
+			if (enemyOffRenderStart != 0 && combatTicks <= enemyOffRenderStart + 30) {
+				//Upper Flame
+				screen.render(5*8, 6*8, 28+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top left
+				screen.render(6*8, 6*8, 29+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top right
+				screen.render(5*8, 7*8, 28+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom left
+				screen.render(6*8, 7*8, 29+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom right
+				//Middle Flame
+				screen.render(5*8, 7*8, 28+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top left
+				screen.render(6*8, 7*8, 29+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top right
+				screen.render(5*8, 8*8, 28+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom left
+				screen.render(6*8, 8*8, 29+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom right
+				//Bottom Flame
+				screen.render(5*8, 8*8, 28+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top left
+				screen.render(6*8, 8*8, 29+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top right
+				screen.render(5*8, 9*8, 28+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom left
+				screen.render(6*8, 9*8, 29+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom right
+
+			}
+		}
 		/*
 		* Render Player effects that are done onto the player
 		*/
@@ -422,38 +454,6 @@ public class Combat {
 			}
 			if (playerShieldRenderStart != 0 && combatTicks <= playerShieldRenderStart + 45) {
 				Font.render("" + playerShieldRender, screen, 3*8, 6*8, Colors.get(-1,-1,-1,330), 1);
-			}
-		}
-		//If the ability is Smoke Bomb.
-		if(currentAbility=="Smoke Bomb  ")
-		{
-			if (playerDefRenderStart != 0 && combatTicks <= playerDefRenderStart + 30) {
-				screen.render(2*8, 7*8, 26+25*32, Colors.get(-1,111,222,000), 0x00, 1); // Top left
-				screen.render(3*8, 7*8, 27+25*32, Colors.get(-1,111,222,000), 0x00, 1); // Top right
-				screen.render(2*8, 8*8, 26+26*32, Colors.get(-1,111,222,000), 0x00, 1); // Bottom left
-				screen.render(3*8, 8*8, 27+26*32, Colors.get(-1,111,222,000), 0x00, 1); // Bottom right
-			}
-		}
-		//If the ability is Fire Wall.
-		if(currentAbility=="Fire  Wall  ")
-		{
-			if (playerDefRenderStart != 0 && combatTicks <= playerDefRenderStart + 30) {
-				//Upper Flame
-				screen.render(5*8, 6*8, 28+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top left
-				screen.render(6*8, 6*8, 29+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top right
-				screen.render(5*8, 7*8, 28+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom left
-				screen.render(6*8, 7*8, 29+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom right
-				//Middle Flame
-				screen.render(5*8, 7*8, 28+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top left
-				screen.render(6*8, 7*8, 29+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top right
-				screen.render(5*8, 8*8, 28+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom left
-				screen.render(6*8, 8*8, 29+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom right
-				//Bottom Flame
-				screen.render(5*8, 8*8, 28+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top left
-				screen.render(6*8, 8*8, 29+27*32, Colors.get(-1,500,510,550), 0x00, 1); // Top right
-				screen.render(5*8, 9*8, 28+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom left
-				screen.render(6*8, 9*8, 29+28*32, Colors.get(-1,500,510,550), 0x00, 1); // Bottom right
-
 			}
 		}
 	}
