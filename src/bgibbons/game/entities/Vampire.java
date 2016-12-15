@@ -25,7 +25,7 @@ public class Vampire extends Enemy{
    * @param y     The y coordinate the vampire will start at.
    */
   public Vampire(Level level, int x, int y) {
-    super(level, x, y, 0, 22, Colors.get(-1, 000, 500, 543), 10, 1, 10, 100, 1);
+    super(level, x, y, 0, 22, Colors.get(-1, 000, 500, 543), 30, 1, 10, 100, 1);
   }
 
   public void rankUp(){
