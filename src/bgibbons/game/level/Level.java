@@ -542,18 +542,43 @@ public class Level {
 		Entity eWinner = null;
 		for (Entity e : entities) { 
 			e.tick();
-			if (!(e instanceof Player)) {
+			if (!(e instanceof Player) && e instanceof Orc) {
 				Entity e1 = getTouching(e);
 				if(e1 instanceof Orc && !(e1 instanceof Player)){
 					Random rand = new Random();
-					winner = rand.nextInt(1);
-					if(winner == 0){
-						eWinner = e;
-						eLoser = e1;
+					int eRank = ((Mob)e).getRank();
+					int e1Rank = ((Mob)e1).getRank();
+					if(eRank!=e1Rank){
+						Entity eHigher = null;
+						Entity eLower = null;
+						if(eRank>e1Rank){
+							eHigher = e;
+							eLower = e1;
+						}
+						else{
+							eHigher = e1;
+							eLower = e;
+						}
+						winner = rand.nextInt(100);
+						if(winner == 0){
+							eWinner = eLower;
+							eLoser = eHigher;
+						}
+						else{
+							eWinner = eHigher;
+							eLoser = eLower;
+						}
 					}
-					else if(winner == 1){
-						eWinner = e1;
-						eLoser = e;
+					else{
+						winner = rand.nextInt(1);
+						if(winner == 0){
+							eWinner = e;
+							eLoser = e1;
+						}
+						else if(winner == 1){
+							eWinner = e1;
+							eLoser = e;
+						}
 					}
 				}
 			}
