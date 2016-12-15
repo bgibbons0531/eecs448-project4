@@ -272,8 +272,11 @@ public class Combat {
 			//use Big Bonk every 2 seconds
 			if(combatTicks % 120 == 0 && combatTicks > 0 && !combatant2.isStunned){
 				int bigBonk = combatant2.mob.getVitality() / 4;
-				if(savageRoar)
+				System.out.println("big bonk");
+				if(savageRoar){
+					System.out.println("buffed big bonk");
 					bigBonk = bigBonk*2;
+				}
 				if(!combatant2.isBlinded){
 					if(!combatant2.isWalled){
 						inCombat = combatant1.takeDamage(bigBonk);
@@ -310,8 +313,10 @@ public class Combat {
 			//use Head Bash every 6.5 seconds
 			if(combatTicks % 390 == 0 && combatTicks > 0 && !combatant2.isStunned){
 				int headBash = combatant2.mob.getVitality() / 6;
-				if(savageRoar)
+				System.out.println("head bash");
+				if(savageRoar){
 					headBash = headBash*2;
+				}
 				if(!combatant2.isBlinded){
 					if(!combatant2.isWalled){
 						combatant1.stunPlayer();
@@ -348,11 +353,13 @@ public class Combat {
 			}
 			//use Thick Skin every 5 seconds
 			if(combatTicks % 300 == 0 && combatTicks > 0){
+				System.out.println("thick skin");
 				thickSkin = true;
 				thickSkinStart = combatTicks;
 			}
 			//use Savage roar every 7 seconds
 			if(combatTicks % 420 == 0 && combatTicks > 0){
+				System.out.println("savage roar");
 				savageRoar = true;
 				savageRoarStart = combatTicks;
 			}
@@ -363,6 +370,47 @@ public class Combat {
 			//check if savage roar expires
 			if(savageRoar && (this.combatTicks - savageRoarStart) > thickSkinDur){
 				savageRoar = false;
+			}
+		}
+		else{
+			//enemy attack
+			if (combatTicks % 120 == 0 && combatTicks > 0 && !combatant2.isStunned) {
+				int enemyDamage = combatant2.mob.getVitality() / 5;
+				if(!combatant2.isBlinded){
+					if(!combatant2.isWalled){
+						inCombat = combatant1.takeDamage(enemyDamage);
+						playerDamageRender = enemyDamage;
+						this.attackMissed = false;
+					}
+					else{
+						inCombat = combatant2.takeDamage(this.wallDamage);
+						playerDamageRender = 0;
+						this.attackMissed = false;
+					}
+				}
+				else{
+					Random rand = new Random();
+					int temp = rand.nextInt(3);
+					if(temp == 0){
+						if(!combatant2.isWalled){
+							inCombat = combatant1.takeDamage(enemyDamage);
+							playerDamageRender = enemyDamage;
+							this.attackMissed = false;
+						}
+						else{
+							inCombat = combatant2.takeDamage(this.wallDamage);
+							playerDamageRender = 0;
+							this.attackMissed = false;
+						}
+					}
+					else{
+						playerDamageRender = 0;
+						this.attackMissed = true;
+					}
+				}
+				playerOffRenderStart = combatTicks;
+
+				playerDamageRenderStart = combatTicks;
 			}
 		}
 		//check if enemy should no longer be stunned
@@ -385,45 +433,7 @@ public class Combat {
 		if(combatant2.isMarked && (this.combatTicks - combatant2.markStart) > this.markDuration){
 			combatant2.isMarked = false;
 		}
-		//enemy attack
-		if (combatTicks % 120 == 0 && combatTicks > 0 && !combatant2.isStunned) {
-			int enemyDamage = combatant2.mob.getVitality() / 5;
-			if(!combatant2.isBlinded){
-				if(!combatant2.isWalled){
-					inCombat = combatant1.takeDamage(enemyDamage);
-					playerDamageRender = enemyDamage;
-					this.attackMissed = false;
-				}
-				else{
-					inCombat = combatant2.takeDamage(this.wallDamage);
-					playerDamageRender = 0;
-					this.attackMissed = false;
-				}
-			}
-			else{
-				Random rand = new Random();
-				int temp = rand.nextInt(3);
-				if(temp == 0){
-					if(!combatant2.isWalled){
-						inCombat = combatant1.takeDamage(enemyDamage);
-						playerDamageRender = enemyDamage;
-						this.attackMissed = false;
-					}
-					else{
-						inCombat = combatant2.takeDamage(this.wallDamage);
-						playerDamageRender = 0;
-						this.attackMissed = false;
-					}
-				}
-				else{
-					playerDamageRender = 0;
-					this.attackMissed = true;
-				}
-			}
-			playerOffRenderStart = combatTicks;
-
-			playerDamageRenderStart = combatTicks;
-		}
+		//burn enemy
 		if(combatTicks % 60 == 0 && combatTicks > 0  && combatant2.isBurned){
 			inCombat = combatant2.takeDamage(burnDamage);
 		}
@@ -693,10 +703,10 @@ public class Combat {
 		}
 
 		public void stunPlayer() {
-			this.ability1CD += 4;
-			this.ability2CD += 4;
-			this.ability3CD += 4;
-			this.ability4CD += 4;
+			this.ability1CD += 2;
+			this.ability2CD += 2;
+			this.ability3CD += 2;
+			this.ability4CD += 2;
 		}
 	}
 
