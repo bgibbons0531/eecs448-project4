@@ -23,6 +23,9 @@ public class Test_Enemy {
     System.out.println("testSpawnBandits - " + testSpawnBandits());
     System.out.println("testSpawnVampires - " + testSpawnVampires());
     System.out.println("testEnemyMovement - " + testEnemyMovement());
+    System.out.println("testRankUp - " + testRankUp());
+    System.out.println("testAddExp - " + testAddExp());
+    System.out.println("testSetRank - " + testSetRank());
     }
 
   /**
@@ -141,30 +144,73 @@ public class Test_Enemy {
     Level testLevel = new Level("/res/levels/test_level.png", null, false);
     Entity e = new Orc(testLevel, 32*8, 32*8);
     testLevel.addEntity(e);
-    while(((Orc)e).getDirection() == 4){
-      ((Orc)e).move();
+    ((Mob)e).move(16,0);
+    ((Mob)e).move(-16,0);
+    ((Mob)e).move(0,-16);
+    ((Mob)e).move(0,16);
+    if(e.x == 32*8 && e.y == 32*8){
+      return true;
     }
-    int direction = ((Orc)e).getDirection();
-    if(direction == 0){
-      if(e.y == 32*8+1){
-        return true;
-      }
+    else{
+      return false;
     }
-    else if(direction == 1){
-      if(e.y == 32*8-1){
-        return true;
-      }
+
+  }
+
+  /**
+   * Tests RankUp on Orcs
+   * @return boolean, true if Orc ranks up correctly
+   */
+  public boolean testRankUp(){
+    Level testLevel = new Level("/res/levels/test_level.png", null, false);
+    Entity e = new Orc(testLevel, 32*8, 32*8);
+    testLevel.addEntity(e);
+    for(int i = 0; i<4; i++){
+      ((Orc)e).rankUp();
     }
-    else if(direction == 2){
-      if(e.x == 32*8+1){
-        return true;
-      }
+    int rank = ((Mob)e).getRank();
+    if(rank == 5){
+      return true;
     }
-    else if(direction == 3){
-      if(e.x == 32*8-1){
-        return true;
-      }
+    else{
+      return false;
     }
-    return false;
+  }
+
+  /**
+   * Tests addExp to Orcs
+   * @return boolean, true if addExp adds correct amount to orcs
+   */
+  public boolean testAddExp(){
+    Level testLevel = new Level("/res/levels/test_level.png", null, false);
+    Entity e = new Orc(testLevel, 32*8, 32*8);
+    testLevel.addEntity(e);
+    for(int i = 0; i<4; i++){
+      ((Mob)e).addExp(20);
+    }
+    int exp = ((Mob)e).getCurrentExp();
+    if(exp == 80){
+      return true;
+    }
+    else{
+      return false;
+    }
+  }
+
+  /**
+   * Tests setRank
+   * @return boolean, true if setRank correctly sets rank and changes attributes to correct value
+   */
+  public boolean testSetRank(){
+    Level testLevel = new Level("/res/levels/test_level.png", null, false);
+    Entity e = new Orc(testLevel, 32*8, 32*8);
+    testLevel.addEntity(e);
+    ((Mob)e).setRank(7);
+    if(((Mob)e).getDexterity() == 12 && ((Mob)e).getVitality() == 12 && ((Mob)e).getIntelligence()==12 && ((Mob)e).getRank()==7){
+      return true;
+    }
+    else{
+      return false;
+    }
   }
 }
