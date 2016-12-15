@@ -28,6 +28,12 @@ public class Combat {
 	private int blindDuration;
 	private int markDuration;
 	private int combatTicks;
+	private Boolean thickSkin;
+	private int thickSkinDur;
+	private int thickSkinStart;
+	private Boolean savageRoar;
+	private int savageRoarDur;
+	private int savageRoarStart;
 	private Boolean attackMissed;
 
 	private int enemyOffRenderStart;
@@ -54,6 +60,12 @@ public class Combat {
 		this.combatant2 = new Combatant(mob2);
 		this.inCombat = true;
 		this.stunDuration = 2*60;
+		this.thickSkin = false;
+		this.thickSkinDur = 3*60;
+		this.thickSkinStart = 0;
+		this.savageRoar = false;
+		this.savageRoarDur = 3*60;
+		this.savageRoarStart = 0;
 		this.combatTicks = 0;
 
 		this.enemyOffRenderStart = 0;
@@ -212,8 +224,12 @@ public class Combat {
 				combatant2.stun();
 				combatant2.stunStart = this.combatTicks;
 			}
+			//alter damage for target damage reduction
+			if(thickSkin){
+				damage = damage/2;
+			}
 			//deal damage, currently always targets mob2 and assumes mob1 is player
-			//check if combat continues;
+			//check if combat continues
 			inCombat = combatant2.takeDamage(damage);
 
 			//heal then shield target mob, for now always mob1
@@ -251,46 +267,116 @@ public class Combat {
 	 * Ticks the combat object.
 	 */
 	public void tick() {
-		//check if enemy should no longer be stunned
-		if(combatant2.isStunned && (this.combatTicks - combatant2.stunStart) > this.stunDuration){
-			combatant2.isStunned = false;
-		}
-		//check if burn expires
-		if(combatant2.isBurned && (this.combatTicks - combatant2.burnStart) > this.burnDuration){
-			combatant2.isBurned = false;
-		}
-		//check if wall expires
-		if(combatant2.isWalled && (this.combatTicks - combatant2.wallStart) > this.wallDuration){
-			System.out.println(combatant2.isWalled);
-			combatant2.isWalled = false;
-		}
-		//check if blind expires
-		if(combatant2.isBlinded && (this.combatTicks - combatant2.blindStart) > this.blindDuration){
-			combatant2.isBlinded = false;
-		}
-		//check if mark expires
-		if(combatant2.isMarked && (this.combatTicks - combatant2.markStart) > this.markDuration){
-			combatant2.isMarked = false;
-		}
-		//enemy attack
-		if (combatTicks % 120 == 0 && combatTicks > 0 && !combatant2.isStunned) {
-			int enemyDamage = combatant2.mob.getVitality() / 5;
-			if(!combatant2.isBlinded){
-				if(!combatant2.isWalled){
-					inCombat = combatant1.takeDamage(enemyDamage);
-					playerDamageRender = enemyDamage;
-					this.attackMissed = false;
+		//boss combat stuff
+		if(combatant2.mob instanceof Boss){
+			//use Big Bonk every 2 seconds
+			if(combatTicks % 120 == 0 && combatTicks > 0 && !combatant2.isStunned){
+				int bigBonk = combatant2.mob.getVitality() / 4;
+				System.out.println("big bonk");
+				if(savageRoar){
+					System.out.println("buffed big bonk");
+					bigBonk = bigBonk*2;
+				}
+				if(!combatant2.isBlinded){
+					if(!combatant2.isWalled){
+						inCombat = combatant1.takeDamage(bigBonk);
+						playerDamageRender = bigBonk;
+						this.attackMissed = false;
+					}
+					else{
+						inCombat = combatant2.takeDamage(this.wallDamage);
+						playerDamageRender = 0;
+						this.attackMissed = false;
+					}
 				}
 				else{
-					inCombat = combatant2.takeDamage(this.wallDamage);
-					playerDamageRender = 0;
-					this.attackMissed = false;
+					Random rand = new Random();
+					int temp = rand.nextInt(3);
+					if(temp == 0){
+						if(!combatant2.isWalled){
+							inCombat = combatant1.takeDamage(bigBonk);
+							playerDamageRender = bigBonk;
+							this.attackMissed = false;
+						}
+						else{
+							inCombat = combatant2.takeDamage(this.wallDamage);
+							playerDamageRender = 0;
+							this.attackMissed = false;
+						}
+					}
+					else{
+						playerDamageRender = 0;
+						this.attackMissed = true;
+					}
 				}
 			}
-			else{
-				Random rand = new Random();
-				int temp = rand.nextInt(3);
-				if(temp == 0){
+			//use Head Bash every 6.5 seconds
+			if(combatTicks % 390 == 0 && combatTicks > 0 && !combatant2.isStunned){
+				int headBash = combatant2.mob.getVitality() / 6;
+				System.out.println("head bash");
+				if(savageRoar){
+					headBash = headBash*2;
+				}
+				if(!combatant2.isBlinded){
+					if(!combatant2.isWalled){
+						combatant1.stunPlayer();
+						inCombat = combatant1.takeDamage(headBash);
+						playerDamageRender = headBash;
+						this.attackMissed = false;
+					}
+					else{
+						inCombat = combatant2.takeDamage(this.wallDamage);
+						playerDamageRender = 0;
+						this.attackMissed = false;
+					}
+				}
+				else{
+					Random rand = new Random();
+					int temp = rand.nextInt(3);
+					if(temp == 0){
+						if(!combatant2.isWalled){
+							inCombat = combatant1.takeDamage(headBash);
+							playerDamageRender = headBash;
+							this.attackMissed = false;
+						}
+						else{
+							inCombat = combatant2.takeDamage(this.wallDamage);
+							playerDamageRender = 0;
+							this.attackMissed = false;
+						}
+					}
+					else{
+						playerDamageRender = 0;
+						this.attackMissed = true;
+					}
+				}
+			}
+			//use Thick Skin every 5 seconds
+			if(combatTicks % 300 == 0 && combatTicks > 0){
+				System.out.println("thick skin");
+				thickSkin = true;
+				thickSkinStart = combatTicks;
+			}
+			//use Savage roar every 7 seconds
+			if(combatTicks % 420 == 0 && combatTicks > 0){
+				System.out.println("savage roar");
+				savageRoar = true;
+				savageRoarStart = combatTicks;
+			}
+			//check if thicc skin expires
+			if(thickSkin && (this.combatTicks - thickSkinStart) > thickSkinDur){
+				thickSkin = false;
+			}
+			//check if savage roar expires
+			if(savageRoar && (this.combatTicks - savageRoarStart) > thickSkinDur){
+				savageRoar = false;
+			}
+		}
+		else{
+			//enemy attack
+			if (combatTicks % 120 == 0 && combatTicks > 0 && !combatant2.isStunned) {
+				int enemyDamage = combatant2.mob.getVitality() / 5;
+				if(!combatant2.isBlinded){
 					if(!combatant2.isWalled){
 						inCombat = combatant1.takeDamage(enemyDamage);
 						playerDamageRender = enemyDamage;
@@ -303,14 +389,51 @@ public class Combat {
 					}
 				}
 				else{
-					playerDamageRender = 0;
-					this.attackMissed = true;
+					Random rand = new Random();
+					int temp = rand.nextInt(3);
+					if(temp == 0){
+						if(!combatant2.isWalled){
+							inCombat = combatant1.takeDamage(enemyDamage);
+							playerDamageRender = enemyDamage;
+							this.attackMissed = false;
+						}
+						else{
+							inCombat = combatant2.takeDamage(this.wallDamage);
+							playerDamageRender = 0;
+							this.attackMissed = false;
+						}
+					}
+					else{
+						playerDamageRender = 0;
+						this.attackMissed = true;
+					}
 				}
-			}
-			playerOffRenderStart = combatTicks;
+				playerOffRenderStart = combatTicks;
 
-			playerDamageRenderStart = combatTicks;
+				playerDamageRenderStart = combatTicks;
+			}
 		}
+		//check if enemy should no longer be stunned
+		if(combatant2.isStunned && (this.combatTicks - combatant2.stunStart) > this.stunDuration){
+			combatant2.isStunned = false;
+		}
+		//check if burn expires
+		if(combatant2.isBurned && (this.combatTicks - combatant2.burnStart) > this.burnDuration){
+			combatant2.isBurned = false;
+		}
+		//check if wall expires
+		if(combatant2.isWalled && (this.combatTicks - combatant2.wallStart) > this.wallDuration){
+			combatant2.isWalled = false;
+		}
+		//check if blind expires
+		if(combatant2.isBlinded && (this.combatTicks - combatant2.blindStart) > this.blindDuration){
+			combatant2.isBlinded = false;
+		}
+		//check if mark expires
+		if(combatant2.isMarked && (this.combatTicks - combatant2.markStart) > this.markDuration){
+			combatant2.isMarked = false;
+		}
+		//burn enemy
 		if(combatTicks % 60 == 0 && combatTicks > 0  && combatant2.isBurned){
 			inCombat = combatant2.takeDamage(burnDamage);
 		}
@@ -577,6 +700,13 @@ public class Combat {
 			if(this.ability4CD > 0) {
 				this.ability4CD -= 1;
 			}
+		}
+
+		public void stunPlayer() {
+			this.ability1CD += 2;
+			this.ability2CD += 2;
+			this.ability3CD += 2;
+			this.ability4CD += 2;
 		}
 	}
 
