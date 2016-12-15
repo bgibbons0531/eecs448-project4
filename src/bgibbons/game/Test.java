@@ -23,7 +23,10 @@ public class Test  {
 		System.out.println("Welcome to the Testing Suite!");
     Test_Enemy enemyTester = new Test_Enemy();
     enemyTester.run();
+    System.out.println("---------Ending Enemy Testing Suite---------");
+    System.out.println("");
 		Test_Items itemTester = new Test_Items();
 		itemTester.run();
+    System.out.println("---------Ending Item Testing Suite---------");
 	}
 }
