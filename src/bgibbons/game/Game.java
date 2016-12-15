@@ -111,9 +111,9 @@ public class Game extends Canvas implements Runnable
 		main_level = new Level("/res/levels/main_level.png", "/res/entities/main_level.png", true);						// Initialize the Level object with the map and entities to be added on startup.
 		combatLevel = new Level("/res/levels/combat_level.png", null, false);			// Initialize the combat level object with the map, but no entities.
 		dungeon1 = new Level(null, null, false);												// Initialize the first dungeon level, map and entities to be added procedurally
-		dungeon1.spawn(1);
+		dungeon1.spawn(1, 40);
 		dungeon2 = new Level(null, null, false);												// Initialize the second dungeon level, map and entities to be added procedurally
-		dungeon2.spawn(2);
+		dungeon2.spawn(2, 40);
 		player = new Player(main_level, 16, main_level.height*8/2, input);				// Initialize the Player object with the level at the set coordinates interacting with the input handler.
 		main_level.addEntity(player);													// Add the player to the level.
 		menu = new Menu(input);															// Initialize the Menu object with the input handler.
@@ -276,13 +276,10 @@ public class Game extends Canvas implements Runnable
 					state = States.POSTCOMBAT;
 					menu.state = Menu.MenuStates.CLOSED;
 					Random rand = new Random(System.currentTimeMillis());
-					Random rand1 = new Random(System.currentTimeMillis());
-					Random rand2 = new Random(System.currentTimeMillis());
-					Random rand3 = new Random(System.currentTimeMillis());
 					drop=rand.nextInt(5);	//Random for each item, Check case and drops an item on end of combat.
-					rng1=rand1.nextInt(3);	//RNG the stat.
-				  rng2=rand2.nextInt(3);	//RNG the stat.
-					rng3=rand3.nextInt(3);	//RNG the stat.
+					rng1=rand.nextInt(3);	//RNG the stat.
+				  rng2=rand.nextInt(3);	//RNG the stat.
+					rng3=rand.nextInt(3);	//RNG the stat.
 					if(drop==0)
 					{
 					 combatLevel.addEntity(new Helmet(combatLevel,"Helmet","Of doom!",combat.combatant2.mob.getRank()+rng1,combat.combatant2.mob.getRank()+rng2,combat.combatant2.mob.getRank()+rng3));
