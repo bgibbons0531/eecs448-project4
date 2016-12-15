@@ -9,7 +9,7 @@ public class Test_Player
 {
   public InputHandler input;
   Level testLevel = new Level("/res/levels/test_level.png", null, false);
-  Player player = new Player(testLevel, 5, 5, input);
+  Player player = new Player(testLevel, 5*8, 5*8, input);
 
   Item item = new Item(testLevel,"Test Item","Test Item",1,1,1);
   Helmet helmet = new Helmet(testLevel,"Test Helmet","Test Helmet",1,1,1);
