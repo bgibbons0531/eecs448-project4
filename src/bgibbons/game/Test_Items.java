@@ -13,7 +13,7 @@ public class Test_Items
     Weapon weapon = new Weapon(testLevel,"Test Weapon","Test Weapon",1,1,1);
     Shield shield = new Shield(testLevel,"Test Shield","Test Shield",1,1,1);
     //Test Constructor
-    System.out.println("Starting Item Testing Suite");
+    System.out.println("---------Starting Item Testing Suite---------");
     System.out.println("testItemConstruction - " + testItemConstruction(item));
     System.out.println("testHelmetConstruction - " + testHelmetConstruction(helmet));
     System.out.println("testChestConstruction - " + testChestConstruction(chest));
@@ -27,6 +27,7 @@ public class Test_Items
     System.out.println("testLegsGetters - " + testLegsGetters(legs));
     System.out.println("testWeaponGetters - " + testWeaponGetters(weapon));
     System.out.println("testShieldGetters - " + testShieldGetters(shield));
+    System.out.println("---------Ending Item Testing Suite---------");
   }
   public boolean testItemConstruction(Item e)
   {

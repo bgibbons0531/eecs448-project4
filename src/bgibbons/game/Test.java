@@ -25,5 +25,7 @@ public class Test  {
     enemyTester.run();
 		Test_Items itemTester = new Test_Items();
 		itemTester.run();
+		Test_Player playerTester = new Test_Player();
+		playerTester.run();
 	}
 }
