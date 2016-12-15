@@ -111,9 +111,9 @@ public class Game extends Canvas implements Runnable
 		main_level = new Level("/res/levels/main_level.png", "/res/entities/main_level.png", true);						// Initialize the Level object with the map and entities to be added on startup.
 		combatLevel = new Level("/res/levels/combat_level.png", null, false);			// Initialize the combat level object with the map, but no entities.
 		dungeon1 = new Level(null, null, false);												// Initialize the first dungeon level, map and entities to be added procedurally
-		dungeon1.spawn(1);
+		dungeon1.spawn(1, 40);
 		dungeon2 = new Level(null, null, false);												// Initialize the second dungeon level, map and entities to be added procedurally
-		dungeon2.spawn(2);
+		dungeon2.spawn(2, 40);
 		player = new Player(main_level, 16, main_level.height*8/2, input);				// Initialize the Player object with the level at the set coordinates interacting with the input handler.
 		main_level.addEntity(player);													// Add the player to the level.
 		menu = new Menu(input);															// Initialize the Menu object with the input handler.
