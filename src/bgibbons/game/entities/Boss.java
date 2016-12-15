@@ -19,7 +19,7 @@ public class Boss extends Enemy{
    * @param y     The y coordinate the boss will start at.
    */
   public Boss(Level level, int x, int y) {
-    super(level, x, y, 0, 26, Colors.get(-1, 000, 320, 120), 10, 1, 15, 100, 2);
+    super(level, x, y, 0, 26, Colors.get(-1, 000, 320, 120), 50, 1, 15, 100, 2);
   }
 
   public void rankUp(){
@@ -28,6 +28,8 @@ public class Boss extends Enemy{
     dexterity ++;
     intelligence ++;
     vitality ++;
+    this.maxHealth+=5;
+    this.currentHealth+=5;
   }
 
   public void move(){
