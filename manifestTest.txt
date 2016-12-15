@@ -1,1 +1,6 @@
+<<<<<<< HEAD
 Main-Class: bgibbons.game.Test
+=======
+Main-Class: bgibbons.game.Test
+
+>>>>>>> 3dfe374964140c552991408984c61db15a6b3437

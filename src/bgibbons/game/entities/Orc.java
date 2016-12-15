@@ -16,7 +16,7 @@ import java.util.Random;
 public class Orc extends Enemy {
 
 	private int stepsTaken = 0;
-	private int direction;
+	private int direction = 4;
 	private int stop;
 	/**
 	 * Constructor the Orc object.
@@ -93,5 +93,13 @@ public class Orc extends Enemy {
 		if  (isSwimming && level.getTile(this.x >> 3, this.y >> 3).getId() != 3) {
 			isSwimming = false;
 		}
+	}
+
+	public int getDirection(){
+		return this.direction;
+	}
+
+	public int getCurrentHealth() {
+		return this.currentHealth;
 	}
 }

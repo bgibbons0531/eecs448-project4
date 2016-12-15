@@ -56,9 +56,9 @@ public class Level {
 			this.width = 64;
 			this.height = 64;
 			this.start = rand.nextInt(height-3) + 1;
-			System.out.println(start);
+			//System.out.println(start);
 			this.end = rand.nextInt(height-3) + 1;
-			System.out.println(end);
+			//System.out.println(end);
 			tiles = new byte[width*height];
 			this.generateLevel();
 		}
@@ -250,7 +250,7 @@ public class Level {
 			map[width-4][end+1] = true;
 			map[width-5][end] = true;
 			map[width-5][end+1] = true;
-			System.out.println("moomoomoomoo");
+			//System.out.println("moomoomoomoo");
 		}
 
 		//apply tiles to map
@@ -450,13 +450,13 @@ public class Level {
 			}
 		}
 		if(x == 62 && y == end){
-			System.out.println("end found");
+			//System.out.println("end found");
 		}
 		else if(x == 1 && y == start){
-			System.out.println("start found");
+			//System.out.println("start found");
 		}
 		else{
-			System.out.println(check);
+			//System.out.println(check);
 		}
 		return check;
 	}
@@ -777,6 +777,7 @@ public class Level {
 	/**
 	 * Spawns enemies for dungeons
 	 * @param dungeonNum 	The number indicating which dungeon is spawning the entities. 1 spawns bandits, 2 spawns vampires
+	 * @param numEnemies 	The number of enemies to spawn
 	 */
 	public void spawn(int dungeonNum, int numEnemies){
 		Random rand = new Random();

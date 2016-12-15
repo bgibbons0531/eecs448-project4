@@ -14,7 +14,7 @@ import bgibbons.game.abilities.*;
  * @author Brad Gibbons
  * @author Chris Porras
  * @author Rony Singh
- * @version 1.0 20 November 2016.
+ * @version 1.0 50 November 2016.
  */
 public class Player extends Mob {
 

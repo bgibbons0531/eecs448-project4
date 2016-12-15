@@ -49,7 +49,7 @@ public class Combat {
 	private int playerShieldRenderStart;
 	private int playerShieldRender;
 	private String currentAbility;
-	public Sound sound;			//Declare the Sound object.
+	public Sound sound = new Sound("/res/sounds/Combat/playerHit.wav");;			//Declare the Sound object.
 	/**
 	 * Constructor for the Comabt object.
 	 * @param mob1 		First Combatant.
@@ -280,6 +280,7 @@ public class Combat {
 				if(!combatant2.isBlinded){
 					if(!combatant2.isWalled){
 						inCombat = combatant1.takeDamage(bigBonk);
+						sound.playFX();
 						playerDamageRender = bigBonk;
 						this.attackMissed = false;
 					}
@@ -295,6 +296,7 @@ public class Combat {
 					if(temp == 0){
 						if(!combatant2.isWalled){
 							inCombat = combatant1.takeDamage(bigBonk);
+							sound.playFX();
 							playerDamageRender = bigBonk;
 							this.attackMissed = false;
 						}
@@ -321,6 +323,7 @@ public class Combat {
 					if(!combatant2.isWalled){
 						combatant1.stunPlayer();
 						inCombat = combatant1.takeDamage(headBash);
+						sound.playFX();
 						playerDamageRender = headBash;
 						this.attackMissed = false;
 					}
@@ -336,6 +339,7 @@ public class Combat {
 					if(temp == 0){
 						if(!combatant2.isWalled){
 							inCombat = combatant1.takeDamage(headBash);
+							sound.playFX();
 							playerDamageRender = headBash;
 							this.attackMissed = false;
 						}
@@ -379,6 +383,7 @@ public class Combat {
 				if(!combatant2.isBlinded){
 					if(!combatant2.isWalled){
 						inCombat = combatant1.takeDamage(enemyDamage);
+						sound.playFX();
 						playerDamageRender = enemyDamage;
 						this.attackMissed = false;
 					}
@@ -394,6 +399,7 @@ public class Combat {
 					if(temp == 0){
 						if(!combatant2.isWalled){
 							inCombat = combatant1.takeDamage(enemyDamage);
+							sound.playFX();
 							playerDamageRender = enemyDamage;
 							this.attackMissed = false;
 						}

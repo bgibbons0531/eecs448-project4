@@ -25,7 +25,7 @@ import bgibbons.game.level.Level;
  * @author Jackson Schilmoeller
  * @author Rony Singh
  * @author Chris Porras
- * @version 1.0 20 November 2016
+ * @version 1.1 0 December 2016
  */
 public class Game extends Canvas implements Runnable
 {
@@ -276,13 +276,10 @@ public class Game extends Canvas implements Runnable
 					state = States.POSTCOMBAT;
 					menu.state = Menu.MenuStates.CLOSED;
 					Random rand = new Random(System.currentTimeMillis());
-					Random rand1 = new Random(System.currentTimeMillis());
-					Random rand2 = new Random(System.currentTimeMillis());
-					Random rand3 = new Random(System.currentTimeMillis());
 					drop=rand.nextInt(5);	//Random for each item, Check case and drops an item on end of combat.
-					rng1=rand1.nextInt(3);	//RNG the stat.
-				  rng2=rand2.nextInt(3);	//RNG the stat.
-					rng3=rand3.nextInt(3);	//RNG the stat.
+					rng1=rand.nextInt(3);	//RNG the stat.
+				  rng2=rand.nextInt(3);	//RNG the stat.
+					rng3=rand.nextInt(3);	//RNG the stat.
 					if(drop==0)
 					{
 					 combatLevel.addEntity(new Helmet(combatLevel,"Helmet","Of doom!",combat.combatant2.mob.getRank()+rng1,combat.combatant2.mob.getRank()+rng2,combat.combatant2.mob.getRank()+rng3));
