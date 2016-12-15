@@ -98,4 +98,8 @@ public class Orc extends Enemy {
 	public int getDirection(){
 		return this.direction;
 	}
+
+	public int getCurrentHealth() {
+		return this.currentHealth;
+	}
 }
