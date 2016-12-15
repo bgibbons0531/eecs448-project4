@@ -38,13 +38,14 @@ public class Test_Enemy {
   }
 
   /**
-   *
+   * Tests that respawn enemies respawns correct amount of enemies
+   * @return boolean, true if spawning bandits works, false if incorrect number of bandits or level has an instance of something other than a bandit
    */
   public boolean testSpawnBandits(){
     Level testLevel = new Level("/res/levels/test_level.png", null, false);
-    testLevel.spawn(1);
-    if(testLevel.entities.size()==40){
-      for(int i = 0; i<40; i++){
+    testLevel.spawn(1, 32);
+    if(testLevel.entities.size()==32){
+      for(int i = 0; i<32; i++){
         if(!(testLevel.entities.get(i) instanceof Bandit)){
           return false;
         }
