@@ -32,7 +32,7 @@ public abstract class Ability
 	protected int cooldown;
 	public static Sound sound;
 	/**
-	 * Constructor for the Ability clas.
+	 * Constructor for the Ability class.
 	 * @param id 		Unique id for the ability.
 	 * @param name 		Name of the ability.
 	 * @param cooldown 	Cooldown for the ability.
