@@ -257,9 +257,15 @@ public class Player extends Mob {
 	 * Equips the item in the given inventory slot.
 	 * @param index 	Index of the item to equip.
 	 */
-	public void equip(int index) {
+	public void equip(int index)
+	{
 		Item e = inventory[index];
-		if (e instanceof Helmet) {
+		if (e instanceof Helmet)
+		{
+			if(getHead() instanceof Helmet)
+			{
+				unEquip(getHead());
+			}
 			Item temp = helmet;
 			helmet = e;
 			inventory[index] = temp;
@@ -268,7 +274,13 @@ public class Player extends Mob {
 			this.vitality += this.helmet.vitality;
 			sound = new Sound("/res/sounds/Menu/item.wav"); 		//Intialize SFX sound object with path.
 			sound.playFX();				//Play the sound.
-		} else if (e instanceof Chest) {
+		}
+		else if (e instanceof Chest)
+		{
+			if(getChest() instanceof Chest)
+			{
+				unEquip(getChest());
+			}
 			Item temp = chest;
 			chest = e;
 			inventory[index] = temp;
@@ -277,7 +289,13 @@ public class Player extends Mob {
 			this.vitality += this.chest.vitality;
 			sound = new Sound("/res/sounds/Menu/item.wav"); 		//Intialize SFX sound object with path.
 			sound.playFX();				//Play the sound.
-		} else if (e instanceof Legs) {
+		}
+		else if (e instanceof Legs)
+		{
+			if(getLegs() instanceof Legs)
+			{
+				unEquip(getLegs());
+			}
 			Item temp = legs;
 			legs = e;
 			inventory[index] = temp;
@@ -286,7 +304,13 @@ public class Player extends Mob {
 			this.vitality += this.legs.vitality;
 			sound = new Sound("/res/sounds/Menu/item.wav"); 		//Intialize SFX sound object with path.
 			sound.playFX();				//Play the sound.
-		} else if (e instanceof Weapon) {
+		}
+		else if (e instanceof Weapon)
+		{
+			if(getWeapon() instanceof Weapon)
+			{
+				unEquip(getWeapon());
+			}
 			Item temp = weapon;
 			weapon = e;
 			inventory[index] = temp;
@@ -295,7 +319,13 @@ public class Player extends Mob {
 			this.vitality += this.weapon.vitality;
 			sound = new Sound("/res/sounds/Menu/item.wav"); 		//Intialize SFX sound object with path.
 			sound.playFX();				//Play the sound.
-		} else if (e instanceof Shield) {
+		}
+		else if (e instanceof Shield)
+		{
+			if(getShield() instanceof Shield)
+			{
+				unEquip(getShield());
+			}
 			Item temp = shield;
 			shield = e;
 			inventory[index] = temp;
