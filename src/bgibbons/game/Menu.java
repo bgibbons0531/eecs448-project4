@@ -295,8 +295,6 @@ public class Menu {
 				default:
 					break;
 			}
-
-			System.out.println(x + "," + y); // For testing purposes for finding x and y coordinates.
 			input.isMouseClicked = false;
 		}
 	}
