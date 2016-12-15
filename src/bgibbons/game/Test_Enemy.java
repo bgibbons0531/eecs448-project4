@@ -35,8 +35,6 @@ public class Test_Enemy {
   public boolean testOrcStartingPos(){
     Level testLevel = new Level("/res/levels/test_level.png", null, false);
     Entity testOrc = new Orc(testLevel, 24*8, 48*8);
-    int test = ((Orc)testOrc).getCurrentHealth();
-    System.out.println(test);
     testLevel.addEntity(testOrc);
     if(testLevel.entities.get(0).x == 24*8 && testLevel.entities.get(0).y == 48*8){
       return true;
