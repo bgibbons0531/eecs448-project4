@@ -1,5 +1,12 @@
 package bgibbons.game;
 
+import bgibbons.game.entities.*;
+import bgibbons.game.graphics.Colors;
+import bgibbons.game.graphics.Font;
+import bgibbons.game.graphics.HUD;
+import bgibbons.game.graphics.Screen;
+import bgibbons.game.graphics.SpriteSheet;
+import bgibbons.game.level.Level;
 /**
  * Testing class for testing various parts of the codebase.
  * @author Brad Gibbons
@@ -8,9 +15,9 @@ package bgibbons.game;
  * @author Chris Porras
  * @version 1.0 14 December 2016
  */
-public class Test {
+public class Test  {
 
 	public static void main(String[] args) {
-		System.out.println("Hello World!");
+		System.out.println("Welcome to the Testing Suite!");
 	}
 }
