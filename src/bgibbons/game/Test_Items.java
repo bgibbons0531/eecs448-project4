@@ -1,20 +1,19 @@
-/*
-
 package bgibbons.game;
 import bgibbons.game.entities.*;
-public class Test_Rony
+import bgibbons.game.level.Level;
+public class Test_Items
 {
   public void run()
   {
-    //Sound sound1 = new Sound("")
-    //Sound sound2 = new Sound("")
-    Item item = new Item(1,"Test Item","Test Item",1,1,1);
-    Helmet helmet = new Helmet(1,"Test Helmet","Test Helmet",1,1,1);
-    Chest chest = new Chest(1,"Test Chest","Test Chest",1,1,1);
-    Legs legs = new Legs(1,"Test Legs","Test Legs",1,1,1);
-    Weapon weapon = new Weapon(1,"Test Weapon","Test Weapon",1,1,1);
-    Shield shield = new Shield(1,"Test Shield","Test Shield",1,1,1);
+    Level testLevel = new Level("/res/levels/test_level.png", null, false);
+    Item item = new Item(testLevel,"Test Item","Test Item",1,1,1);
+    Helmet helmet = new Helmet(testLevel,"Test Helmet","Test Helmet",1,1,1);
+    Chest chest = new Chest(testLevel,"Test Chest","Test Chest",1,1,1);
+    Legs legs = new Legs(testLevel,"Test Legs","Test Legs",1,1,1);
+    Weapon weapon = new Weapon(testLevel,"Test Weapon","Test Weapon",1,1,1);
+    Shield shield = new Shield(testLevel,"Test Shield","Test Shield",1,1,1);
     //Test Constructor
+    System.out.println("Starting Item Testing Suite");
     System.out.println("testItemConstruction - " + testItemConstruction(item));
     System.out.println("testHelmetConstruction - " + testHelmetConstruction(helmet));
     System.out.println("testChestConstruction - " + testChestConstruction(chest));
@@ -97,10 +96,10 @@ public class Test_Rony
   }
   /************************************************************************************************/
 
-  /*
+
   public boolean testItemGetters(Item e)
   {
-    if(e.getDexterity() instanceof Integer && e.getVitality() instanceof Integer && e.getIntelligence() instanceof Integer)
+    if(e.getDexterity() == 1 && e.getVitality() == 1 && e.getIntelligence() == 1)
     {
       return(true);
     }
@@ -111,7 +110,7 @@ public class Test_Rony
   }
   public boolean testHelmetGetters(Helmet e)
   {
-    if(e.getDexterity() instanceof Integer && e.getVitality() instanceof Integer && e.getIntelligence() instanceof Integer)
+    if(e.getDexterity() == 1 && e.getVitality() == 1 && e.getIntelligence() == 1)
     {
       return(true);
     }
@@ -122,7 +121,7 @@ public class Test_Rony
   }
   public boolean testChestGetters(Chest e)
   {
-    if(e.getDexterity() instanceof Integer && e.getVitality() instanceof Integer && e.getIntelligence() instanceof Integer)
+    if(e.getDexterity() == 1 && e.getVitality() == 1 && e.getIntelligence() == 1)
     {
       return(true);
     }
@@ -133,7 +132,7 @@ public class Test_Rony
   }
   public boolean testLegsGetters(Legs e)
   {
-    if(e.getDexterity() instanceof Integer && e.getVitality() instanceof Integer && e.getIntelligence() instanceof Integer)
+    if(e.getDexterity() == 1 && e.getVitality() == 1 && e.getIntelligence() == 1)
     {
       return(true);
     }
@@ -144,7 +143,7 @@ public class Test_Rony
   }
   public boolean testShieldGetters(Shield e)
   {
-    if(e.getDexterity() instanceof Integer && e.getVitality() instanceof Integer && e.getIntelligence() instanceof Integer)
+    if(e.getDexterity() == 1 && e.getVitality() == 1 && e.getIntelligence() == 1)
     {
       return(true);
     }
@@ -155,7 +154,7 @@ public class Test_Rony
   }
   public boolean testWeaponGetters(Weapon e)
   {
-    if(e.getDexterity() instanceof Integer && e.getVitality() instanceof Integer && e.getIntelligence() instanceof Integer)
+    if(e.getDexterity() == 1 && e.getVitality() == 1 && e.getIntelligence() == 1)
     {
       return(true);
     }
@@ -165,5 +164,3 @@ public class Test_Rony
     }
   }
 }
-
-*/
