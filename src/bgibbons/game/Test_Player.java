@@ -21,42 +21,52 @@ public class Test_Player
   {
     System.out.println("---------Starting Player Testing Suite---------");
     System.out.println("testConstructorPosition - " + testConstructorPosition());
-
+    System.out.println("");
     System.out.println("test testRank - " + testRank());
-
+    System.out.println("");
     System.out.println("testGetInventory - " + testGetInventory(0));
-
-    //System.out.println("testDrop - " + testDrop(0));
-
+    System.out.println("");
     System.out.println("testPickUpHead - " + testPickUpHead(helmet));
     System.out.println("testPickUpChest - " + testPickUpChest(chest));
     System.out.println("testPickUpLegs - " + testPickUpLegs(legs));
     System.out.println("testPickUpShield - " + testPickUpShield(shield));
     System.out.println("testPickUpWeapon - " + testPickUpWeapon(weapon));
-
+    System.out.println("");
     System.out.println("testEquipHead - " + testEquipHead(0));
     System.out.println("testEquipChest - " + testEquipChest(1));
     System.out.println("testEquipLegs - " + testEquipLegs(2));
     System.out.println("testEquipShield - " + testEquipShield(3));
     System.out.println("testEquipWeapon - " + testEquipWeapon(4));
-
+    System.out.println("");
     System.out.println("testGetHead - " + testGetHead());
     System.out.println("testGetChest - " + testGetChest());
     System.out.println("testGetLegs - " + testGetLegs());
     System.out.println("testGetShield - " + testGetShield());
     System.out.println("testGetWeapon - " + testGetWeapon());
-
+    System.out.println("");
     System.out.println("testUnequipHead - " + testUnequipHead(helmet));
     System.out.println("testUnequipChest - " + testUnequipChest(chest));
     System.out.println("testUnequipLegs - " + testUnequipLegs(legs));
     System.out.println("testUnequipShield - " + testUnequipShield(shield));
     System.out.println("testUnequipWeapon - " + testUnequipWeapon(weapon));
-
-
+    System.out.println("");
+    System.out.println("testDropHead - " + testDropHead(5));
+    System.out.println("testDropChest - " + testDropChest(6));
+    System.out.println("testDropLegs - " + testDropLegs(7));
+    System.out.println("testDropShield - " + testDropShield(8));
+    System.out.println("testDropWeapon - " + testDropWeapon(9));
+    System.out.println("");
+    System.out.println("testSetKnight - " + testSetKnight());
+    System.out.println("testSetWizard - " + testSetWizard());
+    System.out.println("testSetHunter - " + testSetHunter());
+    System.out.println("");
+    System.out.println("testSetKnight - " + testSetKnightAbilities());
+    System.out.println("testSetWizard - " + testSetWizardAbilities());
+    System.out.println("testSetHunter - " + testSetHunterAbilities());
   }
   public boolean testConstructorPosition()
   {
-      if(player.x == 40 && player.y == 40)
+      if(player.mainX == 40 && player.mainY == 40)
       {
         return(true);
       }
@@ -333,29 +343,147 @@ public class Test_Player
     }
   }
   /************************************************************************************************/
-/*  public boolean setKnight()
+  public boolean testDropHead(int n)
   {
-
+    player.drop(n);
+    if(player.getInventory(0) == null)
+    {
+      return(true);
+    }
+    else
+    {
+      return(false);
+    }
   }
-  public boolean setWizard()
+  public boolean testDropChest(int n)
   {
-
+    player.drop(n);
+    if(player.getInventory(1) == null)
+    {
+      return(true);
+    }
+    else
+    {
+      return(false);
+    }
   }
-  public boolean setHunter()
+  public boolean testDropLegs(int n)
   {
-
-  }*/
+    player.drop(n);
+    if(player.getInventory(2) == null)
+    {
+      return(true);
+    }
+    else
+    {
+      return(false);
+    }
+  }
+  public boolean testDropShield(int n)
+  {
+    player.drop(n);
+    if(player.getInventory(3) == null)
+    {
+      return(true);
+    }
+    else
+    {
+      return(false);
+    }
+  }
+  public boolean testDropWeapon(int n)
+  {
+    player.drop(n);
+    if(player.getInventory(4) == null)
+    {
+      return(true);
+    }
+    else
+    {
+      return(false);
+    }
+  }
   /************************************************************************************************/
-/*  public boolean setKnightAbilities()
+  public boolean testSetKnight()
   {
-
+    player.setKnight();
+    if(player.getPlayerClass()=="Knight")
+    {
+      return(true);
+    }
+    else
+    {
+      return(false);
+    }
   }
-  public boolean setWizardAbilities()
+  public boolean testSetWizard()
   {
-
+    player.setWizard();
+    if(player.getPlayerClass()=="Wizard")
+    {
+      return(true);
+    }
+    else
+    {
+      return(false);
+    }
   }
-  public boolean setHunterAbilities()
+  public boolean testSetHunter()
   {
+    player.setHunter();
+    if(player.getPlayerClass()=="Hunter")
+    {
+      return(true);
+    }
+    else
+    {
+      return(false);
+    }
+  }
 
-  }*/
+  public boolean testSetKnightAbilities()
+  {
+    player.setKnight();
+    if(player.getAbility(1).getName() == "Strike      "
+    && player.getAbility(2).getName() == "ShieldBash  "
+    && player.getAbility(3).getName() == "DivineCall  "
+    && player.getAbility(4).getName() == "Holy  Smite ")
+    {
+      return(true);
+    }
+    else
+    {
+      return(false);
+    }
+  }
+  public boolean testSetWizardAbilities()
+  {
+    player.setWizard();
+    if(player.getAbility(1).getName() == "BONK        "
+    && player.getAbility(2).getName() == "Scorch        "
+    && player.getAbility(3).getName() == "Fire  Wall  "
+    && player.getAbility(4).getName() == "KABOOM      ")
+    {
+      return(true);
+    }
+    else
+    {
+      return(false);
+    }
+  }
+  public boolean testSetHunterAbilities()
+  {
+    player.setHunter();
+    if(player.getAbility(1).getName() == "Stab        "
+    && player.getAbility(2).getName() == "Knife Throw "
+    && player.getAbility(3).getName() == "Smoke Bomb  "
+    && player.getAbility(4).getName() == "Mark        ")
+    {
+      return(true);
+    }
+    else
+    {
+      return(false);
+    }
+  }
 }

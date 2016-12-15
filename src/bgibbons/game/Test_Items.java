@@ -15,11 +15,13 @@ public class Test_Items
     //Test Constructor
     System.out.println("---------Starting Item Testing Suite---------");
     System.out.println("testItemConstruction - " + testItemConstruction(item));
+    System.out.println("");
     System.out.println("testHelmetConstruction - " + testHelmetConstruction(helmet));
     System.out.println("testChestConstruction - " + testChestConstruction(chest));
     System.out.println("testLegsConstruction - " + testLegsConstruction(legs));
     System.out.println("testWeaponConstruction - " + testWeaponConstruction(weapon));
     System.out.println("testShieldConstruction - " + testShieldConstruction(shield));
+    System.out.println("");
     //Test getters
     System.out.println("testItemGetters - " + testItemGetters(item));
     System.out.println("testHelmetGetters - " + testHelmetGetters(helmet));

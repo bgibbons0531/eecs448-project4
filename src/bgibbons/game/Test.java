@@ -28,9 +28,11 @@ public class Test  {
 		Test_Items itemTester = new Test_Items();
 		itemTester.run();
 		System.out.println("---------Ending Item Testing Suite---------");
+		System.out.println("");
 		Test_Player playerTester = new Test_Player();
 		playerTester.run();
 		System.out.println("---------Ending Player Testing Suite---------");
+		System.out.println("");
 
 	}
 }
