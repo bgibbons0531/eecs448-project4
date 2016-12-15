@@ -108,7 +108,7 @@ public class Menu {
 						game.close();
 					} else {
 						state = MenuStates.CLOSED;
-						sound.playFX();	
+						sound.playFX();
 					}
 					break;
 				case STATS:
@@ -126,7 +126,7 @@ public class Menu {
 						if (game.player.getAttributePoints() > 0) game.player.increaseVitality();
 					} else {
 						state = MenuStates.CLOSED;
-						sound.playFX();	
+						sound.playFX();
 					}
 					break;
 				case GEAR:
@@ -260,9 +260,9 @@ public class Menu {
 							}
 							slot = Slots.NONE;
 						}
-					} else {
+					} else if(x <= 342 || 243 <= y) {
 						state = MenuStates.CLOSED;
-						sound.playFX();	
+						sound.playFX();
 					}
 					break;
 				case HELP:
@@ -274,7 +274,7 @@ public class Menu {
 						sound.playFX();				//Play the sound.
 					} else {
 						state = MenuStates.CLOSED;
-						sound.playFX();	
+						sound.playFX();
 					}
 					break;
 				case COMBAT:
@@ -607,9 +607,9 @@ public class Menu {
 					// Dex
 					Font.render("Dex:" + item.getDexterity(), screen, screen.xOffset+screen.width-48, screen.yOffset+40, Colors.get(-1,-1,-1,000), 1);
 					// Int
-					Font.render("Int:" + item.getDexterity(), screen, screen.xOffset+screen.width-48, screen.yOffset+48, Colors.get(-1,-1,-1,000), 1);
+					Font.render("Int:" + item.getIntelligence(), screen, screen.xOffset+screen.width-48, screen.yOffset+48, Colors.get(-1,-1,-1,000), 1);
 					// Vit
-					Font.render("Vit:" + item.getDexterity(), screen, screen.xOffset+screen.width-48, screen.yOffset+56, Colors.get(-1,-1,-1,000), 1);
+					Font.render("Vit:" + item.getVitality(), screen, screen.xOffset+screen.width-48, screen.yOffset+56, Colors.get(-1,-1,-1,000), 1);
 				}
 				break;
 			case HELP:
