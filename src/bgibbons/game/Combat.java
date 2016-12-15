@@ -272,9 +272,7 @@ public class Combat {
 			//use Big Bonk every 2 seconds
 			if(combatTicks % 120 == 0 && combatTicks > 0 && !combatant2.isStunned){
 				int bigBonk = combatant2.mob.getVitality() / 4;
-				System.out.println("big bonk");
 				if(savageRoar){
-					System.out.println("buffed big bonk");
 					bigBonk = bigBonk*2;
 				}
 				if(!combatant2.isBlinded){
@@ -315,7 +313,6 @@ public class Combat {
 			//use Head Bash every 6.5 seconds
 			if(combatTicks % 390 == 0 && combatTicks > 0 && !combatant2.isStunned){
 				int headBash = combatant2.mob.getVitality() / 6;
-				System.out.println("head bash");
 				if(savageRoar){
 					headBash = headBash*2;
 				}
@@ -357,13 +354,11 @@ public class Combat {
 			}
 			//use Thick Skin every 5 seconds
 			if(combatTicks % 300 == 0 && combatTicks > 0){
-				System.out.println("thick skin");
 				thickSkin = true;
 				thickSkinStart = combatTicks;
 			}
 			//use Savage roar every 7 seconds
 			if(combatTicks % 420 == 0 && combatTicks > 0){
-				System.out.println("savage roar");
 				savageRoar = true;
 				savageRoarStart = combatTicks;
 			}
