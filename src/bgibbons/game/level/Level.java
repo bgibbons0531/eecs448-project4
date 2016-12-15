@@ -777,6 +777,7 @@ public class Level {
 	/**
 	 * Spawns enemies for dungeons
 	 * @param dungeonNum 	The number indicating which dungeon is spawning the entities. 1 spawns bandits, 2 spawns vampires
+	 * @param numEnemies 	The number of enemies to spawn
 	 */
 	public void spawn(int dungeonNum, int numEnemies){
 		Random rand = new Random();
