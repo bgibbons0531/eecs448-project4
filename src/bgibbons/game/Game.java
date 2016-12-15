@@ -25,7 +25,7 @@ import bgibbons.game.level.Level;
  * @author Jackson Schilmoeller
  * @author Rony Singh
  * @author Chris Porras
- * @version 1.0 20 November 2016
+ * @version 1.1 0 December 2016
  */
 public class Game extends Canvas implements Runnable
 {
