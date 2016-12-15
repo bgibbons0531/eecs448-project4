@@ -19,7 +19,7 @@ public class Test_Player
   Shield shield = new Shield(testLevel,"Test Shield","Test Shield",1,1,1);
   public void run()
   {
-    System.out.println("---------Starting Item Testing Suite---------");
+    System.out.println("---------Starting Player Testing Suite---------");
     System.out.println("testConstructorPosition - " + testConstructorPosition());
 
     System.out.println("test testRank - " + testRank());
@@ -31,8 +31,8 @@ public class Test_Player
     System.out.println("testPickUpHead - " + testPickUpHead(helmet));
     System.out.println("testPickUpChest - " + testPickUpChest(chest));
     System.out.println("testPickUpLegs - " + testPickUpLegs(legs));
-    System.out.println("testPickUpShield - " + testPickUpShield(weapon));
-    System.out.println("testPickUpWeapon - " + testPickUpWeapon(shield));
+    System.out.println("testPickUpShield - " + testPickUpShield(shield));
+    System.out.println("testPickUpWeapon - " + testPickUpWeapon(weapon));
 
     System.out.println("testEquipHead - " + testEquipHead(0));
     System.out.println("testEquipChest - " + testEquipChest(1));
@@ -52,7 +52,7 @@ public class Test_Player
     System.out.println("testUnequipShield - " + testUnequipShield(shield));
     System.out.println("testUnequipWeapon - " + testUnequipWeapon(weapon));
 
-    System.out.println("---------Ending Item Testing Suite---------");
+
   }
   public boolean testConstructorPosition()
   {
@@ -287,7 +287,7 @@ public class Test_Player
   public boolean testUnequipChest(Item e)
   {
     player.unEquip(e);
-    if(player.getInventory(0) instanceof Chest)
+    if(player.getInventory(1) instanceof Chest)
     {
       return(true);
     }
@@ -299,7 +299,7 @@ public class Test_Player
   public boolean testUnequipLegs(Item e)
   {
     player.unEquip(e);
-    if(player.getInventory(0) instanceof Legs)
+    if(player.getInventory(2) instanceof Legs)
     {
       return(true);
     }
@@ -311,7 +311,7 @@ public class Test_Player
   public boolean testUnequipShield(Item e)
   {
     player.unEquip(e);
-    if(player.getInventory(0) instanceof Shield)
+    if(player.getInventory(3) instanceof Shield)
     {
       return(true);
     }
@@ -323,7 +323,7 @@ public class Test_Player
   public boolean testUnequipWeapon(Item e)
   {
     player.unEquip(e);
-    if(player.getInventory(0) instanceof Weapon)
+    if(player.getInventory(4) instanceof Weapon)
     {
       return(true);
     }

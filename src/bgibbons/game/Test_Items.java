@@ -27,7 +27,7 @@ public class Test_Items
     System.out.println("testLegsGetters - " + testLegsGetters(legs));
     System.out.println("testWeaponGetters - " + testWeaponGetters(weapon));
     System.out.println("testShieldGetters - " + testShieldGetters(shield));
-    System.out.println("---------Ending Item Testing Suite---------");
+
   }
   public boolean testItemConstruction(Item e)
   {
