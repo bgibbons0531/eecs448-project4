@@ -25,7 +25,7 @@ public class Orc extends Enemy {
 	 * @param y 		The y coordinate the orc will start at.
 	 */
 	public Orc(Level level, int x, int y) {
-		super(level, x, y, 0, 26, Colors.get(-1, 000, 320, 120), 10, 1, 1, 100, 1);
+		super(level, x, y, 0, 26, Colors.get(-1, 000, 320, 120), 12, 1, 1, 100, 1);
 	}
 
 	/**

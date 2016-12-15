@@ -561,7 +561,7 @@ public class Level {
 
 		if(eLoser instanceof Mob && eWinner instanceof Mob){
 			removeEntity(eLoser);
-			((Mob)eWinner).addExp(20);
+			((Mob)eWinner).rankUp();
 			if(((Mob)eWinner).getRank()>((Mob)this.boss).getRank()){
 				((Mob)this.boss).rankUp();
 				removeEntity(eWinner);
@@ -575,13 +575,13 @@ public class Level {
 			}
 		}
 		if(mainLevel){
-			if(this.area1Orcs.size()<20){
+			if(this.area1Orcs.size()<50){
 				this.respawnOrcs(area1Orcs, 33, 1);
 			}
-			if(this.area2Orcs.size()<20){
+			if(this.area2Orcs.size()<50){
 				this.respawnOrcs(area2Orcs, 117, 5);
 			}
-			if(this.area3Orcs.size()<20){
+			if(this.area3Orcs.size()<50){
 				this.respawnOrcs(area3Orcs, 200, 10);
 			}
 		}
